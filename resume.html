@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>resume — mika pham</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        cursor: none !important;
+      }
+
+      :root {
+        --pink: rgb(246, 68, 184);
+        --lavender: rgb(169, 132, 220);
+        --gold: rgb(252, 215, 131);
+
+        /* Light */
+        --bg-light: #fffdf5;
+        --ink-light: #2b2b2b;
+        --ink-2-light: rgba(20, 20, 20, 0.75);
+        --stroke-light: rgba(0, 0, 0, 0.08);
+        --shadow-light: 0 10px 25px rgba(0, 0, 0, 0.06);
+        --card-bg-light: #fff;
+
+        /* Dark */
+        --bg-dark: #1a1a1a;
+        --ink-dark: #f5f5f5;
+        --ink-2-dark: rgba(245, 245, 245, 0.8);
+        --stroke-dark: rgba(255, 255, 255, 0.1);
+        --shadow-dark: 0 10px 25px rgba(0, 0, 0, 0.3);
+        --card-bg-dark: rgba(40, 40, 40, 0.6);
+      }
+
+      /* default (light) tokens */
+      body {
+        --bg: var(--bg-light);
+        --ink: var(--ink-light);
+        --ink-2: var(--ink-2-light);
+        --stroke: var(--stroke-light);
+        --shadow: var(--shadow-light);
+        --card-bg: var(--card-bg-light);
+      }
+      body.dark-mode {
+        --bg: var(--bg-dark);
+        --ink: var(--ink-dark);
+        --ink-2: var(--ink-2-dark);
+        --stroke: var(--stroke-dark);
+        --shadow: var(--shadow-dark);
+        --card-bg: var(--card-bg-dark);
+      }
+
+      /* Background (same vibe as other pages) */
+      body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        color: var(--ink);
+        background: radial-gradient(
+            1200px 800px at 12% 18%,
+            rgba(246, 68, 184, 0.15),
+            transparent 60%
+          ),
+          radial-gradient(
+            1000px 700px at 88% 72%,
+            rgba(169, 132, 220, 0.15),
+            transparent 60%
+          ),
+          radial-gradient(
+            900px 600px at 50% 95%,
+            rgba(252, 215, 131, 0.12),
+            transparent 70%
+          ),
+          radial-gradient(
+            700px 500px at 25% 50%,
+            rgba(246, 68, 184, 0.08),
+            transparent 65%
+          ),
+          var(--bg);
+        background-size: 300% 300%;
+        animation: bgFlow 20s ease-in-out infinite alternate,
+          fadeIn 0.4s ease-out;
+        -webkit-font-smoothing: antialiased;
+        min-height: 100vh;
+      }
+      body.dark-mode {
+        background: radial-gradient(
+            1400px 1100px at 15% 20%,
+            rgba(246, 68, 184, 0.65),
+            rgba(246, 68, 184, 0.25) 40%,
+            transparent 60%
+          ),
+          radial-gradient(
+            1300px 1000px at 85% 25%,
+            rgba(169, 132, 220, 0.6),
+            rgba(169, 132, 220, 0.22) 40%,
+            transparent 60%
+          ),
+          radial-gradient(
+            1200px 950px at 50% 80%,
+            rgba(252, 215, 131, 0.58),
+            rgba(252, 215, 131, 0.18) 42%,
+            transparent 62%
+          ),
+          radial-gradient(
+            1100px 850px at 70% 50%,
+            rgba(246, 68, 184, 0.52),
+            rgba(246, 68, 184, 0.15) 38%,
+            transparent 58%
+          ),
+          radial-gradient(
+            1000px 800px at 20% 60%,
+            rgba(169, 132, 220, 0.48),
+            rgba(169, 132, 220, 0.12) 40%,
+            transparent 58%
+          ),
+          var(--bg);
+        background-size: 400% 400%;
+        animation: darkModeFlow 35s ease-in-out infinite alternate;
+      }
+      @keyframes bgFlow {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+      @keyframes darkModeFlow {
+        0% {
+          background-position: 0% 50%, 100% 50%, 50% 100%, 80% 20%, 20% 80%,
+            60% 40%;
+        }
+        50% {
+          background-position: 30% 80%, 70% 20%, 90% 60%, 15% 45%, 85% 55%,
+            45% 50%;
+        }
+        100% {
+          background-position: 0% 50%, 100% 50%, 50% 100%, 80% 20%, 20% 80%,
+            60% 40%;
+        }
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .wrap {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 48px 24px 80px;
+      }
+
+      /* Header/nav (matches other pages) */
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 40px;
+      }
+      .back {
+        color: var(--ink-2);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+      .back:hover {
+        color: var(--pink);
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+      nav a {
+        color: var(--ink-2);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+      nav a:hover {
+        color: var(--pink);
+      }
+
+      /* Theme toggle */
+      .theme-toggle {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid var(--stroke);
+        background: var(--card-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+        box-shadow: var(--shadow);
+      }
+      .theme-toggle:hover {
+        transform: scale(1.02);
+      }
+      .theme-toggle:active {
+        transform: scale(0.98);
+      }
+      .toggle-icon {
+        width: 20px;
+        height: 20px;
+      }
+      .toggle-icon svg {
+        width: 100%;
+        height: 100%;
+        fill: var(--ink);
+      }
+      .sun-icon {
+        display: none;
+      }
+      body.dark-mode .sun-icon {
+        display: block;
+      }
+      body.dark-mode .moon-icon {
+        display: none;
+      }
+
+      /* Title */
+      .page-title {
+        font-size: clamp(42px, 7vw, 68px);
+        font-weight: 700;
+        text-align: center;
+        margin: 0 0 28px;
+        background: linear-gradient(135deg, var(--pink), var(--lavender));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: -0.02em;
+      }
+      .subtitle {
+        text-align: center;
+        margin: -6px 0 28px;
+        color: var(--ink-2);
+        text-transform: lowercase;
+        font-weight: 500;
+      }
+
+      /* macOS window card */
+      .window {
+        background: var(--card-bg);
+        border: 1px solid var(--stroke);
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        transition: transform 0.26s cubic-bezier(0.2, 0.8, 0.2, 1),
+          box-shadow 0.26s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.26s;
+      }
+      .window:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
+        border-color: rgba(246, 68, 184, 0.22);
+      }
+      .window-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 12px;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.03), transparent);
+        border-bottom: 1px solid var(--stroke);
+      }
+      body.dark-mode .window-header {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.03),
+          transparent
+        );
+      }
+      .window-title {
+        font-weight: 600;
+        font-size: 13px;
+        letter-spacing: 0.3px;
+        color: var(--ink-2);
+        flex: 1;
+      }
+      .window-controls {
+        display: flex;
+        gap: 8px;
+        order: -1;
+      }
+      .window-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+      }
+      .dot-red {
+        background: #ff5f56;
+      }
+      .dot-yellow {
+        background: #ffbd2e;
+      }
+      .dot-green {
+        background: #27c93f;
+      }
+      .window-content {
+        padding: 24px;
+      }
+
+      /* Clean text link style */
+      .resume-link {
+        color: var(--ink-2);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        transition: color 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .resume-link:hover {
+        color: var(--pink);
+      }
+
+      .resume-img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 12px;
+        border: 1px solid var(--stroke);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+      }
+      .resume-img:hover {
+        transform: scale(1.01);
+        box-shadow: 0 12px 32px rgba(246, 68, 184, 0.15);
+      }
+      body.dark-mode .resume-img {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      }
+      body.dark-mode .resume-img:hover {
+        box-shadow: 0 12px 32px rgba(246, 68, 184, 0.35);
+      }
+
+      .note {
+        margin-top: 14px;
+        font-size: 0.95rem;
+        color: var(--ink-2);
+        text-transform: lowercase;
+      }
+      .note a {
+        color: var(--pink);
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .note a:hover {
+        text-decoration: underline;
+      }
+
+      /* Footer (optional parity with other pages) */
+      footer {
+        text-align: center;
+        padding: 32px 0;
+        color: rgba(0, 0, 0, 0.55);
+      }
+      body.dark-mode footer {
+        color: #aaa;
+      }
+
+      /* Responsive */
+      @media (max-width: 760px) {
+        .window-header {
+          flex-wrap: wrap;
+        }
+      }
+
+      /* Custom cursor */
+      .cursor {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--pink);
+        position: fixed;
+        pointer-events: none;
+        z-index: 10000;
+        transform: translate(-50%, -50%);
+        transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease;
+        box-shadow: 0 0 15px rgba(246, 68, 184, 0.5);
+      }
+
+      .cursor.click {
+        transform: translate(-50%, -50%) scale(0.8);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <a href="index.html" class="back">← back</a>
+        <nav>
+          <a href="work.html">work</a>
+          <a href="about.html">about</a>
+          <a href="contact.html">contact</a>
+          <button
+            class="theme-toggle"
+            id="themeToggle"
+            aria-label="Toggle theme"
+          >
+            <div class="toggle-icon">
+              <svg
+                class="moon-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z"
+                />
+              </svg>
+              <svg
+                class="sun-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12,6a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V5A1,1,0,0,0,12,6ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-1.41-1.42A1,1,0,0,0,4.22,5.64ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm.64,5.05a1,1,0,0,0-1.41,1.41l1.41,1.42a1,1,0,0,0,.71.29,1,1,0,0,0,.7-.29,1,1,0,0,0,0-1.41ZM12,18a1,1,0,0,0-1,1v2a1,1,0,0,0,2,0V19A1,1,0,0,0,12,18Zm5.66-.36a1,1,0,0,0-1.41,1.41l1.41,1.42a1,1,0,0,0,.71.29,1,1,0,0,0,.7-.29,1,1,0,0,0,0-1.41ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-2.64-3.95a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29l1.41-1.42a1,1,0,1,0-1.41-1.41l-1.41,1.42A1,1,0,0,0,18.36,7.05ZM12,8a4,4,0,1,0,4,4A4,4,0,0,0,12,8Z"
+                />
+              </svg>
+            </div>
+          </button>
+        </nav>
+      </header>
+
+      <h1 class="page-title">resume</h1>
+
+      <div class="window">
+        <div class="window-header">
+          <div class="window-controls">
+            <div class="window-dot dot-red"></div>
+            <div class="window-dot dot-yellow"></div>
+            <div class="window-dot dot-green"></div>
+          </div>
+          <span class="window-title">resume_preview.pdf</span>
+          <a
+            class="resume-link"
+            href="KP_Marketing_2025.pdf"
+            target="_blank"
+            rel="noopener"
+          >
+            open resume ↗
+          </a>
+        </div>
+        <div class="window-content">
+          <img
+            src="resume_preview.png"
+            alt="mika pham — resume preview"
+            class="resume-img"
+          />
+          <p class="note">
+            want the original?
+            <a href="KP_Marketing_2025.pdf" target="_blank" rel="noopener"
+              >download the pdf</a
+            >.
+          </p>
+        </div>
+      </div>
+
+      <footer>© <span id="year"></span> mika pham</footer>
+    </div>
+
+    <!-- Custom cursor -->
+    <div class="cursor"></div>
+
+    <script>
+      // Year
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Theme toggle (keeps preference)
+      const themeToggle = document.getElementById("themeToggle");
+      const body = document.body;
+      const saved = localStorage.getItem("theme") || "light";
+      if (saved === "dark") body.classList.add("dark-mode");
+      themeToggle.addEventListener("click", () => {
+        body.classList.toggle("dark-mode");
+        localStorage.setItem(
+          "theme",
+          body.classList.contains("dark-mode") ? "dark" : "light"
+        );
+      });
+
+      // Smooth internal page transitions (same pattern as other pages)
+      document.addEventListener("DOMContentLoaded", () => {
+        const links = document.querySelectorAll('a[href$=".html"]');
+        links.forEach((link) => {
+          link.addEventListener("click", (e) => {
+            const href = link.getAttribute("href");
+            if (link.target === "_blank" || !href || href.startsWith("http"))
+              return;
+            e.preventDefault();
+            document.body.style.opacity = "0";
+            setTimeout(() => {
+              window.location.href = href;
+            }, 300);
+          });
+        });
+
+        // Custom cursor - initialize after DOM loads
+        const cursor = document.querySelector(".cursor");
+        if (cursor) {
+          window.addEventListener("mousemove", (e) => {
+            cursor.style.left = e.clientX + "px";
+            cursor.style.top = e.clientY + "px";
+          });
+
+          // Cursor click effect
+          window.addEventListener("mousedown", () => {
+            cursor.classList.add("click");
+          });
+
+          window.addEventListener("mouseup", () => {
+            cursor.classList.remove("click");
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

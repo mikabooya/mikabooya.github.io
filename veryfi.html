@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>veryfi — mika pham</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        cursor: none !important;
+      }
+
+      :root {
+        --pink: rgb(246, 68, 184);
+        --lavender: rgb(169, 132, 220);
+        --gold: rgb(252, 215, 131);
+
+        --bg-light: #fffdf5;
+        --ink-light: #2b2b2b;
+        --ink-2-light: rgba(20, 20, 20, 0.75);
+        --stroke-light: rgba(0, 0, 0, 0.08);
+        --shadow-light: 0 10px 25px rgba(0, 0, 0, 0.06);
+        --card-bg-light: #fff;
+        --section-bg-light: rgba(255, 255, 255, 0.6);
+
+        --bg-dark: #1a1a1a;
+        --ink-dark: #f5f5f5;
+        --ink-2-dark: rgba(245, 245, 245, 0.8);
+        --stroke-dark: rgba(255, 255, 255, 0.1);
+        --shadow-dark: 0 10px 25px rgba(0, 0, 0, 0.3);
+        --card-bg-dark: rgba(40, 40, 40, 0.6);
+        --section-bg-dark: rgba(40, 40, 40, 0.4);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        --bg: var(--bg-light);
+        --ink: var(--ink-light);
+        --ink-2: var(--ink-2-light);
+        --stroke: var(--stroke-light);
+        --shadow: var(--shadow-light);
+        --card-bg: var(--card-bg-light);
+        --section-bg: var(--section-bg-light);
+      }
+      body.dark-mode {
+        --bg: var(--bg-dark);
+        --ink: var(--ink-dark);
+        --ink-2: var(--ink-2-dark);
+        --stroke: var(--stroke-dark);
+        --shadow: var(--shadow-dark);
+        --card-bg: var(--card-bg-dark);
+        --section-bg: var(--section-bg-dark);
+      }
+
+      body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        color: var(--ink);
+        background: radial-gradient(
+            1400px 900px at 12% 18%,
+            rgba(246, 68, 184, 0.2),
+            transparent 60%
+          ),
+          radial-gradient(
+            1200px 800px at 88% 72%,
+            rgba(169, 132, 220, 0.2),
+            transparent 60%
+          ),
+          radial-gradient(
+            1000px 700px at 50% 95%,
+            rgba(252, 215, 131, 0.18),
+            transparent 70%
+          ),
+          radial-gradient(
+            900px 650px at 25% 50%,
+            rgba(246, 68, 184, 0.15),
+            transparent 65%
+          ),
+          radial-gradient(
+            850px 600px at 75% 30%,
+            rgba(169, 132, 220, 0.15),
+            transparent 60%
+          ),
+          radial-gradient(
+            800px 550px at 15% 75%,
+            rgba(252, 215, 131, 0.12),
+            transparent 65%
+          ),
+          radial-gradient(
+            750px 500px at 60% 15%,
+            rgba(246, 68, 184, 0.1),
+            transparent 60%
+          ),
+          radial-gradient(
+            700px 480px at 40% 60%,
+            rgba(169, 132, 220, 0.1),
+            transparent 58%
+          ),
+          var(--bg);
+        background-size: 300% 300%;
+        animation: bgFlow 80s ease-in-out infinite alternate,
+          fadeIn 0.5s ease-out;
+        -webkit-font-smoothing: antialiased;
+        min-height: 100vh;
+        position: relative;
+        transition: background-color 0.4s ease;
+        cursor: auto; /* ensure default cursor */
+      }
+
+      /* Grain overlay */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 10000;
+        opacity: 0.035;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      }
+      body.dark-mode::before {
+        opacity: 0.045;
+      }
+      body.dark-mode {
+        background: radial-gradient(
+            1500px 1200px at 15% 20%,
+            rgba(246, 68, 184, 0.7),
+            rgba(246, 68, 184, 0.3) 40%,
+            transparent 60%
+          ),
+          radial-gradient(
+            1400px 1100px at 85% 25%,
+            rgba(169, 132, 220, 0.65),
+            rgba(169, 132, 220, 0.25) 40%,
+            transparent 60%
+          ),
+          radial-gradient(
+            1300px 1000px at 50% 80%,
+            rgba(252, 215, 131, 0.62),
+            rgba(252, 215, 131, 0.22) 42%,
+            transparent 62%
+          ),
+          radial-gradient(
+            1200px 950px at 70% 50%,
+            rgba(246, 68, 184, 0.58),
+            rgba(246, 68, 184, 0.18) 38%,
+            transparent 58%
+          ),
+          radial-gradient(
+            1100px 900px at 20% 60%,
+            rgba(169, 132, 220, 0.52),
+            rgba(169, 132, 220, 0.15) 40%,
+            transparent 58%
+          ),
+          radial-gradient(
+            1000px 850px at 90% 75%,
+            rgba(252, 215, 131, 0.5),
+            rgba(252, 215, 131, 0.15) 38%,
+            transparent 60%
+          ),
+          radial-gradient(
+            950px 800px at 10% 85%,
+            rgba(246, 68, 184, 0.45),
+            rgba(246, 68, 184, 0.12) 40%,
+            transparent 60%
+          ),
+          radial-gradient(
+            900px 750px at 55% 15%,
+            rgba(169, 132, 220, 0.42),
+            rgba(169, 132, 220, 0.12) 38%,
+            transparent 58%
+          ),
+          radial-gradient(
+            850px 700px at 35% 40%,
+            rgba(252, 215, 131, 0.38),
+            rgba(252, 215, 131, 0.1) 40%,
+            transparent 60%
+          ),
+          radial-gradient(
+            800px 650px at 80% 90%,
+            rgba(246, 68, 184, 0.35),
+            transparent 55%
+          ),
+          radial-gradient(
+            750px 600px at 60% 70%,
+            rgba(169, 132, 220, 0.32),
+            transparent 52%
+          ),
+          radial-gradient(
+            700px 550px at 25% 30%,
+            rgba(252, 215, 131, 0.28),
+            transparent 50%
+          ),
+          radial-gradient(
+            650px 500px at 45% 55%,
+            rgba(246, 68, 184, 0.25),
+            transparent 48%
+          ),
+          radial-gradient(
+            600px 480px at 75% 45%,
+            rgba(169, 132, 220, 0.22),
+            transparent 48%
+          ),
+          radial-gradient(
+            550px 450px at 30% 85%,
+            rgba(252, 215, 131, 0.2),
+            transparent 46%
+          ),
+          var(--bg);
+        background-size: 400% 400%;
+        animation: darkModeFlow 120s ease-in-out infinite alternate;
+      }
+
+      @keyframes bgFlow {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+      @keyframes shimmer {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+      body.page-exit {
+        animation: fadeOut 0.3s ease-in forwards;
+      }
+
+      @keyframes darkModeFlow {
+        0% {
+          background-position: 0% 50%, 100% 50%, 50% 100%, 80% 20%, 20% 80%,
+            90% 90%, 10% 10%, 60% 40%, 40% 60%, 75% 75%, 55% 25%, 30% 70%,
+            85% 35%, 25% 85%, 65% 55%;
+        }
+        20% {
+          background-position: 30% 80%, 70% 20%, 90% 60%, 15% 45%, 85% 55%,
+            25% 75%, 65% 35%, 50% 90%, 95% 15%, 20% 20%, 75% 85%, 45% 50%,
+            55% 70%, 90% 25%, 35% 95%;
+        }
+        40% {
+          background-position: 70% 70%, 30% 30%, 50% 10%, 95% 85%, 5% 15%,
+            80% 40%, 20% 60%, 60% 80%, 40% 20%, 85% 55%, 15% 45%, 70% 30%,
+            50% 65%, 80% 15%, 25% 50%;
+        }
+        60% {
+          background-position: 100% 40%, 0% 60%, 80% 80%, 40% 10%, 60% 90%,
+            10% 50%, 90% 50%, 25% 25%, 75% 75%, 50% 50%, 35% 65%, 88% 12%,
+            45% 75%, 70% 35%, 20% 60%;
+        }
+        80% {
+          background-position: 50% 10%, 50% 90%, 20% 50%, 70% 70%, 30% 30%,
+            85% 15%, 15% 85%, 95% 55%, 5% 45%, 40% 80%, 80% 20%, 60% 60%,
+            35% 40%, 65% 80%, 15% 25%;
+        }
+        100% {
+          background-position: 0% 50%, 100% 50%, 50% 100%, 80% 20%, 20% 80%,
+            90% 90%, 10% 10%, 60% 40%, 40% 60%, 75% 75%, 55% 25%, 30% 70%,
+            85% 35%, 25% 85%, 65% 55%;
+        }
+      }
+
+      .wrap {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 48px 24px 80px;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 48px;
+      }
+      .back {
+        color: var(--ink-2);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+      .back:hover {
+        color: var(--pink);
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+      nav a {
+        color: var(--ink-2);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+      nav a:hover {
+        color: var(--pink);
+      }
+
+      .theme-toggle {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: none;
+        background: var(--card-bg);
+        backdrop-filter: blur(10px);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--stroke);
+      }
+      .theme-toggle:hover {
+        transform: scale(1.05);
+      }
+      .toggle-icon {
+        width: 20px;
+        height: 20px;
+      }
+      .sun-icon {
+        display: none;
+      }
+      body.dark-mode .sun-icon {
+        display: block;
+      }
+      body.dark-mode .moon-icon {
+        display: none;
+      }
+      .toggle-icon svg {
+        width: 100%;
+        height: 100%;
+        fill: var(--ink);
+      }
+
+      .hero {
+        margin-bottom: 64px;
+      }
+      .project-title {
+        font-size: clamp(3rem, 8vw, 5rem);
+        font-weight: 700;
+        margin: 0 0 16px;
+        text-transform: lowercase;
+        background: linear-gradient(
+          120deg,
+          var(--pink),
+          var(--lavender),
+          var(--gold)
+        );
+        background-size: 300% 300%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: 1;
+        letter-spacing: -0.03em;
+        animation: shimmer 8s ease-in-out infinite;
+      }
+      .project-meta {
+        display: flex;
+        gap: 32px;
+        flex-wrap: wrap;
+        margin-top: 24px;
+      }
+      .meta-item {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .meta-label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--ink-2);
+        font-weight: 600;
+      }
+      .meta-value {
+        font-size: 1.1rem;
+        color: var(--ink);
+        font-weight: 500;
+      }
+
+      .section {
+        margin-bottom: 64px;
+      }
+      .section-title {
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+        font-weight: 600;
+        margin: 0 0 24px;
+        text-transform: lowercase;
+        background: linear-gradient(
+          90deg,
+          var(--pink),
+          var(--lavender),
+          var(--gold),
+          var(--pink)
+        );
+        background-size: 300% 300%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shimmer 4s ease-in-out infinite;
+      }
+      .section-content {
+        background: var(--section-bg);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--stroke);
+        border-radius: 20px;
+        padding: 32px;
+        box-shadow: var(--shadow);
+        transition: all 0.4s ease;
+      }
+      .section-content p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: var(--ink-2);
+        margin: 0 0 1rem;
+      }
+      .section-content p:last-child {
+        margin-bottom: 0;
+      }
+      strong {
+        color: var(--pink);
+        font-weight: 600;
+      }
+
+      .tools-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 16px;
+        margin-top: 24px;
+      }
+      .tool-item {
+        background: var(--card-bg);
+        border: 1px solid var(--stroke);
+        border-radius: 16px;
+        padding: 20px;
+        text-align: center;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow);
+      }
+      .tool-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(246, 68, 184, 0.15);
+        border-color: var(--pink);
+      }
+      .tool-name {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--ink);
+      }
+
+      .showcase {
+        margin-top: 32px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+      .showcase-item {
+        background: var(--card-bg);
+        border: 1px solid var(--stroke);
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
+      }
+      .showcase-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(246, 68, 184, 0.15);
+      }
+      .video-container {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
+        border-radius: 12px;
+        margin-bottom: 16px;
+      }
+      .video-container iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .showcase-placeholder {
+        width: 100%;
+        aspect-ratio: 16/9;
+        background: linear-gradient(
+          135deg,
+          rgba(246, 68, 184, 0.1),
+          rgba(169, 132, 220, 0.1)
+        );
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--ink-2);
+        font-size: 1rem;
+        margin-bottom: 16px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        overflow: hidden;
+      }
+      .showcase-placeholder img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 12px;
+      }
+      .showcase-placeholder:hover {
+        background: linear-gradient(
+          135deg,
+          rgba(246, 68, 184, 0.2),
+          rgba(169, 132, 220, 0.2)
+        );
+      }
+      .showcase-caption {
+        font-size: 0.95rem;
+        color: var(--ink-2);
+        line-height: 1.6;
+      }
+
+      @media (max-width: 900px) {
+        .showcase {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 16px;
+      }
+      .tag {
+        padding: 8px 16px;
+        background: rgba(246, 68, 184, 0.1);
+        border: 1px solid rgba(246, 68, 184, 0.2);
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--ink);
+        transition: all 0.2s ease;
+      }
+      .tag:hover {
+        background: rgba(246, 68, 184, 0.2);
+        transform: translateY(-2px);
+      }
+
+      /* removed custom cursor styles; keep default */
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .wrap {
+          padding: 32px 20px 60px;
+        }
+        .project-meta {
+          gap: 20px;
+        }
+        .section-content {
+          padding: 24px;
+        }
+        .tools-grid {
+          grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        }
+      }
+
+      /* Custom cursor */
+      .cursor {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--pink);
+        position: fixed;
+        pointer-events: none;
+        z-index: 10000;
+        transform: translate(-50%, -50%);
+        transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease;
+        box-shadow: 0 0 15px rgba(246, 68, 184, 0.5);
+      }
+
+      .cursor.click {
+        transform: translate(-50%, -50%) scale(0.8);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <header>
+        <a class="back" href="works.html">← back</a>
+        <nav>
+          <a href="work.html">work</a>
+          <a href="about.html">about</a>
+          <a href="mailto:mikapham229@gmail.com">contact</a>
+          <button
+            class="theme-toggle"
+            id="themeToggle"
+            aria-label="Toggle dark mode"
+          >
+            <div class="toggle-icon">
+              <svg
+                class="moon-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z"
+                />
+              </svg>
+              <svg
+                class="sun-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12,6a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V5A1,1,0,0,0,12,6ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-1.41-1.42A1,1,0,0,0,4.22,5.64ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm.64,5.05a1,1,0,0,0-1.41,1.41l1.41,1.42a1,1,0,0,0,.71.29,1,1,0,0,0,.7-.29,1,1,0,0,0,0-1.41ZM12,18a1,1,0,0,0-1,1v2a1,1,0,0,0,2,0V19A1,1,0,0,0,12,18Zm5.66-.36a1,1,0,0,0-1.41,1.41l1.41,1.42a1,1,0,0,0,.71.29,1,1,0,0,0,.7-.29,1,1,0,0,0,0-1.41ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-2.64-3.95a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29l1.41-1.42a1,1,0,1,0-1.41-1.41l-1.41,1.42A1,1,0,0,0,18.36,7.05Z"
+                />
+              </svg>
+            </div>
+          </button>
+        </nav>
+      </header>
+
+      <!-- Hero -->
+      <div class="hero">
+        <h1 class="project-title">veryfi</h1>
+        <div class="project-meta">
+          <div class="meta-item">
+            <div class="meta-label">role</div>
+            <div class="meta-value">product & content marketer</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">timeline</div>
+            <div class="meta-value">2025-present</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">type</div>
+            <div class="meta-value">b2b saas marketing</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- About Veryfi -->
+      <div class="section">
+        <h2 class="section-title">about veryfi</h2>
+        <div class="section-content">
+          <p>
+            veryfi is a <strong>YC-backed fintech startup</strong> that turns
+            messy receipts and documents into clean, structured data using AI.
+            think of it as the
+            <strong>smartest OCR on the planet</strong> automating expense
+            management, fraud detection, and data extraction for enterprises who
+            are tired of manual entry.
+          </p>
+          <p>
+            as the company scaled, they needed marketing that could
+            <strong
+              >translate complex AI tech into stories people actually wanted to
+              read</strong
+            >. that's where i came in.
+          </p>
+        </div>
+      </div>
+
+      <!-- The Challenge -->
+      <div class="section">
+        <h2 class="section-title">the challenge</h2>
+        <div class="section-content">
+          <p>
+            veryfi's tech is genuinely impressive:
+            <strong
+              >multimodal AI, real time fraud prevention, enterprise scale
+              document processing</strong
+            >. but explaining it without sounding like a boring pitch? that's
+            the challenge.
+          </p>
+          <p>
+            i needed to create content that developers would respect, executives
+            would understand, and actual humans would want to read. plus, it had
+            to work everywhere: youtube demos, case studies, blog posts,
+            60-second social clips. oh, and
+            <strong>drive actual business results</strong>. no pressure.
+          </p>
+        </div>
+      </div>
+
+      <!-- My Role -->
+      <div class="section">
+        <h2 class="section-title">my role</h2>
+        <div class="section-content">
+          <p>
+            at veryfi, i wear many different hats: strategist, writer, video
+            producer, motion designer, and occasional internal hype person. i
+            owned everything from "what should we make?" to "here's the final
+            edit, shipping now."
+          </p>
+          <p>
+            my approach? <strong>data first, human second</strong>. i'd dig into
+            analytics to figure out what people actually cared about, then
+            <strong>translate technical lingoes into stories</strong> that
+            didn't make people's eyes glaze over. every video, case study, and
+            blog post was designed to move someone through the funnel, whether
+            that meant booking a demo or sharing it with their team.
+          </p>
+          <div class="tags">
+            <span class="tag">product marketing</span
+            ><span class="tag">video production</span
+            ><span class="tag">motion graphics</span
+            ><span class="tag">content strategy</span
+            ><span class="tag">case study development</span
+            ><span class="tag">technical writing</span
+            ><span class="tag">social media</span
+            ><span class="tag">sales enablement</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tools -->
+      <div class="section">
+        <h2 class="section-title">tools & software</h2>
+        <p
+          style="
+            font-size: 0.9rem;
+            color: var(--ink-2);
+            margin-bottom: 20px;
+            font-weight: 600;
+          "
+        >
+          marketing & analytics:
+        </p>
+        <div class="tools-grid">
+          <div class="tool-item"><div class="tool-name">semrush</div></div>
+          <div class="tool-item"><div class="tool-name">hubspot</div></div>
+          <div class="tool-item"><div class="tool-name">wordpress</div></div>
+          <div class="tool-item"><div class="tool-name">ga4</div></div>
+          <div class="tool-item"><div class="tool-name">looker</div></div>
+          <div class="tool-item"><div class="tool-name">writesonic</div></div>
+          <div class="tool-item"><div class="tool-name">confluence</div></div>
+          <div class="tool-item"><div class="tool-name">jira</div></div>
+        </div>
+        <p
+          style="
+            font-size: 0.9rem;
+            color: var(--ink-2);
+            margin: 32px 0 20px;
+            font-weight: 600;
+          "
+        >
+          creative production:
+        </p>
+        <div class="tools-grid">
+          <div class="tool-item"><div class="tool-name">premiere pro</div></div>
+          <div class="tool-item">
+            <div class="tool-name">after effects</div>
+          </div>
+          <div class="tool-item"><div class="tool-name">photoshop</div></div>
+          <div class="tool-item"><div class="tool-name">illustrator</div></div>
+          <div class="tool-item"><div class="tool-name">spline</div></div>
+          <div class="tool-item"><div class="tool-name">blender</div></div>
+        </div>
+      </div>
+
+      <!-- Motion Graphics & Animations -->
+      <div class="section">
+        <h2 class="section-title">motion graphics & animations</h2>
+
+        <div class="showcase-item" style="margin-top: 32px">
+          <div
+            style="
+              background: #1a1d2e;
+              border-radius: 12px;
+              overflow: hidden;
+              margin-bottom: 16px;
+            "
+          >
+            <video
+              autoplay
+              loop
+              muted
+              playsinline
+              style="width: 100%; height: auto; display: block"
+            >
+              <source src="real_logo.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div class="showcase-caption">
+            <strong>veryfi logo animation:</strong> animated brand identity with
+            smooth motion graphics for digital applications.
+          </div>
+        </div>
+
+        <div class="showcase-item" style="margin-top: 32px">
+          <div
+            style="
+              border-radius: 12px;
+              overflow: hidden;
+              margin-bottom: 16px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              background: #f5f5f5;
+            "
+          >
+            <iframe
+              src="https://www.linkedin.com/embed/feed/update/urn:li:share:7379291197749645312?collapsed=1"
+              height="670"
+              width="100%"
+              frameborder="0"
+              allowfullscreen
+              title="Veryfi LinkedIn Ad"
+              style="border-radius: 12px; max-width: 504px"
+            ></iframe>
+          </div>
+          <div class="showcase-caption">
+            <strong> (animated) ABM ad:</strong> engaging animated ad for
+            linkedin scrollers.
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Demos -->
+      <div class="section">
+        <h2 class="section-title">product demo videos</h2>
+
+        <div class="showcase">
+          <div class="showcase-item">
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/6t_9WVykDXk"
+                title="Veryfi Product Demo"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="showcase-caption">
+              <strong>workflow demo:</strong> comprehensive walkthrough of
+              veryfi's workflow suite, showcasing key features and use cases for
+              enterprise customers.
+            </div>
+          </div>
+
+          <div class="showcase-item">
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/47S-818nWco"
+                title="Veryfi Product Demo"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="showcase-caption">
+              <strong>embedded:</strong> detailed exploration of advanced
+              features, demonstrating technical capabilities while maintaining
+              accessibility for business decision makers.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case Studies -->
+      <div class="section">
+        <h2 class="section-title">customer case studies</h2>
+
+        <div class="showcase">
+          <div class="showcase-item">
+            <a
+              href="https://www.veryfi.com/customer-stories/lala-whatsapp-promotional-campaign-case-study/"
+              target="_blank"
+              class="showcase-placeholder"
+              style="text-decoration: none; color: inherit"
+            >
+              <img src="lala-case-study.jpg" alt="LaLa Case Study" />
+            </a>
+            <div class="showcase-caption">
+              <strong>lala whatsapp campaign:</strong> documented how lala
+              leveraged veryfi's whatsapp integration for promotional campaigns.
+            </div>
+          </div>
+
+          <div class="showcase-item">
+            <a
+              href="https://www.veryfi.com/technology/hit-veryfi-back-to-school-whatsapp-campaign-case-study/"
+              target="_blank"
+              class="showcase-placeholder"
+              style="text-decoration: none; color: inherit"
+            >
+              <img src="hit-case-study.jpg" alt="HIT Case Study" />
+            </a>
+            <div class="showcase-caption">
+              <strong>hit back to school campaign:</strong> featured hit's
+              successful campaign using veryfi's multi channel OCR technology.
+            </div>
+          </div>
+
+          <div class="showcase-item">
+            <a
+              href="https://www.veryfi.com/technology/veryfi-multi-channel-ocr-powers-pepsico-campaign-mexico/"
+              target="_blank"
+              class="showcase-placeholder"
+              style="text-decoration: none; color: inherit"
+            >
+              <img src="pepsico.jpg" alt="PepsiCo Case Study" />
+            </a>
+            <div class="showcase-caption">
+              <strong>pepsico multi channel campaign:</strong> highlighted how
+              veryfi's OCR powered pepsico's bottlecaps campaigns in mexico.
+            </div>
+          </div>
+
+          <div class="showcase-item">
+            <a
+              href="https://www.veryfi.com/technology/crem-helado-whatsapp-promotion/"
+              target="_blank"
+              class="showcase-placeholder"
+              style="text-decoration: none; color: inherit"
+            >
+              <img
+                src="crem-helado-case-study.jpg"
+                alt="Crem Helado Case Study"
+              />
+            </a>
+            <div class="showcase-caption">
+              <strong>crem helado whatsapp promotion:</strong> showcased
+              innovative whatsapp based promotional campaign for ice cream
+              brand.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Technical Blogs -->
+      <div class="section">
+        <h2 class="section-title">technical blog content</h2>
+
+        <div class="showcase">
+          <div class="showcase-item">
+            <a
+              href="https://www.veryfi.com/technology/cpg-promotion-fraud-prevention/"
+              target="_blank"
+              class="showcase-placeholder"
+              style="text-decoration: none; color: inherit"
+            >
+              <img
+                src="CPG Fraud Prevention - Blog.jpg"
+                alt="CPG Fraud Prevention"
+              />
+            </a>
+            <div class="showcase-caption">
+              <strong>cpg promotion fraud prevention:</strong> in-depth analysis
+              of fraud prevention strategies in CPG promotions.
+            </div>
+          </div>
+
+          <div class="showcase-item">
+            <a
+              href="https://www.veryfi.com/fraud-detection/upstream-fraud-prevention-ai-powered-detection-2025/"
+              target="_blank"
+              class="showcase-placeholder"
+              style="text-decoration: none; color: inherit"
+            >
+              <img
+                src="Stop Fraud Before It Costs You A Guide To Veryfi's Revolutionary Two-Tier UpStream Fraud Prevention Engine-Blog.jpg"
+                alt="Upstream Fraud Prevention"
+              />
+            </a>
+            <div class="showcase-caption">
+              <strong>AI powered fraud detection:</strong> forward looking piece
+              on upstream fraud prevention using AI.
+            </div>
+          </div>
+
+          <div class="showcase-item">
+            <a
+              href="https://www.veryfi.com/technology/ocr-receipt-scanner-cpg/"
+              target="_blank"
+              class="showcase-placeholder"
+              style="text-decoration: none; color: inherit"
+            >
+              <img
+                src="OCR receipt scanner for CPG.jpg"
+                alt="OCR Receipt Scanner"
+              />
+            </a>
+            <div class="showcase-caption">
+              <strong>ocr receipt scanner for cpg:</strong> detailed guide on
+              implementing receipt scanning technology for consumer goods.
+            </div>
+          </div>
+
+          <div class="showcase-item">
+            <a
+              href="https://www.veryfi.com/technology/multimodal-data-extraction-beyond-basic-ocr/"
+              target="_blank"
+              class="showcase-placeholder"
+              style="text-decoration: none; color: inherit"
+            >
+              <img
+                src="multimodal data extraction.png"
+                alt="Multimodal Data Extraction"
+              />
+            </a>
+            <div class="showcase-caption">
+              <strong>beyond basic OCR:</strong> technical exploration of
+              multimodal data extraction capabilities.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social Media Shorts -->
+      <div class="section">
+        <h2 class="section-title">social media shorts</h2>
+
+        <div class="showcase">
+          <div class="showcase-item no-caption">
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/qPRBnQEHuso"
+                title="Veryfi Short"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+          <div class="showcase-item no-caption">
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/Li4kbIfDloc"
+                title="Veryfi Short"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+          <div class="showcase-item no-caption">
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/WVGPs3HM3OA"
+                title="Veryfi Short"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+          <div class="showcase-item no-caption">
+            <div class="video-container">
+              <iframe
+                src="https://www.youtube.com/embed/Fyd4E46OoPU"
+                title="Veryfi Short"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Impact & Results -->
+      <div class="section">
+        <h2 class="section-title">impact & results</h2>
+        <div class="section-content">
+          <p>
+            here's what actually mattered: the videos became
+            <strong>veryfi's most watched content</strong> and drove a prominent
+            increase in leads. case studies shortened sales cycles because
+            prospects could finally see proof that this stuff works in the real
+            world. blog posts consistently brought in organic traffic and
+            positioned veryfi as the go to expert in fraud prevention and OCR.
+            and those social shorts? they expanded reach to audiences who'd
+            never heard of veryfi before (<strong
+              >3000% increase in engagement</strong
+            >
+            wohoo).
+          </p>
+          <p>
+            <strong
+              >good content isn't just "nice to have" for B2B, it's a growth
+              engine</strong
+            >. you just have to make it actually good.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Theme toggle
+      const themeToggle = document.getElementById("themeToggle");
+      const body = document.body;
+      const currentTheme = localStorage.getItem("theme") || "light";
+      if (currentTheme === "dark") body.classList.add("dark-mode");
+      themeToggle.addEventListener("click", () => {
+        body.classList.toggle("dark-mode");
+        localStorage.setItem(
+          "theme",
+          body.classList.contains("dark-mode") ? "dark" : "light"
+        );
+      });
+
+      // Smooth page transitions
+      document.addEventListener("DOMContentLoaded", () => {
+        const links = document.querySelectorAll('a[href$=".html"]');
+        links.forEach((link) => {
+          link.addEventListener("click", (e) => {
+            const href = link.getAttribute("href");
+            if (link.target === "_blank" || !href || href.startsWith("http"))
+              return;
+            e.preventDefault();
+            document.body.classList.add("page-exit");
+            setTimeout(() => {
+              window.location.href = href;
+            }, 300);
+          });
+        });
+
+        // Custom cursor - initialize after DOM loads
+        const cursor = document.querySelector(".cursor");
+        if (cursor) {
+          window.addEventListener("mousemove", (e) => {
+            cursor.style.left = e.clientX + "px";
+            cursor.style.top = e.clientY + "px";
+          });
+
+          // Cursor click effect
+          window.addEventListener("mousedown", () => {
+            cursor.classList.add("click");
+          });
+
+          window.addEventListener("mouseup", () => {
+            cursor.classList.remove("click");
+          });
+        }
+      });
+    </script>
+
+    <!-- Custom cursor -->
+    <div class="cursor"></div>
+  </body>
+</html>

@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>confidance — mika pham</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --pink: rgb(246, 68, 184);
+        --lavender: rgb(169, 132, 220);
+        --gold: rgb(252, 215, 131);
+
+        --bg-light: #fffdf5;
+        --ink-light: #2b2b2b;
+        --ink-2-light: rgba(20, 20, 20, 0.75);
+        --stroke-light: rgba(0, 0, 0, 0.08);
+        --shadow-light: 0 10px 25px rgba(0, 0, 0, 0.06);
+        --card-bg-light: #fff;
+        --section-bg-light: rgba(255, 255, 255, 0.6);
+
+        --bg-dark: #1a1a1a;
+        --ink-dark: #f5f5f5;
+        --ink-2-dark: rgba(245, 245, 245, 0.8);
+        --stroke-dark: rgba(255, 255, 255, 0.1);
+        --shadow-dark: 0 10px 25px rgba(0, 0, 0, 0.3);
+        --card-bg-dark: rgba(40, 40, 40, 0.6);
+        --section-bg-dark: rgba(40, 40, 40, 0.4);
+      }
+      * {
+        box-sizing: border-box;
+      }
+
+      /* theme vars */
+      body {
+        --bg: var(--bg-light);
+        --ink: var(--ink-light);
+        --ink-2: var(--ink-2-light);
+        --stroke: var(--stroke-light);
+        --shadow: var(--shadow-light);
+        --card-bg: var(--card-bg-light);
+        --section-bg: var(--section-bg-light);
+      }
+      body.dark-mode {
+        --bg: var(--bg-dark);
+        --ink: var(--ink-dark);
+        --ink-2: var(--ink-2-dark);
+        --stroke: var(--stroke-dark);
+        --shadow: var(--shadow-dark);
+        --card-bg: var(--card-bg-dark);
+        --section-bg: var(--section-bg-dark);
+      }
+
+      /* background (same as your other page) */
+      body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        color: var(--ink);
+        background: radial-gradient(
+            1400px 900px at 12% 18%,
+            rgba(246, 68, 184, 0.2),
+            transparent 60%
+          ),
+          radial-gradient(
+            1200px 800px at 88% 72%,
+            rgba(169, 132, 220, 0.2),
+            transparent 60%
+          ),
+          radial-gradient(
+            1000px 700px at 50% 95%,
+            rgba(252, 215, 131, 0.18),
+            transparent 70%
+          ),
+          radial-gradient(
+            900px 650px at 25% 50%,
+            rgba(246, 68, 184, 0.15),
+            transparent 65%
+          ),
+          radial-gradient(
+            850px 600px at 75% 30%,
+            rgba(169, 132, 220, 0.15),
+            transparent 60%
+          ),
+          radial-gradient(
+            800px 550px at 15% 75%,
+            rgba(252, 215, 131, 0.12),
+            transparent 65%
+          ),
+          radial-gradient(
+            750px 500px at 60% 15%,
+            rgba(246, 68, 184, 0.1),
+            transparent 60%
+          ),
+          radial-gradient(
+            700px 480px at 40% 60%,
+            rgba(169, 132, 220, 0.1),
+            transparent 58%
+          ),
+          var(--bg);
+        background-size: 300% 300%;
+        animation: bgFlow 80s ease-in-out infinite alternate,
+          fadeIn 0.5s ease-out;
+        -webkit-font-smoothing: antialiased;
+        min-height: 100vh;
+        position: relative;
+        transition: background-color 0.4s ease;
+      }
+
+      /* Grain texture overlay */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 10000;
+        opacity: 0.035;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      }
+
+      body.dark-mode::before {
+        opacity: 0.045;
+      }
+      body.dark-mode {
+        background: radial-gradient(
+            1500px 1200px at 15% 20%,
+            rgba(246, 68, 184, 0.7),
+            rgba(246, 68, 184, 0.3) 40%,
+            transparent 60%
+          ),
+          radial-gradient(
+            1400px 1100px at 85% 25%,
+            rgba(169, 132, 220, 0.65),
+            rgba(169, 132, 220, 0.25) 40%,
+            transparent 60%
+          ),
+          radial-gradient(
+            1300px 1000px at 50% 80%,
+            rgba(252, 215, 131, 0.62),
+            rgba(252, 215, 131, 0.22) 42%,
+            transparent 62%
+          ),
+          radial-gradient(
+            1200px 950px at 70% 50%,
+            rgba(246, 68, 184, 0.58),
+            rgba(246, 68, 184, 0.18) 38%,
+            transparent 58%
+          ),
+          radial-gradient(
+            1100px 900px at 20% 60%,
+            rgba(169, 132, 220, 0.52),
+            rgba(169, 132, 220, 0.15) 40%,
+            transparent 58%
+          ),
+          radial-gradient(
+            1000px 850px at 90% 75%,
+            rgba(252, 215, 131, 0.5),
+            rgba(252, 215, 131, 0.15) 38%,
+            transparent 60%
+          ),
+          radial-gradient(
+            950px 800px at 10% 85%,
+            rgba(246, 68, 184, 0.45),
+            rgba(246, 68, 184, 0.12) 40%,
+            transparent 60%
+          ),
+          radial-gradient(
+            900px 750px at 55% 15%,
+            rgba(169, 132, 220, 0.42),
+            rgba(169, 132, 220, 0.12) 38%,
+            transparent 58%
+          ),
+          radial-gradient(
+            850px 700px at 35% 40%,
+            rgba(252, 215, 131, 0.38),
+            rgba(252, 215, 131, 0.1) 40%,
+            transparent 60%
+          ),
+          radial-gradient(
+            800px 650px at 80% 90%,
+            rgba(246, 68, 184, 0.35),
+            transparent 55%
+          ),
+          radial-gradient(
+            750px 600px at 60% 70%,
+            rgba(169, 132, 220, 0.32),
+            transparent 52%
+          ),
+          radial-gradient(
+            700px 550px at 25% 30%,
+            rgba(252, 215, 131, 0.28),
+            transparent 50%
+          ),
+          radial-gradient(
+            650px 500px at 45% 55%,
+            rgba(246, 68, 184, 0.25),
+            transparent 48%
+          ),
+          radial-gradient(
+            600px 480px at 75% 45%,
+            rgba(169, 132, 220, 0.22),
+            transparent 48%
+          ),
+          radial-gradient(
+            550px 450px at 30% 85%,
+            rgba(252, 215, 131, 0.2),
+            transparent 46%
+          ),
+          var(--bg);
+        background-size: 400% 400%;
+        animation: darkModeFlow 120s ease-in-out infinite alternate;
+      }
+      @keyframes bgFlow {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      @keyframes shimmer {
+        0% {
+          background-position: 0% 50%;
+        }
+
+        /* Page transition animations */
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
+        @keyframes fadeOut {
+          from {
+            opacity: 1;
+          }
+          to {
+            opacity: 0;
+          }
+        }
+
+        body.page-exit {
+          animation: fadeOut 0.3s ease-in forwards;
+        }
+
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+      @keyframes darkModeFlow {
+        0% {
+          background-position: 0% 50%, 100% 50%, 50% 100%, 80% 20%, 20% 80%,
+            90% 90%, 10% 10%, 60% 40%, 40% 60%, 75% 75%, 55% 25%, 30% 70%,
+            85% 35%, 25% 85%, 65% 55%;
+        }
+        20% {
+          background-position: 30% 80%, 70% 20%, 90% 60%, 15% 45%, 85% 55%,
+            25% 75%, 65% 35%, 50% 90%, 95% 15%, 20% 20%, 75% 85%, 45% 50%,
+            55% 70%, 90% 25%, 35% 95%;
+        }
+        40% {
+          background-position: 70% 70%, 30% 30%, 50% 10%, 95% 85%, 5% 15%,
+            80% 40%, 20% 60%, 60% 80%, 40% 20%, 85% 55%, 15% 45%, 70% 30%,
+            50% 65%, 80% 15%, 25% 50%;
+        }
+        60% {
+          background-position: 100% 40%, 0% 60%, 80% 80%, 40% 10%, 60% 90%,
+            10% 50%, 90% 50%, 25% 25%, 75% 75%, 50% 50%, 35% 65%, 88% 12%,
+            45% 75%, 70% 35%, 20% 60%;
+        }
+        80% {
+          background-position: 50% 10%, 50% 90%, 20% 50%, 70% 70%, 30% 30%,
+            85% 15%, 15% 85%, 95% 55%, 5% 45%, 40% 80%, 80% 20%, 60% 60%,
+            35% 40%, 65% 80%, 15% 25%;
+        }
+        100% {
+          background-position: 0% 50%, 100% 50%, 50% 100%, 80% 20%, 20% 80%,
+            90% 90%, 10% 10%, 60% 40%, 40% 60%, 75% 75%, 55% 25%, 30% 70%,
+            85% 35%, 25% 85%, 65% 55%;
+        }
+      }
+
+      .wrap {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 48px 24px 80px;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 48px;
+      }
+      .back {
+        color: var(--ink-2);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+      .back:hover {
+        color: var(--pink);
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+      nav a {
+        color: var(--ink-2);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+      nav a:hover {
+        color: var(--pink);
+      }
+      .theme-toggle {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: none;
+        background: var(--card-bg);
+        backdrop-filter: blur(10px);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--stroke);
+      }
+      .theme-toggle:hover {
+        transform: scale(1.05);
+      }
+      .toggle-icon {
+        width: 20px;
+        height: 20px;
+      }
+      .sun-icon {
+        display: none;
+      }
+      body.dark-mode .sun-icon {
+        display: block;
+      }
+      body.dark-mode .moon-icon {
+        display: none;
+      }
+      .toggle-icon svg {
+        width: 100%;
+        height: 100%;
+        fill: var(--ink);
+      }
+
+      .hero {
+        margin-bottom: 64px;
+      }
+      .project-title {
+        font-size: clamp(3rem, 8vw, 5rem);
+        font-weight: 700;
+        margin: 0 0 16px;
+        text-transform: lowercase;
+        background: linear-gradient(
+          120deg,
+          var(--pink),
+          var(--lavender),
+          var(--gold)
+        );
+        background-size: 300% 300%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: 1;
+        letter-spacing: -0.03em;
+        animation: shimmer 8s ease-in-out infinite;
+      }
+      .project-meta {
+        display: flex;
+        gap: 32px;
+        flex-wrap: wrap;
+        margin-top: 24px;
+      }
+      .meta-item {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .meta-label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--ink-2);
+        font-weight: 600;
+      }
+      .meta-value {
+        font-size: 1.1rem;
+        color: var(--ink);
+        font-weight: 500;
+      }
+
+      .section {
+        margin-bottom: 64px;
+      }
+      .section-title {
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+        font-weight: 600;
+        margin: 0 0 24px;
+        text-transform: lowercase;
+        background: linear-gradient(
+          90deg,
+          var(--pink),
+          var(--lavender),
+          var(--gold),
+          var(--pink)
+        );
+        background-size: 300% 300%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shimmer 4s ease-in-out infinite;
+      }
+      .section-content {
+        background: var(--section-bg);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--stroke);
+        border-radius: 20px;
+        padding: 32px;
+        box-shadow: var(--shadow);
+        transition: all 0.4s ease;
+      }
+      .section-content p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: var(--ink-2);
+        margin: 0 0 1rem;
+      }
+      .section-content p:last-child {
+        margin-bottom: 0;
+      }
+      strong {
+        color: var(--pink);
+        font-weight: 600;
+      }
+
+      /* Posters grid (no captions) */
+      .poster-grid {
+        margin-top: 24px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 16px;
+      }
+      .poster {
+        background: var(--card-bg);
+        border: 1px solid var(--stroke);
+        border-radius: 16px;
+        padding: 12px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        transition: transform 0.25s ease, box-shadow 0.25s ease,
+          border-color 0.25s ease;
+      }
+      .poster:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(246, 68, 184, 0.15);
+        border-color: rgba(246, 68, 184, 0.3);
+      }
+      .poster img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        display: block;
+      }
+
+      /* cursor + trail */
+      .cursor {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--pink);
+        box-shadow: 0 0 15px rgba(246, 68, 184, 0.6);
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        transition: transform 0.1s ease-out;
+        z-index: 9999;
+      }
+      .cursor-trail {
+        position: fixed;
+        pointer-events: none;
+        z-index: 9998;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .cursor-trail svg {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        overflow: visible;
+      }
+      @media (hover: hover) {
+        body {
+          cursor: none;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .cursor,
+        .cursor-trail {
+          display: none;
+        }
+        * {
+          animation: none !important;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .wrap {
+          padding: 32px 20px 60px;
+        }
+        .project-meta {
+          gap: 20px;
+        }
+        .section-content {
+          padding: 24px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <header>
+        <a class="back" href="works.html">← back</a>
+        <nav>
+          <a href="works.html">work</a>
+          <a href="about.html">about</a>
+          <a href="mailto:mikapham229@gmail.com">contact</a>
+          <button
+            class="theme-toggle"
+            id="themeToggle"
+            aria-label="Toggle dark mode"
+          >
+            <div class="toggle-icon">
+              <svg
+                class="moon-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Z"
+                />
+              </svg>
+              <svg
+                class="sun-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12,6a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V5A1,1,0,0,0,12,6ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-1.41-1.42A1,1,0,0,0,4.22,5.64ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm.64,5.05a1,1,0,0,0-1.41,1.41l1.41,1.42a1,1,0,0,0,.71.29,1,1,0,0,0,.7-.29,1,1,0,0,0,0-1.41ZM12,18a1,1,0,0,0-1,1v2a1,1,0,0,0,2,0V19A1,1,0,0,0,12,18Zm5.66-.36a1,1,0,0,0-1.41,1.41l1.41,1.42a1,1,0,0,0,.71.29,1,1,0,0,0,.7-.29,1,1,0,0,0,0-1.41ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-2.64-3.95a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29l1.41-1.42a1,1,0,1,0-1.41-1.41l-1.41,1.42A1,1,0,0,0,18.36,7.05ZM12,8a4,4,0,1,0,4,4A4,4,0,0,0,12,8Z"
+                />
+              </svg>
+            </div>
+          </button>
+        </nav>
+      </header>
+
+      <!-- Hero -->
+      <div class="hero">
+        <h1 class="project-title">confidance</h1>
+        <div class="project-meta">
+          <div class="meta-item">
+            <div class="meta-label">role</div>
+            <div class="meta-value">head of marketing</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">timeline</div>
+            <div class="meta-value">2024-2025</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">type</div>
+            <div class="meta-value">branding • graphic designs</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Intro (based on your old intro; no metrics) -->
+      <div class="section">
+        <h2 class="section-title">about confidance</h2>
+        <div class="section-content">
+          <p>
+            as part of <strong>vanderbilt’s premier dance organization</strong>,
+            confidance, i led visual branding and creative direction across
+            performances and campaigns. as head of marketing, i designed
+            <strong
+              >promotional assets ranging from posters and flyers to video reels
+              and social content</strong
+            >. in my role as creative director, i
+            <strong
+              >planned and directed photoshoots, photographed our
+              dancers</strong
+            >, and translated movement into visual stories, crafting cohesive
+            poster designs and marketing materials that reflected the energy and
+            identity of each dancer and showcase.
+          </p>
+        </div>
+      </div>
+
+      <!-- Posters grid (no captions) -->
+      <div class="section">
+        <h2 class="section-title">posters</h2>
+        <div class="poster-grid">
+          <!-- replace the src paths with your actual files -->
+          <div class="poster">
+            <img
+              src="confidance/poster1.jpg"
+              alt="Confidance poster 1"
+              loading="lazy"
+            />
+          </div>
+          <div class="poster">
+            <img
+              src="confidance/poster2.jpg"
+              alt="Confidance poster 2"
+              loading="lazy"
+            />
+          </div>
+          <div class="poster">
+            <img
+              src="confidance/poster3.jpg"
+              alt="Confidance poster 3"
+              loading="lazy"
+            />
+          </div>
+          <div class="poster">
+            <img
+              src="confidance/poster4.jpg"
+              alt="Confidance poster 4"
+              loading="lazy"
+            />
+          </div>
+          <div class="poster">
+            <img
+              src="confidance/poster5.jpg"
+              alt="Confidance poster 5"
+              loading="lazy"
+            />
+          </div>
+          <div class="poster">
+            <img
+              src="confidance/poster6.jpg"
+              alt="Confidance poster 6"
+              loading="lazy"
+            />
+          </div>
+          <div class="poster">
+            <img
+              src="confidance/poster7.jpg"
+              alt="Confidance poster 7"
+              loading="lazy"
+            />
+          </div>
+          <div class="poster">
+            <img
+              src="confidance/poster8.jpg"
+              alt="Confidance poster 8"
+              loading="lazy"
+            />
+          </div>
+          <div class="poster">
+            <img
+              src="confidance/poster9.jpg"
+              alt="Confidance poster 9"
+              loading="lazy"
+            />
+          </div>
+          <div class="poster">
+            <img
+              src="confidance/poster10.jpg"
+              alt="Confidance poster 10"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- pink cursor + trailing line -->
+    <svg class="cursor-trail" xmlns="http://www.w3.org/2000/svg">
+      <path
+        id="trail"
+        fill="none"
+        stroke="rgb(246, 68, 184)"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+    </svg>
+    <div class="cursor"></div>
+
+    <script>
+      // theme toggle
+      const themeToggle = document.getElementById("themeToggle");
+      const body = document.body;
+      const currentTheme = localStorage.getItem("theme") || "light";
+      if (currentTheme === "dark") body.classList.add("dark-mode");
+      themeToggle.addEventListener("click", () => {
+        body.classList.toggle("dark-mode");
+        localStorage.setItem(
+          "theme",
+          body.classList.contains("dark-mode") ? "dark" : "light"
+        );
+      });
+
+      // cursor trail
+      const cursor = document.querySelector(".cursor");
+      const trail = document.getElementById("trail");
+      const trailLength = 25;
+      const points = [];
+      let lastMoveTime = Date.now();
+
+      function updateTrail() {
+        const now = Date.now();
+        if (now - lastMoveTime > 80 && points.length > 0) points.shift();
+
+        if (points.length > 1) {
+          let d = `M ${points[0].x} ${points[0].y}`;
+          for (let i = 1; i < points.length - 1; i++) {
+            const xc = (points[i].x + points[i + 1].x) / 2;
+            const yc = (points[i].y + points[i + 1].y) / 2;
+            d += ` Q ${points[i].x} ${points[i].y} ${xc} ${yc}`;
+          }
+          const last = points[points.length - 1];
+          d += ` L ${last.x} ${last.y}`;
+          trail.setAttribute("d", d);
+        } else {
+          trail.setAttribute("d", "");
+        }
+        requestAnimationFrame(updateTrail);
+      }
+
+      window.addEventListener("mousemove", (e) => {
+        cursor.style.left = e.clientX + "px";
+        cursor.style.top = e.clientY + "px";
+        lastMoveTime = Date.now();
+
+        if (
+          points.length === 0 ||
+          Math.abs(points[points.length - 1].x - e.clientX) > 2 ||
+          Math.abs(points[points.length - 1].y - e.clientY) > 2
+        ) {
+          points.push({ x: e.clientX, y: e.clientY });
+          if (points.length > trailLength) points.shift();
+        }
+      });
+
+      updateTrail();
+
+      // Smooth page transitions
+      document.addEventListener("DOMContentLoaded", () => {
+        // Add smooth transition to all internal links
+        const links = document.querySelectorAll('a[href$=".html"]');
+
+        links.forEach((link) => {
+          link.addEventListener("click", (e) => {
+            const href = link.getAttribute("href");
+
+            // Don't intercept external links or target="_blank"
+            if (link.target === "_blank" || !href || href.startsWith("http")) {
+              return;
+            }
+
+            e.preventDefault();
+
+            // Add fade-out class
+            document.body.classList.add("page-exit");
+
+            // Navigate after animation
+            setTimeout(() => {
+              window.location.href = href;
+            }, 300);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

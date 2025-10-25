@@ -1,0 +1,240 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+:root {
+  --bg: #0b0b0b;
+  --fg: #ffffff;
+  --muted: #bdbdbd;
+  --card: #141414;
+  --border: #262626;
+
+  /* Mika’s brand colors */
+  --pink: rgb(246, 68, 184);
+  --lavender: rgb(169, 132, 220);
+  --gold: rgb(252, 215, 131);
+
+  --gradient: linear-gradient(90deg, var(--pink), var(--lavender), var(--gold));
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.6 "Poppins", sans-serif;
+}
+
+/* Nav */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+.logo {
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.links {
+  display: flex;
+  gap: 20px;
+}
+.links a {
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+.links a:hover {
+  opacity: 1;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--fg);
+  font-size: 22px;
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  height: 80vh;
+}
+.hero spline-viewer {
+  position: absolute;
+  inset: 0;
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.8)
+  );
+  display: flex;
+  align-items: end;
+}
+.hero-text {
+  padding-bottom: 40px;
+}
+.hero h1 {
+  font-size: clamp(32px, 6vw, 60px);
+  line-height: 1.1;
+  margin: 0 0 8px;
+  font-weight: 600;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero p {
+  max-width: 720px;
+  opacity: 0.85;
+  margin: 0 0 16px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: all 0.25s ease;
+}
+.btn.primary {
+  background: var(--gradient);
+  color: #000;
+  border: none;
+  font-weight: 600;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+/* Sections */
+.section {
+  padding: 64px 0;
+  border-top: 1px solid var(--border);
+}
+.section.alt {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+}
+.sub {
+  color: var(--muted);
+  margin: 8px 0 24px;
+}
+.grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+/* Cards */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-3px);
+  border-color: var(--lavender);
+}
+.card h3 {
+  margin-top: 0;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.pill {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 14px;
+  border: 1px solid var(--border);
+}
+
+/* About */
+.two-col {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+.list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.list li {
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--border);
+}
+
+/* Contact */
+.form {
+  display: grid;
+  gap: 12px;
+  max-width: 520px;
+}
+.form input,
+.form textarea {
+  background: #101010;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  color: var(--fg);
+}
+.form textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.small {
+  font-size: 13px;
+}
+.muted {
+  color: var(--muted);
+}
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 20px 0;
+  margin-top: 20px;
+}
+
+@media (max-width: 720px) {
+  .links {
+    display: none;
+  }
+  .menu-btn {
+    display: block;
+  }
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+}
