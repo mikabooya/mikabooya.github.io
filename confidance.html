@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 
     <style>
-      * { cursor: none !important; } /* match veryfi */
+      * { box-sizing: border-box; cursor: none !important; }
 
       :root{
         --pink: rgb(246, 68, 184);
@@ -24,66 +24,64 @@
         --card-bg-dark:rgba(40,40,40,.6); --section-bg-dark:rgba(40,40,40,.4);
       }
 
-      *{ box-sizing:border-box; }
-
+      /* theme variables */
       body{
         --bg:var(--bg-light); --ink:var(--ink-light); --ink-2:var(--ink-2-light);
         --stroke:var(--stroke-light); --shadow:var(--shadow-light);
         --card-bg:var(--card-bg-light); --section-bg:var(--section-bg-light);
       }
-   /* Dark mode background — match Veryfi */
-body.dark-mode {
-  background:
-    radial-gradient(1500px 1200px at 15% 20%, rgba(246, 68, 184, 0.7), rgba(246, 68, 184, 0.3) 40%, transparent 60%),
-    radial-gradient(1400px 1100px at 85% 25%, rgba(169, 132, 220, 0.65), rgba(169, 132, 220, 0.25) 40%, transparent 60%),
-    radial-gradient(1300px 1000px at 50% 80%, rgba(252, 215, 131, 0.62), rgba(252, 215, 131, 0.22) 42%, transparent 62%),
-    radial-gradient(1200px 950px at 70% 50%, rgba(246, 68, 184, 0.58), rgba(246, 68, 184, 0.18) 38%, transparent 58%),
-    radial-gradient(1100px 900px at 20% 60%, rgba(169, 132, 220, 0.52), rgba(169, 132, 220, 0.15) 40%, transparent 58%),
-    radial-gradient(1000px 850px at 90% 75%, rgba(252, 215, 131, 0.5), rgba(252, 215, 131, 0.15) 38%, transparent 60%),
-    radial-gradient(950px 800px at 10% 85%, rgba(246, 68, 184, 0.45), rgba(246, 68, 184, 0.12) 40%, transparent 60%),
-    radial-gradient(900px 750px at 55% 15%, rgba(169, 132, 220, 0.42), rgba(169, 132, 220, 0.12) 38%, transparent 58%),
-    radial-gradient(850px 700px at 35% 40%, rgba(252, 215, 131, 0.38), rgba(252, 215, 131, 0.1) 40%, transparent 60%),
-    radial-gradient(800px 650px at 80% 90%, rgba(246, 68, 184, 0.35), transparent 55%),
-    radial-gradient(750px 600px at 60% 70%, rgba(169, 132, 220, 0.32), transparent 52%),
-    radial-gradient(700px 550px at 25% 30%, rgba(252, 215, 131, 0.28), transparent 50%),
-    radial-gradient(650px 500px at 45% 55%, rgba(246, 68, 184, 0.25), transparent 48%),
-    radial-gradient(600px 480px at 75% 45%, rgba(169, 132, 220, 0.22), transparent 48%),
-    radial-gradient(550px 450px at 30% 85%, rgba(252, 215, 131, 0.2), transparent 46%),
-    var(--bg);
-  background-size: 400% 400%;
-  animation: darkModeFlow 120s ease-in-out infinite alternate;
-}
-
-/* Include the keyframes once (if not already present) */
-@keyframes darkModeFlow {
-  0% { background-position: 0% 50%, 100% 50%, 50% 100%, 80% 20%, 20% 80%, 90% 90%, 10% 10%, 60% 40%, 40% 60%, 75% 75%, 55% 25%, 30% 70%, 85% 35%, 25% 85%, 65% 55%; }
-  50% { background-position: 50% 10%, 50% 90%, 20% 50%, 70% 70%, 30% 30%, 85% 15%, 15% 85%, 95% 55%, 5% 45%, 40% 80%, 80% 20%, 60% 60%, 35% 40%, 65% 80%, 15% 25%; }
-  100% { background-position: 0% 50%, 100% 50%, 50% 100%, 80% 20%, 20% 80%, 90% 90%, 10% 10%, 60% 40%, 40% 60%, 75% 75%, 55% 25%, 30% 70%, 85% 35%, 25% 85%, 65% 55%; }
-}
-
-
-      body{
-        margin:0; font-family:"Poppins",sans-serif; color:var(--ink);
-        background:
-          radial-gradient(1400px 900px at 12% 18%, rgba(246,68,184,.2), transparent 60%),
-          radial-gradient(1200px 800px at 88% 72%, rgba(169,132,220,.2), transparent 60%),
-          radial-gradient(1000px 700px at 50% 95%, rgba(252,215,131,.18), transparent 70%),
-          var(--bg);
-        background-size:300% 300%;
-        animation:bgFlow 80s ease-in-out infinite alternate, fadeIn .5s ease-out;
-        -webkit-font-smoothing:antialiased; min-height:100vh; position:relative;
-        transition:background-color .4s ease;
-        cursor:auto; /* same as veryfi */
+      body.dark-mode{
+        --bg:var(--bg-dark); --ink:var(--ink-dark); --ink-2:var(--ink-2-dark);
+        --stroke:var(--stroke-dark); --shadow:var(--shadow-dark);
+        --card-bg:var(--card-bg-dark); --section-bg:var(--section-bg-dark);
       }
 
-      /* Grain overlay (veryfi) */
+      /* LIGHT MODE BACKGROUND — keep it clean (no colorful gradient) */
+      body{
+        margin:0; font-family:"Poppins",sans-serif; color:var(--ink);
+        background: var(--bg);
+        background-size:300% 300%;
+        animation: fadeIn .5s ease-out;
+        -webkit-font-smoothing:antialiased; min-height:100vh; position:relative;
+        transition: background-color .4s ease, color .4s ease;
+        cursor:auto;
+      }
+
+      /* DARK MODE BACKGROUND — animated multi-radial gradient (Veryfi style) */
+      body.dark-mode{
+        background:
+          radial-gradient(1500px 1200px at 15% 20%, rgba(246, 68, 184, 0.7), rgba(246, 68, 184, 0.3) 40%, transparent 60%),
+          radial-gradient(1400px 1100px at 85% 25%, rgba(169, 132, 220, 0.65), rgba(169, 132, 220, 0.25) 40%, transparent 60%),
+          radial-gradient(1300px 1000px at 50% 80%, rgba(252, 215, 131, 0.62), rgba(252, 215, 131, 0.22) 42%, transparent 62%),
+          radial-gradient(1200px 950px at 70% 50%, rgba(246, 68, 184, 0.58), rgba(246, 68, 184, 0.18) 38%, transparent 58%),
+          radial-gradient(1100px 900px at 20% 60%, rgba(169, 132, 220, 0.52), rgba(169, 132, 220, 0.15) 40%, transparent 58%),
+          radial-gradient(1000px 850px at 90% 75%, rgba(252, 215, 131, 0.5), rgba(252, 215, 131, 0.15) 38%, transparent 60%),
+          radial-gradient(950px 800px at 10% 85%, rgba(246, 68, 184, 0.45), rgba(246, 68, 184, 0.12) 40%, transparent 60%),
+          radial-gradient(900px 750px at 55% 15%, rgba(169, 132, 220, 0.42), rgba(169, 132, 220, 0.12) 38%, transparent 58%),
+          radial-gradient(850px 700px at 35% 40%, rgba(252, 215, 131, 0.38), rgba(252, 215, 131, 0.1) 40%, transparent 60%),
+          radial-gradient(800px 650px at 80% 90%, rgba(246, 68, 184, 0.35), transparent 55%),
+          radial-gradient(750px 600px at 60% 70%, rgba(169, 132, 220, 0.32), transparent 52%),
+          radial-gradient(700px 550px at 25% 30%, rgba(252, 215, 131, 0.28), transparent 50%),
+          radial-gradient(650px 500px at 45% 55%, rgba(246, 68, 184, 0.25), transparent 48%),
+          radial-gradient(600px 480px at 75% 45%, rgba(169, 132, 220, 0.22), transparent 48%),
+          radial-gradient(550px 450px at 30% 85%, rgba(252, 215, 131, 0.2), transparent 46%),
+          var(--bg);
+        background-size: 400% 400%;
+        animation: darkModeFlow 120s ease-in-out infinite alternate;
+      }
+
+      /* Grain overlay */
       body::before{
         content:""; position:fixed; inset:0; pointer-events:none; z-index:10000; opacity:.035;
         background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
       }
       body.dark-mode::before{ opacity:.045; }
 
-      @keyframes bgFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+      @keyframes darkModeFlow{
+        0%{background-position:0% 50%,100% 50%,50% 100%,80% 20%,20% 80%,90% 90%,10% 10%,60% 40%,40% 60%,75% 75%,55% 25%,30% 70%,85% 35%,25% 85%,65% 55%;}
+        50%{background-position:50% 10%,50% 90%,20% 50%,70% 70%,30% 30%,85% 15%,15% 85%,95% 55%,5% 45%,40% 80%,80% 20%,60% 60%,35% 40%,65% 80%,15% 25%;}
+        100%{background-position:0% 50%,100% 50%,50% 100%,80% 20%,20% 80%,90% 90%,10% 10%,60% 40%,40% 60%,75% 75%,55% 25%,30% 70%,85% 35%,25% 85%,65% 55%;}
+      }
       @keyframes fadeIn{from{opacity:0}to{opacity:1}}
       @keyframes shimmer{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
       @keyframes fadeOut{from{opacity:1}to{opacity:0}}
@@ -91,7 +89,7 @@ body.dark-mode {
 
       .wrap{ max-width:1120px; margin:0 auto; padding:48px 24px 80px; }
 
-      /* Header (veryfi) */
+      /* Header (Veryfi) */
       header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:48px; }
       .back{ color:var(--ink-2); text-decoration:none; font-weight:500; transition:color .3s ease; }
       .back:hover{ color:var(--pink); }
@@ -105,11 +103,11 @@ body.dark-mode {
         transition:all .3s ease; box-shadow:var(--shadow); border:1px solid var(--stroke);
       }
       .theme-toggle:hover{ transform:scale(1.05); }
-      .toggle-icon{ width:20px;height:20px; position:relative; }
+      .toggle-icon{ width:20px;height:20px; }
       .toggle-icon svg{ width:100%; height:100%; fill:var(--ink); }
       .sun-icon{ display:none; } body.dark-mode .sun-icon{ display:block; } body.dark-mode .moon-icon{ display:none; }
 
-      /* Hero — centered title + 3-column meta (like veryfi layout but centered) */
+      /* Hero (centered + 3-column meta) */
       .hero{ margin-bottom:64px; text-align:center; }
       .project-title{
         font-size:clamp(3rem,8vw,5rem); font-weight:700; margin:0 0 24px;
@@ -120,16 +118,20 @@ body.dark-mode {
       }
       .project-meta{
         display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:32px;
-        max-width:720px; margin:0 auto;
+        max-width:760px; margin:0 auto; align-items:start;
       }
-      .meta-item{ display:flex; flex-direction:column; gap:4px; text-align:center; }
+      .meta-item{ display:flex; flex-direction:column; gap:4px; text-align:center; min-width:0; }
       .meta-label{
-        font-size:.8rem; text-transform:uppercase; letter-spacing:.1em;
-        color:var(--ink-2); font-weight:600;
+        font-size:.78rem; text-transform:uppercase; letter-spacing:.12em;
+        color:var(--ink-2); font-weight:600; margin-bottom:.25rem;
       }
-      .meta-value{ font-size:1.1rem; color:var(--ink); font-weight:500; }
+      .meta-value{
+        font-size:clamp(.98rem,1.5vw,1.22rem);
+        line-height:1.2; font-weight:600; color:var(--ink);
+        white-space:nowrap;          /* keep on one line on desktop */
+      }
 
-      /* Sections (veryfi) */
+      /* Sections (Veryfi) */
       .section{ margin-bottom:64px; }
       .section-title{
         font-size:clamp(1.75rem,4vw,2.5rem); font-weight:600; margin:0 0 24px; text-transform:lowercase;
@@ -146,7 +148,7 @@ body.dark-mode {
       .section-content p:last-child{ margin-bottom:0; }
       strong{ color:var(--pink); font-weight:600; }
 
-      /* Poster grids (3 per row desktop, 2 tablet, 1 mobile) */
+      /* Posters */
       .poster-grid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:20px; }
       .poster{
         background:var(--card-bg); border:1px solid var(--stroke); border-radius:20px;
@@ -161,12 +163,13 @@ body.dark-mode {
       @media (max-width:1024px){ .poster-grid{ grid-template-columns:repeat(2,1fr);} }
       @media (max-width:640px){
         .wrap{ padding:32px 20px 60px; }
-        .project-meta{ grid-template-columns:1fr; gap:16px; }
+        .project-meta{ grid-template-columns:1fr; gap:16px; max-width:420px; }
+        .meta-value{ white-space:normal; }
         .poster-grid{ grid-template-columns:1fr; }
         .section-content{ padding:24px; }
       }
 
-      /* Cursor dot (same as veryfi file) */
+      /* Pink cursor */
       .cursor{
         width:20px; height:20px; border-radius:50%; background:var(--pink);
         position:fixed; pointer-events:none; transform:translate(-50%,-50%);
@@ -175,9 +178,7 @@ body.dark-mode {
       }
       .cursor.click{ transform:translate(-50%,-50%) scale(.8); }
 
-      @media (prefers-reduced-motion: reduce){
-        *{ animation:none !important; }
-      }
+      @media (prefers-reduced-motion: reduce){ *{ animation:none !important; } }
     </style>
   </head>
 
@@ -270,39 +271,44 @@ body.dark-mode {
       </div>
     </div>
 
-    <!-- optional pink cursor (same behavior as veryfi) -->
+    <!-- cursor dot -->
     <div class="cursor"></div>
 
     <script>
-      // Theme toggle (veryfi)
-      const themeToggle=document.getElementById("themeToggle");
-      const body=document.body;
-      const currentTheme=localStorage.getItem("theme")||"light";
-      if(currentTheme==="dark") body.classList.add("dark-mode");
-      themeToggle.addEventListener("click",()=>{
+      // Theme toggle with safe defaults (honor system preference if no stored value)
+      const themeToggle = document.getElementById("themeToggle");
+      const body = document.body;
+      const stored = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      if (stored === "dark" || (!stored && prefersDark)) {
+        body.classList.add("dark-mode");
+      }
+
+      themeToggle.addEventListener("click", () => {
         body.classList.toggle("dark-mode");
-        localStorage.setItem("theme", body.classList.contains("dark-mode") ? "dark":"light");
+        localStorage.setItem("theme", body.classList.contains("dark-mode") ? "dark" : "light");
       });
 
-      // Smooth page transitions (veryfi)
-      document.addEventListener("DOMContentLoaded",()=>{
-        const links=document.querySelectorAll('a[href$=".html"]');
-        links.forEach(link=>{
-          link.addEventListener("click",(e)=>{
-            const href=link.getAttribute("href");
-            if(link.target==="_blank" || !href || href.startsWith("http")) return;
+      // Smooth internal link transitions
+      document.addEventListener("DOMContentLoaded", () => {
+        const links = document.querySelectorAll('a[href$=".html"]');
+        links.forEach((link) => {
+          link.addEventListener("click", (e) => {
+            const href = link.getAttribute("href");
+            if (link.target === "_blank" || !href || href.startsWith("http")) return;
             e.preventDefault();
             document.body.classList.add("page-exit");
-            setTimeout(()=>{ window.location.href=href; },300);
+            setTimeout(() => { window.location.href = href; }, 300);
           });
         });
 
-        // Cursor dot (veryfi)
-        const cursor=document.querySelector(".cursor");
-        if(cursor){
-          window.addEventListener("mousemove",(e)=>{ cursor.style.left=e.clientX+"px"; cursor.style.top=e.clientY+"px"; });
-          window.addEventListener("mousedown",()=>cursor.classList.add("click"));
-          window.addEventListener("mouseup",()=>cursor.classList.remove("click"));
+        // cursor dot
+        const cursor = document.querySelector(".cursor");
+        if (cursor) {
+          window.addEventListener("mousemove", (e)=>{ cursor.style.left=e.clientX+"px"; cursor.style.top=e.clientY+"px"; });
+          window.addEventListener("mousedown", ()=>cursor.classList.add("click"));
+          window.addEventListener("mouseup", ()=>cursor.classList.remove("click"));
         }
       });
     </script>
