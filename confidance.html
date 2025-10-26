@@ -31,11 +31,36 @@
         --stroke:var(--stroke-light); --shadow:var(--shadow-light);
         --card-bg:var(--card-bg-light); --section-bg:var(--section-bg-light);
       }
-      body.dark-mode{
-        --bg:var(--bg-dark); --ink:var(--ink-dark); --ink-2:var(--ink-2-dark);
-        --stroke:var(--stroke-dark); --shadow:var(--shadow-dark);
-        --card-bg:var(--card-bg-dark); --section-bg:var(--section-bg-dark);
-      }
+   /* Dark mode background — match Veryfi */
+body.dark-mode {
+  background:
+    radial-gradient(1500px 1200px at 15% 20%, rgba(246, 68, 184, 0.7), rgba(246, 68, 184, 0.3) 40%, transparent 60%),
+    radial-gradient(1400px 1100px at 85% 25%, rgba(169, 132, 220, 0.65), rgba(169, 132, 220, 0.25) 40%, transparent 60%),
+    radial-gradient(1300px 1000px at 50% 80%, rgba(252, 215, 131, 0.62), rgba(252, 215, 131, 0.22) 42%, transparent 62%),
+    radial-gradient(1200px 950px at 70% 50%, rgba(246, 68, 184, 0.58), rgba(246, 68, 184, 0.18) 38%, transparent 58%),
+    radial-gradient(1100px 900px at 20% 60%, rgba(169, 132, 220, 0.52), rgba(169, 132, 220, 0.15) 40%, transparent 58%),
+    radial-gradient(1000px 850px at 90% 75%, rgba(252, 215, 131, 0.5), rgba(252, 215, 131, 0.15) 38%, transparent 60%),
+    radial-gradient(950px 800px at 10% 85%, rgba(246, 68, 184, 0.45), rgba(246, 68, 184, 0.12) 40%, transparent 60%),
+    radial-gradient(900px 750px at 55% 15%, rgba(169, 132, 220, 0.42), rgba(169, 132, 220, 0.12) 38%, transparent 58%),
+    radial-gradient(850px 700px at 35% 40%, rgba(252, 215, 131, 0.38), rgba(252, 215, 131, 0.1) 40%, transparent 60%),
+    radial-gradient(800px 650px at 80% 90%, rgba(246, 68, 184, 0.35), transparent 55%),
+    radial-gradient(750px 600px at 60% 70%, rgba(169, 132, 220, 0.32), transparent 52%),
+    radial-gradient(700px 550px at 25% 30%, rgba(252, 215, 131, 0.28), transparent 50%),
+    radial-gradient(650px 500px at 45% 55%, rgba(246, 68, 184, 0.25), transparent 48%),
+    radial-gradient(600px 480px at 75% 45%, rgba(169, 132, 220, 0.22), transparent 48%),
+    radial-gradient(550px 450px at 30% 85%, rgba(252, 215, 131, 0.2), transparent 46%),
+    var(--bg);
+  background-size: 400% 400%;
+  animation: darkModeFlow 120s ease-in-out infinite alternate;
+}
+
+/* Include the keyframes once (if not already present) */
+@keyframes darkModeFlow {
+  0% { background-position: 0% 50%, 100% 50%, 50% 100%, 80% 20%, 20% 80%, 90% 90%, 10% 10%, 60% 40%, 40% 60%, 75% 75%, 55% 25%, 30% 70%, 85% 35%, 25% 85%, 65% 55%; }
+  50% { background-position: 50% 10%, 50% 90%, 20% 50%, 70% 70%, 30% 30%, 85% 15%, 15% 85%, 95% 55%, 5% 45%, 40% 80%, 80% 20%, 60% 60%, 35% 40%, 65% 80%, 15% 25%; }
+  100% { background-position: 0% 50%, 100% 50%, 50% 100%, 80% 20%, 20% 80%, 90% 90%, 10% 10%, 60% 40%, 40% 60%, 75% 75%, 55% 25%, 30% 70%, 85% 35%, 25% 85%, 65% 55%; }
+}
+
 
       body{
         margin:0; font-family:"Poppins",sans-serif; color:var(--ink);
