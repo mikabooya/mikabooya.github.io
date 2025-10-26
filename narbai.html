@@ -24,7 +24,6 @@
         --card-bg-dark:rgba(40,40,40,.6); --section-bg-dark:rgba(40,40,40,.4);
       }
 
-      /* theme vars */
       body{
         --bg:var(--bg-light); --ink:var(--ink-light); --ink-2:var(--ink-2-light);
         --stroke:var(--stroke-light); --shadow:var(--shadow-light);
@@ -54,14 +53,11 @@
         -webkit-font-smoothing:antialiased; min-height:100vh; position:relative;
         transition:background-color .4s ease;
       }
-
-      /* grain */
       body::before{
         content:""; position:fixed; inset:0; pointer-events:none; z-index:10000; opacity:.035;
         background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
       }
       body.dark-mode::before{ opacity:.045; }
-
       body.dark-mode{
         background:
           radial-gradient(1500px 1200px at 15% 20%, rgba(246,68,184,.7), rgba(246,68,184,.3) 40%, transparent 60%),
@@ -78,11 +74,7 @@
       @keyframes fadeIn{from{opacity:0}to{opacity:1}}
       @keyframes fadeOut{from{opacity:1}to{opacity:0}}
       body.page-exit{animation:fadeOut .3s ease-in forwards}
-      @keyframes darkModeFlow{
-        0%{background-position:0% 50%,100% 50%,50% 100%,80% 20%,20% 80%}
-        50%{background-position:50% 10%,50% 90%,20% 50%,70% 70%,30% 30%}
-        100%{background-position:0% 50%,100% 50%,50% 100%,80% 20%,20% 80%}
-      }
+      @keyframes darkModeFlow{0%{background-position:0% 50%,100% 50%,50% 100%,80% 20%,20% 80%}50%{background-position:50% 10%,50% 90%,20% 50%,70% 70%,30% 30%}100%{background-position:0% 50%,100% 50%,50% 100%,80% 20%,20% 80%}}
 
       .wrap{ max-width:1120px; margin:0 auto; padding:48px 24px 80px; }
       header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:48px; }
@@ -131,7 +123,7 @@
       .section-content p:last-child{ margin-bottom:0; }
       strong{ color:var(--pink); font-weight:600; }
 
-      /* === Assets as STACK (1 column) === */
+      /* === Assets: stacked, centered, tidy === */
       .asset-grid{ display:grid; grid-template-columns:1fr; gap:20px; }
       .asset-card{
         background:var(--card-bg);
@@ -139,20 +131,34 @@
         border-radius:20px;
         padding:20px;
         box-shadow:var(--shadow);
-        transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
         overflow:hidden;
+        max-width:720px;              /* keep cards from getting too wide */
+        margin:0 auto;                /* center the stack */
+        transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
       }
       .asset-card:hover{
         transform:translateY(-4px);
         box-shadow:0 12px 32px rgba(246,68,184,.15);
         border-color:rgba(246,68,184,.3);
       }
+
       .video-box{ position:relative; border-radius:12px; overflow:hidden; background:#1a1d2e; }
       .video-box video{ width:100%; height:auto; display:block; }
-      .linkedin-box{ border-radius:12px; overflow:hidden; background:#f5f5f5; display:flex; justify-content:center; }
-      .linkedin-box iframe{ border:0; width:100%; max-width:504px; height:670px; display:block; }
 
-      /* simple pink cursor (no trail) */
+      /* LinkedIn — no gray gutter, responsive */
+      .linkedin-box{ border-radius:12px; overflow:hidden; background:transparent; }
+      .responsive-iframe{
+        position:relative;
+        width:100%;
+        max-width:504px;              /* LinkedIn’s native width */
+        aspect-ratio:504 / 670;       /* maintain the widget’s height */
+        margin:0 auto;                /* center inside the card */
+      }
+      .responsive-iframe iframe{
+        position:absolute; inset:0; width:100%; height:100%; border:0;
+      }
+
+      /* cursor (simple pink dot; no trail) */
       .cursor{
         width:20px; height:20px; border-radius:50%; background:var(--pink);
         position:fixed; pointer-events:none; transform:translate(-50%,-50%);
@@ -164,8 +170,8 @@
       @media (prefers-reduced-motion: reduce){ *{ animation:none !important; } }
       @media (max-width:768px){
         .wrap{ padding:32px 20px 60px; }
-        .project-meta{ gap:20px; }
         .section-content{ padding:24px; }
+        .asset-card{ max-width:100%; }
       }
     </style>
   </head>
@@ -180,12 +186,8 @@
           <a href="mailto:mikapham229@gmail.com">contact</a>
           <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
             <div class="toggle-icon">
-              <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Z"/>
-              </svg>
-              <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M12,6a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V5A1,1,0,0,0,12,6Zm0,12a1,1,0,0,0-1,1v2a1,1,0,0,0,2,0V19A1,1,0,0,0,12,18Z"/>
-              </svg>
+              <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Z"/></svg>
+              <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,6a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V5A1,1,0,0,0,12,6Zm0,12a1,1,0,0,0-1,1v2a1,1,0,0,0,2,0V19A1,1,0,0,0,12,18Z"/></svg>
             </div>
           </button>
         </nav>
@@ -201,7 +203,7 @@
         </div>
       </div>
 
-      <!-- My role (blurb restored) -->
+      <!-- My role (blurb) -->
       <div class="section">
         <h2 class="section-title">my role</h2>
         <div class="section-content">
@@ -218,21 +220,23 @@
       <!-- Assets (stacked) -->
       <div class="section">
         <div class="asset-grid">
-          <!-- MP4 card -->
+          <!-- MP4 -->
           <div class="asset-card">
             <div class="video-box">
               <video src="Narb_Logo_Animation.mp4" autoplay loop muted playsinline></video>
             </div>
           </div>
 
-          <!-- LinkedIn embed card -->
+          <!-- LinkedIn embed -->
           <div class="asset-card">
             <div class="linkedin-box">
-              <iframe
-                src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7346849291627356160?collapsed=1"
-                title="Embedded post"
-                allowfullscreen
-              ></iframe>
+              <div class="responsive-iframe">
+                <iframe
+                  src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7346849291627356160?collapsed=1"
+                  title="Embedded post"
+                  allowfullscreen
+                ></iframe>
+              </div>
             </div>
           </div>
         </div>
@@ -254,7 +258,7 @@
         localStorage.setItem("theme", body.classList.contains("dark-mode") ? "dark" : "light");
       });
 
-      // Smooth internal link transitions + simple cursor
+      // Smooth links + simple cursor
       document.addEventListener("DOMContentLoaded", () => {
         const links = document.querySelectorAll('a[href$=".html"]');
         links.forEach((link) => {
