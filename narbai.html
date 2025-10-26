@@ -131,12 +131,8 @@
       .section-content p:last-child{ margin-bottom:0; }
       strong{ color:var(--pink); font-weight:600; }
 
-      /* === Asset cards (glass like veryfi showcase) === */
-      .asset-grid{
-        display:grid;
-        grid-template-columns:repeat(2, 1fr);
-        gap:20px;
-      }
+      /* === Assets as STACK (1 column) === */
+      .asset-grid{ display:grid; grid-template-columns:1fr; gap:20px; }
       .asset-card{
         background:var(--card-bg);
         border:1px solid var(--stroke);
@@ -151,19 +147,12 @@
         box-shadow:0 12px 32px rgba(246,68,184,.15);
         border-color:rgba(246,68,184,.3);
       }
-      .video-box{
-        position:relative; border-radius:12px; overflow:hidden; background:#1a1d2e;
-      }
+      .video-box{ position:relative; border-radius:12px; overflow:hidden; background:#1a1d2e; }
       .video-box video{ width:100%; height:auto; display:block; }
-      .linkedin-box{
-        border-radius:12px; overflow:hidden; background:#f5f5f5; display:flex; justify-content:center;
-      }
-      .linkedin-box iframe{
-        border:0; width:100%; max-width:504px; height:670px; display:block;
-      }
-      @media (max-width:900px){ .asset-grid{ grid-template-columns:1fr; } }
+      .linkedin-box{ border-radius:12px; overflow:hidden; background:#f5f5f5; display:flex; justify-content:center; }
+      .linkedin-box iframe{ border:0; width:100%; max-width:504px; height:670px; display:block; }
 
-      /* === Simple pink cursor (no trail) === */
+      /* simple pink cursor (no trail) */
       .cursor{
         width:20px; height:20px; border-radius:50%; background:var(--pink);
         position:fixed; pointer-events:none; transform:translate(-50%,-50%);
@@ -186,7 +175,7 @@
       <header>
         <a class="back" href="works.html">← back</a>
         <nav>
-          <a href="works.html">work</a>
+          <a href="work.html">work</a>
           <a href="about.html">about</a>
           <a href="mailto:mikapham229@gmail.com">contact</a>
           <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
@@ -206,32 +195,37 @@
       <div class="hero">
         <h1 class="project-title">narb</h1>
         <div class="project-meta">
-          <div class="meta-item">
-            <div class="meta-label">role</div>
-            <div class="meta-value">marketing intern</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-label">timeline</div>
-            <div class="meta-value">summer 2025</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-label">type</div>
-            <div class="meta-value">social media • motion graphics</div>
-          </div>
+          <div class="meta-item"><div class="meta-label">role</div><div class="meta-value">marketing intern</div></div>
+          <div class="meta-item"><div class="meta-label">timeline</div><div class="meta-value">summer 2025</div></div>
+          <div class="meta-item"><div class="meta-label">type</div><div class="meta-value">social media • motion graphics</div></div>
         </div>
       </div>
 
-      <!-- Assets (no captions) -->
+      <!-- My role (blurb restored) -->
+      <div class="section">
+        <h2 class="section-title">my role</h2>
+        <div class="section-content">
+          <p>
+            at narb, i supported the creative team by designing
+            <strong>social media posts, motion graphics, and branded content</strong>
+            that aligned with the company's visual identity. i also
+            <strong>tracked post performance and engagement metrics</strong> to
+            help guide content strategy and optimize future campaigns.
+          </p>
+        </div>
+      </div>
+
+      <!-- Assets (stacked) -->
       <div class="section">
         <div class="asset-grid">
-          <!-- MP4 glass card -->
+          <!-- MP4 card -->
           <div class="asset-card">
             <div class="video-box">
               <video src="Narb_Logo_Animation.mp4" autoplay loop muted playsinline></video>
             </div>
           </div>
 
-          <!-- LinkedIn embed glass card -->
+          <!-- LinkedIn embed card -->
           <div class="asset-card">
             <div class="linkedin-box">
               <iframe
@@ -243,11 +237,9 @@
           </div>
         </div>
       </div>
-
-      <!-- You can keep your other sections below if you’d like -->
     </div>
 
-    <!-- Pink cursor dot -->
+    <!-- cursor dot -->
     <div class="cursor"></div>
 
     <script>
@@ -262,7 +254,7 @@
         localStorage.setItem("theme", body.classList.contains("dark-mode") ? "dark" : "light");
       });
 
-      // Smooth internal link transitions
+      // Smooth internal link transitions + simple cursor
       document.addEventListener("DOMContentLoaded", () => {
         const links = document.querySelectorAll('a[href$=".html"]');
         links.forEach((link) => {
@@ -275,15 +267,14 @@
           });
         });
 
-        // Simple cursor (no trail)
         const cursor = document.querySelector(".cursor");
         if (cursor) {
           window.addEventListener("mousemove", (e) => {
             cursor.style.left = e.clientX + "px";
-            cursor.style.top = e.clientY + "px";
+            cursor.style.top  = e.clientY + "px";
           });
           window.addEventListener("mousedown", () => cursor.classList.add("click"));
-          window.addEventListener("mouseup", () => cursor.classList.remove("click"));
+          window.addEventListener("mouseup",   () => cursor.classList.remove("click"));
         }
       });
     </script>
