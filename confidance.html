@@ -111,72 +111,45 @@ body.dark-mode { --glass-border: rgba(255,255,255,.08); } /* dark */
       .toggle-icon svg{ width:100%; height:100%; fill:var(--ink); }
       .sun-icon{ display:none; } body.dark-mode .sun-icon{ display:block; } body.dark-mode .moon-icon{ display:none; }
 
-     /* --- Centered hero + 3-col meta (match screenshot) --- */
+/* Center the hero + 3 meta items (keep your existing look) */
 .hero{
-  text-align:center;
-  margin: 0 auto 64px;
-}
-
-.project-title{
-  font-size: clamp(3.25rem, 8vw, 6rem);
-  line-height: 1;
-  font-weight: 700;
-  margin: 0 0 32px;
-  text-transform: lowercase;
-  background: linear-gradient(120deg, var(--pink), var(--lavender), var(--gold));
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shimmer 8s ease-in-out infinite;
-}
-
-.project-meta{
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  column-gap: clamp(28px, 6vw, 72px);
-  row-gap: 18px;
-  align-items: start;
-  justify-items: center;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.meta-item{
-  min-width: 0;
+  margin-bottom: 64px;
   text-align: center;
 }
 
-.meta-label{
-  font-size: 0.82rem;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--ink-2);
-  font-weight: 700;
-  margin-bottom: 10px;
+.project-meta{
+  display: grid;                         /* switch from flex to grid */
+  grid-template-columns: repeat(3, auto);/* 3 columns sized to content */
+  column-gap: 80px;                      /* space between the three */
+  row-gap: 16px;
+  margin: 24px auto 0;                   /* center the whole block */
+  justify-content: center;
+  justify-items: center;                 /* center each item */
 }
 
-.meta-value{
-  /* Big, single-line, like your screenshot */
-  font-size: clamp(1.35rem, 3.2vw, 2.25rem);
-  line-height: 1.15;
-  font-weight: 600;
-  color: var(--ink);
-  letter-spacing: -0.01em;
-  white-space: nowrap;     /* prevents wrapping */
-  overflow: hidden;
-  text-overflow: ellipsis; /* safety if viewport is tiny */
+.meta-item{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;                   /* center label + value */
+  text-align: center;
+  min-width: 0;
 }
 
-/* Stack on small screens */
-@media (max-width: 700px){
+/* Stack nicely on phones (keeps your current typography) */
+@media (max-width: 768px){
   .project-meta{
     grid-template-columns: 1fr;
+    column-gap: 0;
     row-gap: 14px;
-    justify-items: start;     /* reads nicer on mobile */
+    justify-items: start;
   }
-  .meta-item{ text-align: left; }
-  .meta-value{ white-space: normal; } /* allow wrap on phones */
+  .meta-item{
+    align-items: start;
+    text-align: left;
+  }
 }
+
 
       /* Sections (Veryfi) */
       .section{ margin-bottom:64px; }
