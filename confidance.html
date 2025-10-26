@@ -233,319 +233,275 @@
         0% {
           background-position: 0% 50%;
         }
-
-        /* Page transition animations */
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-
-        @keyframes fadeOut {
-          from {
-            opacity: 1;
-          }
-          to {
-            opacity: 0;
-          }
-        }
-
-        body.page-exit {
-          animation: fadeOut 0.3s ease-in forwards;
-        }
-
-        50% {
+        100% {
           background-position: 100% 50%;
         }
-        100% {
-          background-position: 0% 50%;
-        }
       }
-      @keyframes darkModeFlow {
-        0% {
-          background-position: 0% 50%, 100% 50%, 50% 100%, 80% 20%, 20% 80%,
-            90% 90%, 10% 10%, 60% 40%, 40% 60%, 75% 75%, 55% 25%, 30% 70%,
-            85% 35%, 25% 85%, 65% 55%;
+
+      /* Page transition animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
         }
-        20% {
-          background-position: 30% 80%, 70% 20%, 90% 60%, 15% 45%, 85% 55%,
-            25% 75%, 65% 35%, 50% 90%, 95% 15%, 20% 20%, 75% 85%, 45% 50%,
-            55% 70%, 90% 25%, 35% 95%;
-        }
-        40% {
-          background-position: 70% 70%, 30% 30%, 50% 10%, 95% 85%, 5% 15%,
-            80% 40%, 20% 60%, 60% 80%, 40% 20%, 85% 55%, 15% 45%, 70% 30%,
-            50% 65%, 80% 15%, 25% 50%;
-        }
-        60% {
-          background-position: 100% 40%, 0% 60%, 80% 80%, 40% 10%, 60% 90%,
-            10% 50%, 90% 50%, 25% 25%, 75% 75%, 50% 50%, 35% 65%, 88% 12%,
-            45% 75%, 70% 35%, 20% 60%;
-        }
-        80% {
-          background-position: 50% 10%, 50% 90%, 20% 50%, 70% 70%, 30% 30%,
-            85% 15%, 15% 85%, 95% 55%, 5% 45%, 40% 80%, 80% 20%, 60% 60%,
-            35% 40%, 65% 80%, 15% 25%;
-        }
-        100% {
-          background-position: 0% 50%, 100% 50%, 50% 100%, 80% 20%, 20% 80%,
-            90% 90%, 10% 10%, 60% 40%, 40% 60%, 75% 75%, 55% 25%, 30% 70%,
-            85% 35%, 25% 85%, 65% 55%;
+        to {
+          opacity: 1;
         }
       }
 
-      .wrap {
-        max-width: 1120px;
-        margin: 0 auto;
-        padding: 48px 24px 80px;
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
       }
+
+      body.page-exit {
+        animation: fadeOut 0.3s ease-out forwards;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      /* Header */
       header {
         display: flex;
-        align-items: center;
         justify-content: space-between;
-        margin-bottom: 48px;
+        align-items: center;
+        padding: 2rem 0;
+        position: relative;
+        z-index: 100;
+      }
+      header a {
+        color: var(--ink);
+        text-decoration: none;
+        transition: all 0.3s;
+      }
+      header a:hover {
+        color: var(--pink);
       }
       .back {
-        color: var(--ink-2);
-        text-decoration: none;
         font-weight: 500;
-        transition: color 0.3s ease;
-      }
-      .back:hover {
-        color: var(--pink);
       }
       nav {
         display: flex;
+        gap: 2rem;
         align-items: center;
-        gap: 18px;
       }
       nav a {
-        color: var(--ink-2);
-        text-decoration: none;
         font-weight: 500;
-        transition: color 0.3s ease;
       }
-      nav a:hover {
-        color: var(--pink);
-      }
+
+      /* Theme Toggle */
       .theme-toggle {
+        background: var(--card-bg);
+        border: 1px solid var(--stroke);
+        border-radius: 50%;
         width: 40px;
         height: 40px;
-        border-radius: 50%;
-        border: none;
-        background: var(--card-bg);
-        backdrop-filter: blur(10px);
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
         transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
         box-shadow: var(--shadow);
-        border: 1px solid var(--stroke);
       }
       .theme-toggle:hover {
         transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(246, 68, 184, 0.2);
       }
       .toggle-icon {
         width: 20px;
         height: 20px;
-      }
-      .sun-icon {
-        display: none;
-      }
-      body.dark-mode .sun-icon {
-        display: block;
-      }
-      body.dark-mode .moon-icon {
-        display: none;
+        position: relative;
       }
       .toggle-icon svg {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
         fill: var(--ink);
+        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      }
+      .moon-icon {
+        opacity: 1;
+        transform: rotate(0deg) scale(1);
+      }
+      .sun-icon {
+        opacity: 0;
+        transform: rotate(180deg) scale(0);
+      }
+      body.dark-mode .moon-icon {
+        opacity: 0;
+        transform: rotate(-180deg) scale(0);
+      }
+      body.dark-mode .sun-icon {
+        opacity: 1;
+        transform: rotate(0deg) scale(1);
       }
 
+      /* Hero */
       .hero {
-        margin-bottom: 64px;
+        text-align: center;
+        padding: 3rem 0 4rem;
       }
       .project-title {
-        font-size: clamp(3rem, 8vw, 5rem);
+        font-size: clamp(2.5rem, 6vw, 5rem);
         font-weight: 700;
-        margin: 0 0 16px;
-        text-transform: lowercase;
+        margin: 0 0 2rem;
         background: linear-gradient(
-          120deg,
+          135deg,
           var(--pink),
           var(--lavender),
           var(--gold)
         );
-        background-size: 300% 300%;
+        background-size: 200% 200%;
+        animation: shimmer 8s ease-in-out infinite;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        line-height: 1;
-        letter-spacing: -0.03em;
-        animation: shimmer 8s ease-in-out infinite;
+        background-clip: text;
+        line-height: 1.1;
       }
       .project-meta {
         display: flex;
-        gap: 32px;
         flex-wrap: wrap;
-        margin-top: 24px;
+        gap: 2rem;
+        justify-content: center;
       }
       .meta-item {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
+        text-align: center;
       }
       .meta-label {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         text-transform: uppercase;
         letter-spacing: 0.1em;
         color: var(--ink-2);
-        font-weight: 600;
+        margin-bottom: 0.3rem;
       }
       .meta-value {
-        font-size: 1.1rem;
-        color: var(--ink);
+        font-size: 1rem;
         font-weight: 500;
+        color: var(--ink);
       }
 
+      /* Section */
       .section {
-        margin-bottom: 64px;
+        margin-bottom: 4rem;
       }
       .section-title {
-        font-size: clamp(1.75rem, 4vw, 2.5rem);
+        font-size: clamp(1.75rem, 3vw, 2.5rem);
         font-weight: 600;
-        margin: 0 0 24px;
-        text-transform: lowercase;
-        background: linear-gradient(
-          90deg,
-          var(--pink),
-          var(--lavender),
-          var(--gold),
-          var(--pink)
-        );
-        background-size: 300% 300%;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        animation: shimmer 4s ease-in-out infinite;
+        margin-bottom: 1.5rem;
+        color: var(--ink);
       }
       .section-content {
         background: var(--section-bg);
-        backdrop-filter: blur(12px);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
         border: 1px solid var(--stroke);
-        border-radius: 20px;
-        padding: 32px;
+        padding: 2rem;
         box-shadow: var(--shadow);
-        transition: all 0.4s ease;
+        font-size: 1.05rem;
+        line-height: 1.7;
+        color: var(--ink-2);
       }
       .section-content p {
-        font-size: 1.1rem;
-        line-height: 1.8;
-        color: var(--ink-2);
-        margin: 0 0 1rem;
+        margin: 0;
       }
-      .section-content p:last-child {
-        margin-bottom: 0;
-      }
-      strong {
-        color: var(--pink);
+      .section-content strong {
+        color: var(--ink);
         font-weight: 600;
       }
 
-      /* Posters grid (no captions) */
+      /* Poster Grid */
       .poster-grid {
-        margin-top: 24px;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 16px;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
       }
       .poster {
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
         background: var(--card-bg);
         border: 1px solid var(--stroke);
-        border-radius: 16px;
-        padding: 12px;
-        box-shadow: var(--shadow);
-        overflow: hidden;
-        transition: transform 0.25s ease, box-shadow 0.25s ease,
-          border-color 0.25s ease;
       }
       .poster:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 32px rgba(246, 68, 184, 0.15);
-        border-color: rgba(246, 68, 184, 0.3);
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(246, 68, 184, 0.15);
       }
       .poster img {
         width: 100%;
         height: auto;
-        border-radius: 10px;
         display: block;
+        transition: all 0.3s ease;
+      }
+      .poster:hover img {
+        transform: scale(1.03);
       }
 
-      /* cursor + trail */
+      /* Custom cursor */
       .cursor {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 12px;
-        height: 12px;
+        width: 16px;
+        height: 16px;
         border-radius: 50%;
         background: var(--pink);
-        box-shadow: 0 0 15px rgba(246, 68, 184, 0.6);
+        position: fixed;
         pointer-events: none;
-        transform: translate(-50%, -50%);
-        transition: transform 0.1s ease-out;
         z-index: 9999;
+        mix-blend-mode: difference;
+        transform: translate(-50%, -50%);
+        transition: width 0.15s, height 0.15s;
       }
       .cursor-trail {
         position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         pointer-events: none;
         z-index: 9998;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
+        opacity: 0.6;
       }
-      .cursor-trail svg {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        overflow: visible;
-      }
-      @media (hover: hover) {
-        body {
-          cursor: none;
+
+      /* Mobile responsiveness */
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 1.5rem;
         }
-      }
-      @media (prefers-reduced-motion: reduce) {
+        nav {
+          gap: 1rem;
+        }
+        nav a {
+          font-size: 0.9rem;
+        }
+        .theme-toggle {
+          width: 36px;
+          height: 36px;
+        }
+        .poster-grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
         .cursor,
         .cursor-trail {
           display: none;
-        }
-        * {
-          animation: none !important;
-        }
-      }
-
-      @media (max-width: 768px) {
-        .wrap {
-          padding: 32px 20px 60px;
-        }
-        .project-meta {
-          gap: 20px;
-        }
-        .section-content {
-          padding: 24px;
         }
       }
     </style>
   </head>
 
   <body>
-    <div class="wrap">
+    <div class="container">
       <header>
         <a class="back" href="works.html">← back</a>
         <nav>
@@ -600,12 +556,12 @@
         </div>
       </div>
 
-      <!-- Intro (based on your old intro; no metrics) -->
+      <!-- Intro -->
       <div class="section">
         <h2 class="section-title">about confidance</h2>
         <div class="section-content">
           <p>
-            as part of <strong>vanderbilt’s premier dance organization</strong>,
+            as part of <strong>vanderbilt's premier dance organization</strong>,
             confidance, i led visual branding and creative direction across
             performances and campaigns. as head of marketing, i designed
             <strong
@@ -622,78 +578,98 @@
         </div>
       </div>
 
-      <!-- Posters grid (no captions) -->
+      <!-- Showcase & Event Posters -->
       <div class="section">
-        <h2 class="section-title">posters</h2>
+        <h2 class="section-title">showcase & event posters</h2>
         <div class="poster-grid">
-          <!-- replace the src paths with your actual files -->
           <div class="poster">
             <img
-              src="confidance/poster1.jpg"
-              alt="Confidance poster 1"
+              src="cd.png"
+              alt="Confidance Spring 2025 - Fashion Editorial"
               loading="lazy"
             />
           </div>
           <div class="poster">
             <img
-              src="confidance/poster2.jpg"
-              alt="Confidance poster 2"
+              src="1board.png"
+              alt="Confidance Core Magazine Cover"
               loading="lazy"
             />
           </div>
           <div class="poster">
             <img
-              src="confidance/poster3.jpg"
-              alt="Confidance poster 3"
+              src="showcase_poster.jpeg"
+              alt="Confidance Aura Showcase April 18"
               loading="lazy"
             />
           </div>
           <div class="poster">
             <img
-              src="confidance/poster4.jpg"
-              alt="Confidance poster 4"
+              src="workshop.jpg"
+              alt="Confidance Workshop Event"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Board & Committee Posters -->
+      <div class="section">
+        <h2 class="section-title">board & committee posters</h2>
+        <div class="poster-grid">
+          <div class="poster">
+            <img
+              src="board_1.PNG"
+              alt="Confidance Executive Board"
               loading="lazy"
             />
           </div>
           <div class="poster">
             <img
-              src="confidance/poster5.jpg"
-              alt="Confidance poster 5"
+              src="board_2.PNG"
+              alt="Confidance Committee Members"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Individual Member Features -->
+      <div class="section">
+        <h2 class="section-title">individual member features</h2>
+        <div class="poster-grid">
+          <div class="poster">
+            <img
+              src="new_1.png"
+              alt="Chloe Lee - Class of 2028"
               loading="lazy"
             />
           </div>
           <div class="poster">
             <img
-              src="confidance/poster6.jpg"
-              alt="Confidance poster 6"
+              src="new_2.png"
+              alt="Pearl Zhang - Class of 2028"
               loading="lazy"
             />
           </div>
           <div class="poster">
             <img
-              src="confidance/poster7.jpg"
-              alt="Confidance poster 7"
+              src="new_3.png"
+              alt="Joie Kuan - Class of 2028"
               loading="lazy"
             />
           </div>
           <div class="poster">
             <img
-              src="confidance/poster8.jpg"
-              alt="Confidance poster 8"
+              src="indiv-poster3.JPG"
+              alt="Individual Dancer Poster"
               loading="lazy"
             />
           </div>
           <div class="poster">
             <img
-              src="confidance/poster9.jpg"
-              alt="Confidance poster 9"
-              loading="lazy"
-            />
-          </div>
-          <div class="poster">
-            <img
-              src="confidance/poster10.jpg"
-              alt="Confidance poster 10"
+              src="indiv-poster4.jpg"
+              alt="Individual Dancer Poster"
               loading="lazy"
             />
           </div>
