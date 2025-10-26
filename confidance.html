@@ -35,6 +35,10 @@
         --stroke:var(--stroke-dark); --shadow:var(--shadow-dark);
         --card-bg:var(--card-bg-dark); --section-bg:var(--section-bg-dark);
       }
+      /* subtle glass border color */
+body { --glass-border: rgba(0,0,0,.06); }           /* light */
+body.dark-mode { --glass-border: rgba(255,255,255,.08); } /* dark */
+
 
       /* LIGHT MODE BACKGROUND — keep it clean (no colorful gradient) */
       body{
@@ -89,7 +93,7 @@
 
       .wrap{ max-width:1120px; margin:0 auto; padding:48px 24px 80px; }
 
-      /* Header (Veryfi) */
+      /* Header  */
       header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:48px; }
       .back{ color:var(--ink-2); text-decoration:none; font-weight:500; transition:color .3s ease; }
       .back:hover{ color:var(--pink); }
