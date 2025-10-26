@@ -11,9 +11,8 @@
     />
 
     <style>
-       * {
-        cursor: none !important;
-      }
+      * { box-sizing: border-box; cursor: none !important; }
+
       :root {
         --pink: rgb(246, 68, 184);
         --lavender: rgb(169, 132, 220);
@@ -34,9 +33,6 @@
         --shadow-dark: 0 10px 25px rgba(0, 0, 0, 0.3);
         --card-bg-dark: rgba(40, 40, 40, 0.6);
         --section-bg-dark: rgba(40, 40, 40, 0.4);
-      }
-      * {
-        box-sizing: border-box;
       }
 
       /* theme vars */
@@ -106,8 +102,7 @@
           ),
           var(--bg);
         background-size: 300% 300%;
-        animation: bgFlow 80s ease-in-out infinite alternate,
-          fadeIn 0.5s ease-out;
+        animation: bgFlow 80s ease-in-out infinite alternate, fadeIn 0.5s ease-out;
         -webkit-font-smoothing: antialiased;
         min-height: 100vh;
         position: relative;
@@ -118,383 +113,131 @@
       body::before {
         content: "";
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        inset: 0;
         pointer-events: none;
         z-index: 10000;
         opacity: 0.035;
         background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
       }
+      body.dark-mode::before { opacity: 0.045; }
 
-      body.dark-mode::before {
-        opacity: 0.045;
-      }
-      body.dark-mode {
-        background: radial-gradient(
-            1500px 1200px at 15% 20%,
-            rgba(246, 68, 184, 0.7),
-            rgba(246, 68, 184, 0.3) 40%,
-            transparent 60%
-          ),
-          radial-gradient(
-            1400px 1100px at 85% 25%,
-            rgba(169, 132, 220, 0.65),
-            rgba(169, 132, 220, 0.25) 40%,
-            transparent 60%
-          ),
-          radial-gradient(
-            1300px 1000px at 50% 80%,
-            rgba(252, 215, 131, 0.62),
-            rgba(252, 215, 131, 0.22) 42%,
-            transparent 62%
-          ),
-          radial-gradient(
-            1200px 950px at 70% 50%,
-            rgba(246, 68, 184, 0.58),
-            rgba(246, 68, 184, 0.18) 38%,
-            transparent 58%
-          ),
-          radial-gradient(
-            1100px 900px at 20% 60%,
-            rgba(169, 132, 220, 0.52),
-            rgba(169, 132, 220, 0.15) 40%,
-            transparent 58%
-          ),
-          radial-gradient(
-            1000px 850px at 90% 75%,
-            rgba(252, 215, 131, 0.5),
-            rgba(252, 215, 131, 0.15) 38%,
-            transparent 60%
-          ),
-          radial-gradient(
-            950px 800px at 10% 85%,
-            rgba(246, 68, 184, 0.45),
-            rgba(246, 68, 184, 0.12) 40%,
-            transparent 60%
-          ),
-          radial-gradient(
-            900px 750px at 55% 15%,
-            rgba(169, 132, 220, 0.42),
-            rgba(169, 132, 220, 0.12) 38%,
-            transparent 58%
-          ),
-          radial-gradient(
-            850px 700px at 35% 40%,
-            rgba(252, 215, 131, 0.38),
-            rgba(252, 215, 131, 0.1) 40%,
-            transparent 60%
-          ),
-          radial-gradient(
-            800px 650px at 80% 90%,
-            rgba(246, 68, 184, 0.35),
-            transparent 55%
-          ),
-          radial-gradient(
-            750px 600px at 60% 70%,
-            rgba(169, 132, 220, 0.32),
-            transparent 52%
-          ),
-          radial-gradient(
-            700px 550px at 25% 30%,
-            rgba(252, 215, 131, 0.28),
-            transparent 50%
-          ),
-          radial-gradient(
-            650px 500px at 45% 55%,
-            rgba(246, 68, 184, 0.25),
-            transparent 48%
-          ),
-          radial-gradient(
-            600px 480px at 75% 45%,
-            rgba(169, 132, 220, 0.22),
-            transparent 48%
-          ),
-          radial-gradient(
-            550px 450px at 30% 85%,
-            rgba(252, 215, 131, 0.2),
-            transparent 46%
-          ),
-          var(--bg);
-        background-size: 400% 400%;
-        animation: darkModeFlow 120s ease-in-out infinite alternate;
-      }
       @keyframes bgFlow {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
       }
+      @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+      body.page-exit { animation: fadeOut 0.3s ease-out forwards; }
 
-      @keyframes shimmer {
-        0% {
-          background-position: 0% 50%;
-        }
-        100% {
-          background-position: 100% 50%;
-        }
-      }
-
-      /* Page transition animations */
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-
-      @keyframes fadeOut {
-        from {
-          opacity: 1;
-        }
-        to {
-          opacity: 0;
-        }
-      }
-
-      body.page-exit {
-        animation: fadeOut 0.3s ease-out forwards;
-      }
-
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 2rem;
-      }
+      .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
 
       /* Header */
       header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 2rem 0;
-        position: relative;
-        z-index: 100;
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 2rem 0; position: relative; z-index: 100;
       }
-      header a {
-        color: var(--ink);
-        text-decoration: none;
-        transition: all 0.3s;
-      }
-      header a:hover {
-        color: var(--pink);
-      }
-      .back {
-        font-weight: 500;
-      }
-      nav {
-        display: flex;
-        gap: 2rem;
-        align-items: center;
-      }
-      nav a {
-        font-weight: 500;
-      }
+      header a { color: var(--ink); text-decoration: none; transition: all 0.3s; }
+      header a:hover { color: var(--pink); }
+      .back { font-weight: 500; }
+      nav { display: flex; gap: 2rem; align-items: center; }
+      nav a { font-weight: 500; }
 
       /* Theme Toggle */
       .theme-toggle {
-        background: var(--card-bg);
-        border: 1px solid var(--stroke);
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
+        background: var(--card-bg); border: 1px solid var(--stroke);
+        border-radius: 50%; width: 40px; height: 40px; cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        transition: all 0.3s ease; position: relative; overflow: hidden;
         box-shadow: var(--shadow);
       }
-      .theme-toggle:hover {
-        transform: scale(1.05);
-        box-shadow: 0 5px 15px rgba(246, 68, 184, 0.2);
-      }
-      .toggle-icon {
-        width: 20px;
-        height: 20px;
-        position: relative;
-      }
+      .theme-toggle:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(246,68,184,0.2); }
+      .toggle-icon { width: 20px; height: 20px; position: relative; }
       .toggle-icon svg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        position: absolute; inset: 0; width: 100%; height: 100%;
         fill: var(--ink);
-        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        transition: all 0.4s cubic-bezier(0.68,-0.55,0.265,1.55);
       }
-      .moon-icon {
-        opacity: 1;
-        transform: rotate(0deg) scale(1);
-      }
-      .sun-icon {
-        opacity: 0;
-        transform: rotate(180deg) scale(0);
-      }
-      body.dark-mode .moon-icon {
-        opacity: 0;
-        transform: rotate(-180deg) scale(0);
-      }
-      body.dark-mode .sun-icon {
-        opacity: 1;
-        transform: rotate(0deg) scale(1);
-      }
+      .moon-icon { opacity: 1; transform: rotate(0) scale(1); }
+      .sun-icon { opacity: 0; transform: rotate(180deg) scale(0); }
+      body.dark-mode .moon-icon { opacity: 0; transform: rotate(-180deg) scale(0); }
+      body.dark-mode .sun-icon { opacity: 1; transform: rotate(0) scale(1); }
 
       /* Hero */
-      .hero {
-        text-align: center;
-        padding: 3rem 0 4rem;
-      }
+      .hero { text-align: center; padding: 3rem 0 4rem; }
       .project-title {
         font-size: clamp(2.5rem, 6vw, 5rem);
-        font-weight: 700;
-        margin: 0 0 2rem;
-        background: linear-gradient(
-          135deg,
-          var(--pink),
-          var(--lavender),
-          var(--gold)
-        );
+        font-weight: 700; margin: 0 0 2rem;
+        background: linear-gradient(135deg, var(--pink), var(--lavender), var(--gold));
         background-size: 200% 200%;
         animation: shimmer 8s ease-in-out infinite;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         line-height: 1.1;
       }
-      .project-meta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2rem;
-        justify-content: center;
-      }
-      .meta-item {
-        text-align: center;
-      }
+      @keyframes shimmer { 0% {background-position:0% 50%} 100% {background-position:100% 50%} }
+      .project-meta { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; }
+      .meta-item { text-align: center; }
       .meta-label {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: var(--ink-2);
-        margin-bottom: 0.3rem;
+        font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em;
+        color: var(--ink-2); margin-bottom: 0.3rem;
       }
-      .meta-value {
-        font-size: 1rem;
-        font-weight: 500;
-        color: var(--ink);
-      }
+      .meta-value { font-size: 1rem; font-weight: 500; color: var(--ink); }
 
       /* Section */
-      .section {
-        margin-bottom: 4rem;
-      }
-      .section-title {
-        font-size: clamp(1.75rem, 3vw, 2.5rem);
-        font-weight: 600;
-        margin-bottom: 1.5rem;
-        color: var(--ink);
-      }
+      .section { margin-bottom: 4rem; }
+      .section-title { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 600; margin-bottom: 1.5rem; color: var(--ink); }
       .section-content {
-        background: var(--section-bg);
-        backdrop-filter: blur(10px);
-        border-radius: 16px;
-        border: 1px solid var(--stroke);
-        padding: 2rem;
-        box-shadow: var(--shadow);
-        font-size: 1.05rem;
-        line-height: 1.7;
-        color: var(--ink-2);
+        background: var(--section-bg); backdrop-filter: blur(10px);
+        border-radius: 16px; border: 1px solid var(--stroke);
+        padding: 2rem; box-shadow: var(--shadow);
+        font-size: 1.05rem; line-height: 1.7; color: var(--ink-2);
       }
-      .section-content p {
-        margin: 0;
-      }
-      .section-content strong {
-        color: var(--ink);
-        font-weight: 600;
-      }
+      .section-content p { margin: 0; }
+      .section-content strong { color: var(--ink); font-weight: 600; }
 
-      /* Poster Grid */
+      /* Poster Grid — EXACTLY 3 per row on desktop */
       .poster-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.5rem;
       }
       .poster {
-        position: relative;
-        overflow: hidden;
-        border-radius: 12px;
-        box-shadow: var(--shadow);
-        transition: all 0.3s ease;
-        background: var(--card-bg);
-        border: 1px solid var(--stroke);
+        position: relative; overflow: hidden; border-radius: 12px;
+        box-shadow: var(--shadow); transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background: var(--card-bg); border: 1px solid var(--stroke);
       }
-      .poster:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 15px 35px rgba(246, 68, 184, 0.15);
-      }
+      .poster:hover { transform: translateY(-6px); box-shadow: 0 15px 35px rgba(246,68,184,0.15); }
       .poster img {
-        width: 100%;
-        height: auto;
+        width: 100%; height: 100%;
         display: block;
-        transition: all 0.3s ease;
+        aspect-ratio: 3 / 4;      /* consistent tall poster look */
+        object-fit: cover;         /* crops gently to fill */
+        transition: transform 0.35s ease;
       }
-      .poster:hover img {
-        transform: scale(1.03);
-      }
-
+      .poster:hover img { transform: scale(1.03); }
 
       /* Mobile responsiveness */
-      @media (max-width: 768px) {
-        .container {
-          padding: 0 1.5rem;
-        }
-        nav {
-          gap: 1rem;
-        }
-        nav a {
-          font-size: 0.9rem;
-        }
-        .theme-toggle {
-          width: 36px;
-          height: 36px;
-        }
-        .poster-grid {
-          grid-template-columns: 1fr;
-          gap: 1.5rem;
-        }
-        .cursor,
-        .cursor-trail {
-          display: none;
-        }
+      @media (max-width: 1024px) {
+        .poster-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       }
-       /* Custom cursor */
+      @media (max-width: 640px) {
+        .container { padding: 0 1.25rem; }
+        nav { gap: 1rem; }
+        nav a { font-size: 0.9rem; }
+        .theme-toggle { width: 36px; height: 36px; }
+        .poster-grid { grid-template-columns: 1fr; gap: 1rem; }
+        .cursor, .cursor-trail { display: none; }
+      }
+
+      /* Custom cursor */
       .cursor {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background: var(--pink);
-        position: fixed;
-        pointer-events: none;
-        z-index: 10000;
+        width: 20px; height: 20px; border-radius: 50%;
+        background: var(--pink); position: fixed; pointer-events: none; z-index: 10000;
         transform: translate(-50%, -50%);
         transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease;
         box-shadow: 0 0 15px rgba(246, 68, 184, 0.5);
       }
-
-      .cursor.click {
-        transform: translate(-50%, -50%) scale(0.8);
-      }
-
+      .cursor.click { transform: translate(-50%, -50%) scale(0.8); }
     </style>
   </head>
 
@@ -506,30 +249,10 @@
           <a href="works.html">work</a>
           <a href="about.html">about</a>
           <a href="mailto:mikapham229@gmail.com">contact</a>
-          <button
-            class="theme-toggle"
-            id="themeToggle"
-            aria-label="Toggle dark mode"
-          >
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
             <div class="toggle-icon">
-              <svg
-                class="moon-icon"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Z"
-                />
-              </svg>
-              <svg
-                class="sun-icon"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M12,6a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V5A1,1,0,0,0,12,6ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-1.41-1.42A1,1,0,0,0,4.22,5.64ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm.64,5.05a1,1,0,0,0-1.41,1.41l1.41,1.42a1,1,0,0,0,.71.29,1,1,0,0,0,.7-.29,1,1,0,0,0,0-1.41ZM12,18a1,1,0,0,0-1,1v2a1,1,0,0,0,2,0V19A1,1,0,0,0,12,18Zm5.66-.36a1,1,0,0,0-1.41,1.41l1.41,1.42a1,1,0,0,0,.71.29,1,1,0,0,0,.7-.29,1,1,0,0,0,0-1.41ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-2.64-3.95a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29l1.41-1.42a1,1,0,1,0-1.41-1.41l-1.41,1.42A1,1,0,0,0,18.36,7.05ZM12,8a4,4,0,1,0,4,4A4,4,0,0,0,12,8Z"
-                />
-              </svg>
+              <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Z"/></svg>
+              <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,6a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V5A1,1,0,0,0,12,6ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-1.41-1.42A1,1,0,0,0,4.22,5.64ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm.64,5.05a1,1,0,0,0-1.41,1.41l1.41,1.42a1,1,0,0,0,.71.29,1,1,0,0,0,.7-.29,1,1,0,0,0,0-1.41ZM12,18a1,1,0,0,0-1,1v2a1,1,0,0,0,2,0V19A1,1,0,0,0,12,18Zm5.66-.36a1,1,0,0,0-1.41,1.41l1.41,1.42a1,1,0,0,0,.71.29,1,1,0,0,0,.7-.29,1,1,0,0,0,0-1.41ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-2.64-3.95a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29l1.41-1.42a1,1,0,1,0-1.41-1.41l-1.41,1.42A1,1,0,0,0,18.36,7.05ZM12,8a4,4,0,1,0,4,4A4,4,0,0,0,12,8Z"/></svg>
             </div>
           </button>
         </nav>
@@ -562,14 +285,10 @@
             as part of <strong>vanderbilt's premier dance organization</strong>,
             confidance, i led visual branding and creative direction across
             performances and campaigns. as head of marketing, i designed
-            <strong
-              >promotional assets ranging from posters and flyers to video reels
-              and social content</strong
-            >. in my role as creative director, i
-            <strong
-              >planned and directed photoshoots, photographed our
-              dancers</strong
-            >, and translated movement into visual stories, crafting cohesive
+            <strong>promotional assets ranging from posters and flyers to video reels
+            and social content</strong>. in my role as creative director, i
+            <strong>planned and directed photoshoots, photographed our dancers</strong>,
+            and translated movement into visual stories, crafting cohesive
             poster designs and marketing materials that reflected the energy and
             identity of each dancer and showcase.
           </p>
@@ -581,25 +300,13 @@
         <h2 class="section-title">showcase & event posters</h2>
         <div class="poster-grid">
           <div class="poster">
-            <img
-              src="workshop_1.PNG"
-              alt="Confidance Spring 2025 - First workshop"
-              loading="lazy"
-            />
-      
-          <div class="poster">
-            <img
-              src="showcase_poster.jpeg"
-              alt="Confidance Aura Showcase April 18"
-              loading="lazy"
-            />
+            <img src="workshop_1.PNG" alt="Confidance Spring 2025 - First workshop" loading="lazy" />
           </div>
           <div class="poster">
-            <img
-              src="workshop.jpg"
-              alt="Confidance Workshop Event"
-              loading="lazy"
-            />
+            <img src="showcase_poster.jpeg" alt="Confidance Aura Showcase April 18" loading="lazy" />
+          </div>
+          <div class="poster">
+            <img src="workshop.jpg" alt="Confidance Workshop Event" loading="lazy" />
           </div>
         </div>
       </div>
@@ -608,27 +315,14 @@
       <div class="section">
         <h2 class="section-title">board & committee posters</h2>
         <div class="poster-grid">
-              </div>
           <div class="poster">
-            <img
-              src="1board.png"
-              alt="Confidance Core Magazine Cover"
-              loading="lazy"
-            />
+            <img src="1board.png" alt="Confidance Core Magazine Cover" loading="lazy" />
           </div>
           <div class="poster">
-            <img
-              src="board_1.PNG"
-              alt="Confidance Executive Board"
-              loading="lazy"
-            />
+            <img src="board_1.PNG" alt="Confidance Executive Board" loading="lazy" />
           </div>
           <div class="poster">
-            <img
-              src="board_2.PNG"
-              alt="Confidance Committee Members"
-              loading="lazy"
-            />
+            <img src="board_2.PNG" alt="Confidance Committee Members" loading="lazy" />
           </div>
         </div>
       </div>
@@ -638,47 +332,22 @@
         <h2 class="section-title">individual member features</h2>
         <div class="poster-grid">
           <div class="poster">
-            <img
-              src="new_1.png"
-              alt="Chloe Lee - Class of 2028"
-              loading="lazy"
-            />
+            <img src="new_1.png" alt="Chloe Lee - Class of 2028" loading="lazy" />
           </div>
           <div class="poster">
-            <img
-              src="new_2.png"
-              alt="Pearl Zhang - Class of 2028"
-              loading="lazy"
-            />
+            <img src="new_2.png" alt="Pearl Zhang - Class of 2028" loading="lazy" />
           </div>
           <div class="poster">
-            <img
-              src="new_3.png"
-              alt="Joie Kuan - Class of 2028"
-              loading="lazy"
-            />
+            <img src="new_3.png" alt="Joie Kuan - Class of 2028" loading="lazy" />
           </div>
           <div class="poster">
-            <img
-              src="indiv-poster3.JPG"
-              alt="Individual Dancer Poster"
-              loading="lazy"
-            />
+            <img src="indiv-poster3.JPG" alt="Individual Dancer Poster" loading="lazy" />
           </div>
           <div class="poster">
-            <img
-              src="indiv-poster4.jpg"
-              alt="Individual Dancer Poster"
-              loading="lazy"
-            />
+            <img src="indiv-poster4.jpg" alt="Individual Dancer Poster" loading="lazy" />
           </div>
-            </div>
           <div class="poster">
-            <img
-              src="cd.png"
-              alt="Individual poster"
-              loading="lazy"
-            />
+            <img src="cd.png" alt="Individual poster" loading="lazy" />
           </div>
         </div>
       </div>
@@ -686,13 +355,7 @@
 
     <!-- pink cursor + trailing line -->
     <svg class="cursor-trail" xmlns="http://www.w3.org/2000/svg">
-      <path
-        id="trail"
-        fill="none"
-        stroke="rgb(246, 68, 184)"
-        stroke-width="2"
-        stroke-linecap="round"
-      />
+      <path id="trail" fill="none" stroke="rgb(246, 68, 184)" stroke-width="2" stroke-linecap="round" />
     </svg>
     <div class="cursor"></div>
 
@@ -704,10 +367,7 @@
       if (currentTheme === "dark") body.classList.add("dark-mode");
       themeToggle.addEventListener("click", () => {
         body.classList.toggle("dark-mode");
-        localStorage.setItem(
-          "theme",
-          body.classList.contains("dark-mode") ? "dark" : "light"
-        );
+        localStorage.setItem("theme", body.classList.contains("dark-mode") ? "dark" : "light");
       });
 
       // cursor trail
@@ -756,27 +416,14 @@
 
       // Smooth page transitions
       document.addEventListener("DOMContentLoaded", () => {
-        // Add smooth transition to all internal links
         const links = document.querySelectorAll('a[href$=".html"]');
-
         links.forEach((link) => {
           link.addEventListener("click", (e) => {
             const href = link.getAttribute("href");
-
-            // Don't intercept external links or target="_blank"
-            if (link.target === "_blank" || !href || href.startsWith("http")) {
-              return;
-            }
-
+            if (link.target === "_blank" || !href || href.startsWith("http")) return;
             e.preventDefault();
-
-            // Add fade-out class
             document.body.classList.add("page-exit");
-
-            // Navigate after animation
-            setTimeout(() => {
-              window.location.href = href;
-            }, 300);
+            setTimeout(() => { window.location.href = href; }, 300);
           });
         });
       });
