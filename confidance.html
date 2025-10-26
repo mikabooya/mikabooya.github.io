@@ -18,10 +18,12 @@
         --bg-light:#fffdf5; --ink-light:#2b2b2b; --ink-2-light:rgba(20,20,20,.75);
         --stroke-light:rgba(0,0,0,.08); --shadow-light:0 10px 25px rgba(0,0,0,.06);
         --card-bg-light:#fff; --section-bg-light:rgba(255,255,255,.6);
+        --footer-text-light:#555;
 
         --bg-dark:#1a1a1a; --ink-dark:#f5f5f5; --ink-2-dark:rgba(245,245,245,.8);
         --stroke-dark:rgba(255,255,255,.1); --shadow-dark:0 10px 25px rgba(0,0,0,.3);
         --card-bg-dark:rgba(40,40,40,.6); --section-bg-dark:rgba(40,40,40,.4);
+        --footer-text-dark:#aaa;
       }
 
       /* theme variables */
@@ -29,11 +31,13 @@
         --bg:var(--bg-light); --ink:var(--ink-light); --ink-2:var(--ink-2-light);
         --stroke:var(--stroke-light); --shadow:var(--shadow-light);
         --card-bg:var(--card-bg-light); --section-bg:var(--section-bg-light);
+        --footer-text:var(--footer-text-light);
       }
       body.dark-mode{
         --bg:var(--bg-dark); --ink:var(--ink-dark); --ink-2:var(--ink-2-dark);
         --stroke:var(--stroke-dark); --shadow:var(--shadow-dark);
         --card-bg:var(--card-bg-dark); --section-bg:var(--section-bg-dark);
+        --footer-text:var(--footer-text-dark);
       }
       /* subtle glass border color */
       body { --glass-border: rgba(0,0,0,.06); }           /* light */
@@ -207,6 +211,29 @@
         .poster-grid { grid-template-columns: 1fr; }
       }
 
+      /* Footer */
+      footer{
+        text-align:center;
+        padding:60px 0;
+        color:var(--footer-text);
+        font-size:14px;
+      }
+      .footer-links{
+        display:flex;
+        justify-content:center;
+        gap:24px;
+        margin-bottom:16px;
+        flex-wrap:wrap;
+      }
+      .footer-links a{
+        color:var(--ink-2);
+        text-decoration:none;
+        transition:color 0.3s ease;
+      }
+      .footer-links a:hover{
+        color:var(--pink);
+      }
+
       /* Pink cursor */
       .cursor{
         width:20px; height:20px; border-radius:50%; background:var(--pink);
@@ -308,12 +335,25 @@
           <div class="poster"><img src="cd.png" alt="Individual poster" loading="lazy"/></div>
         </div>
       </div>
+
+      <!-- Footer -->
+      <footer>
+        <div class="footer-links">
+          <a href="mailto:mikapham229@gmail.com" target="_blank">email ↗</a>
+          <a href="https://www.linkedin.com/in/khanh-mika-pham/" target="_blank">linkedin ↗</a>
+          <a href="https://www.instagram.com/mikaphaam/" target="_blank">instagram ↗</a>
+        </div>
+        <div class="credit">© <span id="year"></span> mika pham</div>
+      </footer>
     </div>
 
     <!-- cursor dot -->
     <div class="cursor"></div>
 
     <script>
+      // Dynamic year
+      document.getElementById("year").textContent = new Date().getFullYear();
+
       // Theme toggle (honor system preference if no stored value)
       const themeToggle = document.getElementById("themeToggle");
       const body = document.body;
