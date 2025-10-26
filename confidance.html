@@ -452,24 +452,6 @@
         transform: scale(1.03);
       }
 
- /* Custom cursor */
-      .cursor {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background: var(--pink);
-        position: fixed;
-        pointer-events: none;
-        z-index: 10000;
-        transform: translate(-50%, -50%);
-        transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease;
-        box-shadow: 0 0 15px rgba(246, 68, 184, 0.5);
-      }
-
-      .cursor.click {
-        transform: translate(-50%, -50%) scale(0.8);
-      }
-
 
       /* Mobile responsiveness */
       @media (max-width: 768px) {
@@ -495,6 +477,24 @@
           display: none;
         }
       }
+       /* Custom cursor */
+      .cursor {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--pink);
+        position: fixed;
+        pointer-events: none;
+        z-index: 10000;
+        transform: translate(-50%, -50%);
+        transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease;
+        box-shadow: 0 0 15px rgba(246, 68, 184, 0.5);
+      }
+
+      .cursor.click {
+        transform: translate(-50%, -50%) scale(0.8);
+      }
+
     </style>
   </head>
 
@@ -582,18 +582,11 @@
         <div class="poster-grid">
           <div class="poster">
             <img
-              src="cd.png"
-              alt="Confidance Spring 2025 - Fashion Editorial"
+              src="workshop_1.png"
+              alt="Confidance Spring 2025 - First workshop"
               loading="lazy"
             />
-          </div>
-          <div class="poster">
-            <img
-              src="1board.png"
-              alt="Confidance Core Magazine Cover"
-              loading="lazy"
-            />
-          </div>
+      
           <div class="poster">
             <img
               src="showcase_poster.jpeg"
@@ -615,6 +608,14 @@
       <div class="section">
         <h2 class="section-title">board & committee posters</h2>
         <div class="poster-grid">
+              </div>
+          <div class="poster">
+            <img
+              src="1board.png"
+              alt="Confidance Core Magazine Cover"
+              loading="lazy"
+            />
+          </div>
           <div class="poster">
             <img
               src="board_1.PNG"
