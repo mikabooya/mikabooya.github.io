@@ -36,11 +36,10 @@
         --card-bg:var(--card-bg-dark); --section-bg:var(--section-bg-dark);
       }
       /* subtle glass border color */
-body { --glass-border: rgba(0,0,0,.06); }           /* light */
-body.dark-mode { --glass-border: rgba(255,255,255,.08); } /* dark */
+      body { --glass-border: rgba(0,0,0,.06); }           /* light */
+      body.dark-mode { --glass-border: rgba(255,255,255,.08); } /* dark */
 
-
-      /* LIGHT MODE BACKGROUND — keep it clean (no colorful gradient) */
+      /* LIGHT MODE BACKGROUND — clean */
       body{
         margin:0; font-family:"Poppins",sans-serif; color:var(--ink);
         background: var(--bg);
@@ -51,7 +50,7 @@ body.dark-mode { --glass-border: rgba(255,255,255,.08); } /* dark */
         cursor:auto;
       }
 
-      /* DARK MODE BACKGROUND — animated multi-radial gradient (Veryfi style) */
+      /* DARK MODE BACKGROUND — animated multi-radial gradient */
       body.dark-mode{
         background:
           radial-gradient(1500px 1200px at 15% 20%, rgba(246, 68, 184, 0.7), rgba(246, 68, 184, 0.3) 40%, transparent 60%),
@@ -111,47 +110,37 @@ body.dark-mode { --glass-border: rgba(255,255,255,.08); } /* dark */
       .toggle-icon svg{ width:100%; height:100%; fill:var(--ink); }
       .sun-icon{ display:none; } body.dark-mode .sun-icon{ display:block; } body.dark-mode .moon-icon{ display:none; }
 
-/* Center the hero + 3 meta items (keep your existing look) */
-.hero{
-  margin-bottom: 64px;
-  text-align: center;
-}
+      /* === HERO (match Veryfi) === */
+      .hero{ margin-bottom:64px; }
+      .project-title{
+        font-size:clamp(3rem,8vw,5rem);
+        font-weight:700;
+        margin:0 0 16px;
+        text-transform:lowercase;
+        background:linear-gradient(120deg, var(--pink), var(--lavender), var(--gold));
+        background-size:300% 300%;
+        -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+        line-height:1; letter-spacing:-0.03em;
+        animation:shimmer 8s ease-in-out infinite;
+      }
+      .project-meta{
+        display:flex;
+        gap:32px;
+        flex-wrap:wrap;
+        margin-top:24px;
+      }
+      .meta-item{ display:flex; flex-direction:column; gap:4px; }
+      .meta-label{
+        font-size:.8rem; text-transform:uppercase; letter-spacing:.1em;
+        color:var(--ink-2); font-weight:600;
+      }
+      .meta-value{ font-size:1.1rem; color:var(--ink); font-weight:500; }
 
-.project-meta{
-  display: grid;                         /* switch from flex to grid */
-  grid-template-columns: repeat(3, auto);/* 3 columns sized to content */
-  column-gap: 80px;                      /* space between the three */
-  row-gap: 16px;
-  margin: 24px auto 0;                   /* center the whole block */
-  justify-content: center;
-  justify-items: center;                 /* center each item */
-}
+      @media (max-width:768px){
+        .project-meta{ gap:20px; }
+      }
 
-.meta-item{
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  align-items: center;                   /* center label + value */
-  text-align: center;
-  min-width: 0;
-}
-
-/* Stack nicely on phones (keeps your current typography) */
-@media (max-width: 768px){
-  .project-meta{
-    grid-template-columns: 1fr;
-    column-gap: 0;
-    row-gap: 14px;
-    justify-items: start;
-  }
-  .meta-item{
-    align-items: start;
-    text-align: left;
-  }
-}
-
-
-      /* Sections (Veryfi) */
+      /* Sections */
       .section{ margin-bottom:64px; }
       .section-title{
         font-size:clamp(1.75rem,4vw,2.5rem); font-weight:600; margin:0 0 24px; text-transform:lowercase;
@@ -168,69 +157,52 @@ body.dark-mode { --glass-border: rgba(255,255,255,.08); } /* dark */
       .section-content p:last-child{ margin-bottom:0; }
       strong{ color:var(--pink); font-weight:600; }
 
-     /* Posters */
-.poster-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
-}
+      /* Posters */
+      .poster-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 20px;
+      }
+      .poster {
+        position: relative;
+        background: var(--card-bg);
+        border: 1px solid var(--stroke);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .poster::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        pointer-events: none;
+        box-shadow: inset 0 0 0 1px var(--glass-border);
+      }
+      .poster:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(246, 68, 184, 0.15);
+      }
+      .poster img,
+      .poster video {
+        width: 100%;
+        height: 100%;
+        display: block;
+        aspect-ratio: 3 / 4;
+        object-fit: cover;
+        transition: transform 0.35s ease;
+        border-radius: inherit;
+      }
+      .poster:hover img,
+      .poster:hover video { transform: scale(1.03); }
 
-/* add glass effect + subtle border */
-.poster {
-  position: relative;
-  background: var(--card-bg);
-  border: 1px solid var(--stroke);
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* translucent glass border layer */
-.poster::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  box-shadow: inset 0 0 0 1px var(--glass-border);
-}
-
-/* subtle hover motion */
-.poster:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(246, 68, 184, 0.15);
-}
-
-/* image / video inside */
-.poster img,
-.poster video {
-  width: 100%;
-  height: 100%;
-  display: block;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
-  transition: transform 0.35s ease;
-  border-radius: inherit;
-}
-
-.poster:hover img,
-.poster:hover video {
-  transform: scale(1.03);
-}
-
-@media (max-width: 1024px) {
-  .poster-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 640px) {
-  .poster-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
+      @media (max-width: 1024px) {
+        .poster-grid { grid-template-columns: repeat(2, 1fr); }
+      }
+      @media (max-width: 640px) {
+        .poster-grid { grid-template-columns: 1fr; }
+      }
 
       /* Pink cursor */
       .cursor{
@@ -338,7 +310,7 @@ body.dark-mode { --glass-border: rgba(255,255,255,.08); } /* dark */
     <div class="cursor"></div>
 
     <script>
-      // Theme toggle with safe defaults (honor system preference if no stored value)
+      // Theme toggle (honor system preference if no stored value)
       const themeToggle = document.getElementById("themeToggle");
       const body = document.body;
       const stored = localStorage.getItem("theme");
