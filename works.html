@@ -509,6 +509,38 @@
       .cursor.click {
         transform: translate(-50%, -50%) scale(0.8);
       }
+
+      /* Footer styles */
+      footer {
+        margin-top: 80px;
+        text-align: center;
+        color: var(--footer-text);
+        padding: 40px 0;
+        border-top: 1px solid var(--stroke);
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        margin-bottom: 16px;
+      }
+
+      .footer-links a {
+        color: var(--ink-2);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+
+      .footer-links a:hover {
+        color: var(--pink);
+      }
+
+      .credit {
+        font-size: 14px;
+        color: var(--footer-text);
+      }
     </style>
   </head>
 
@@ -592,9 +624,25 @@
           </div>
         </div>
       </section>
+
+      <footer>
+        <div class="footer-links">
+          <a href="mailto:mikapham229@gmail.com" target="_blank">email ↗</a>
+          <a href="https://www.linkedin.com/in/khanh-mika-pham/" target="_blank"
+            >linkedin ↗</a
+          >
+          <a href="https://www.instagram.com/mikaphaam/" target="_blank"
+            >instagram ↗</a
+          >
+        </div>
+        <div class="credit">© <span id="year"></span> mika pham</div>
+      </footer>
     </div>
 
     <script>
+      // Set current year in footer
+      document.getElementById("year").textContent = new Date().getFullYear();
+
       // Theme toggle
       const themeToggle = document.getElementById("themeToggle");
       const body = document.body;
