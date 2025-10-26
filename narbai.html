@@ -114,8 +114,8 @@
       .asset-card{
         background:var(--card-bg); border:1px solid var(--stroke); border-radius:20px;
         padding:28px; box-shadow:var(--shadow); overflow:hidden;
-        max-width:1000px;            /* wider than before */
-        margin:0 auto;               /* center */
+        width:100%;                  /* full width */
+        margin:0;                    /* no centering */
         transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
       }
       .asset-card:hover{
@@ -132,13 +132,20 @@
         object-fit:contain; background:#0f1222;
       }
 
-      /* LinkedIn embed — responsive and bigger */
-      .linkedin-box{ border-radius:16px; overflow:hidden; }
+      /* LinkedIn embed — fixed height with responsive constraints */
+      .linkedin-box{ 
+        border-radius:16px; 
+        overflow:hidden;
+        position:relative;
+        width:100%;
+      }
       .linkedin-box iframe{
-        width:100%;                   /* fill the 1000px card */
-        aspect-ratio:504/739;         /* maintain LinkedIn post ratio */
-        height:auto;                  /* let aspect-ratio drive height */
-        border:0; border-radius:16px; display:block;
+        width:100%;
+        height:650px;                /* reasonable fixed height */
+        max-height:70vh;             /* don't exceed viewport */
+        border:0; 
+        border-radius:16px; 
+        display:block;
       }
 
       /* Cursor (simple pink dot, no trail) */
@@ -154,6 +161,7 @@
         .wrap{ padding:32px 20px 60px; }
         .section-content{ padding:24px; }
         .asset-card{ max-width:100%; padding:22px; }
+        .linkedin-box iframe{ height:550px; max-height:60vh; }
       }
 
       @media (prefers-reduced-motion: reduce){ *{ animation:none !important; } }
