@@ -365,50 +365,49 @@
         fill: var(--ink);
       }
 
-      .hero {
-        margin-bottom: 64px;
-      }
-      .project-title {
-        font-size: clamp(3rem, 8vw, 5rem);
-        font-weight: 700;
-        margin: 0 0 16px;
-        text-transform: lowercase;
-        background: linear-gradient(
-          120deg,
-          var(--pink),
-          var(--lavender),
-          var(--gold)
-        );
-        background-size: 300% 300%;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        line-height: 1;
-        letter-spacing: -0.03em;
-        animation: shimmer 8s ease-in-out infinite;
-      }
-      .project-meta {
-        display: flex;
-        gap: 32px;
-        flex-wrap: wrap;
-        margin-top: 24px;
-      }
-      .meta-item {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-      }
-      .meta-label {
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: var(--ink-2);
-        font-weight: 600;
-      }
-      .meta-value {
-        font-size: 1.1rem;
-        color: var(--ink);
-        font-weight: 500;
-      }
+     /* HERO */
+.hero {
+  margin-bottom: 64px;
+  text-align: center;            /* center the whole hero */
+}
+.project-title {
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 700;
+  margin: 0 auto 16px;           /* center title block */
+  text-transform: lowercase;
+  background: linear-gradient(120deg, var(--pink), var(--lavender), var(--gold));
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  animation: shimmer 8s ease-in-out infinite;
+}
+
+/* switch meta to a centered 3-column grid */
+.project-meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+  margin: 24px auto 0;           /* center the grid */
+  max-width: 720px;              /* keeps it tidy */
+  text-align: center;            /* center each cell’s text */
+}
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;           /* vertically center labels/values */
+}
+
+/* stack on small screens */
+@media (max-width: 640px) {
+  .project-meta {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
 
       .section {
         margin-bottom: 64px;
