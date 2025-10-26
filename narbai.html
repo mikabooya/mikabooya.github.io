@@ -371,50 +371,72 @@
         fill: var(--ink);
       }
 
-      .hero {
-        margin-bottom: 64px;
-      }
-      .project-title {
-        font-size: clamp(3rem, 8vw, 5rem);
-        font-weight: 700;
-        margin: 0 0 16px;
-        text-transform: lowercase;
-        background: linear-gradient(
-          120deg,
-          var(--pink),
-          var(--lavender),
-          var(--gold)
-        );
-        background-size: 300% 300%;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        line-height: 1;
-        letter-spacing: -0.03em;
-        animation: shimmer 8s ease-in-out infinite;
-      }
-      .project-meta {
-        display: flex;
-        gap: 32px;
-        flex-wrap: wrap;
-        margin-top: 24px;
-      }
-      .meta-item {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-      }
-      .meta-label {
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: var(--ink-2);
-        font-weight: 600;
-      }
-      .meta-value {
-        font-size: 1.1rem;
-        color: var(--ink);
-        font-weight: 500;
-      }
+    /* --- Centered hero + 3-col meta (match screenshot) --- */
+.hero{
+  text-align:center;
+  margin: 0 auto 64px;
+}
+
+.project-title{
+  font-size: clamp(3.25rem, 8vw, 6rem);
+  line-height: 1;
+  font-weight: 700;
+  margin: 0 0 32px;
+  text-transform: lowercase;
+  background: linear-gradient(120deg, var(--pink), var(--lavender), var(--gold));
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 8s ease-in-out infinite;
+}
+
+.project-meta{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: clamp(28px, 6vw, 72px);
+  row-gap: 18px;
+  align-items: start;
+  justify-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.meta-item{
+  min-width: 0;
+  text-align: center;
+}
+
+.meta-label{
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ink-2);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.meta-value{
+  /* Big, single-line, like your screenshot */
+  font-size: clamp(1.35rem, 3.2vw, 2.25rem);
+  line-height: 1.15;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  white-space: nowrap;     /* prevents wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis; /* safety if viewport is tiny */
+}
+
+/* Stack on small screens */
+@media (max-width: 700px){
+  .project-meta{
+    grid-template-columns: 1fr;
+    row-gap: 14px;
+    justify-items: start;     /* reads nicer on mobile */
+  }
+  .meta-item{ text-align: left; }
+  .meta-value{ white-space: normal; } /* allow wrap on phones */
+}
 
       .section {
         margin-bottom: 64px;
