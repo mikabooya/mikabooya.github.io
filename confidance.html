@@ -5,261 +5,211 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>confidance — mika pham</title>
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 
     <style>
-      * { box-sizing: border-box; cursor: none !important; }
+      * { cursor: none !important; } /* match veryfi */
 
-      :root {
+      :root{
         --pink: rgb(246, 68, 184);
         --lavender: rgb(169, 132, 220);
         --gold: rgb(252, 215, 131);
 
-        --bg-light: #fffdf5;
-        --ink-light: #2b2b2b;
-        --ink-2-light: rgba(20, 20, 20, 0.75);
-        --stroke-light: rgba(0, 0, 0, 0.08);
-        --shadow-light: 0 10px 25px rgba(0, 0, 0, 0.06);
-        --card-bg-light: #fff;
-        --section-bg-light: rgba(255, 255, 255, 0.6);
+        --bg-light:#fffdf5; --ink-light:#2b2b2b; --ink-2-light:rgba(20,20,20,.75);
+        --stroke-light:rgba(0,0,0,.08); --shadow-light:0 10px 25px rgba(0,0,0,.06);
+        --card-bg-light:#fff; --section-bg-light:rgba(255,255,255,.6);
 
-        --bg-dark: #1a1a1a;
-        --ink-dark: #f5f5f5;
-        --ink-2-dark: rgba(245, 245, 245, 0.8);
-        --stroke-dark: rgba(255, 255, 255, 0.1);
-        --shadow-dark: 0 10px 25px rgba(0, 0, 0, 0.3);
-        --card-bg-dark: rgba(40, 40, 40, 0.6);
-        --section-bg-dark: rgba(40, 40, 40, 0.4);
+        --bg-dark:#1a1a1a; --ink-dark:#f5f5f5; --ink-2-dark:rgba(245,245,245,.8);
+        --stroke-dark:rgba(255,255,255,.1); --shadow-dark:0 10px 25px rgba(0,0,0,.3);
+        --card-bg-dark:rgba(40,40,40,.6); --section-bg-dark:rgba(40,40,40,.4);
       }
 
-      body {
-        --bg: var(--bg-light);
-        --ink: var(--ink-light);
-        --ink-2: var(--ink-2-light);
-        --stroke: var(--stroke-light);
-        --shadow: var(--shadow-light);
-        --card-bg: var(--card-bg-light);
-        --section-bg: var(--section-bg-light);
+      *{ box-sizing:border-box; }
+
+      body{
+        --bg:var(--bg-light); --ink:var(--ink-light); --ink-2:var(--ink-2-light);
+        --stroke:var(--stroke-light); --shadow:var(--shadow-light);
+        --card-bg:var(--card-bg-light); --section-bg:var(--section-bg-light);
       }
-      body.dark-mode {
-        --bg: var(--bg-dark);
-        --ink: var(--ink-dark);
-        --ink-2: var(--ink-2-dark);
-        --stroke: var(--stroke-dark);
-        --shadow: var(--shadow-dark);
-        --card-bg: var(--card-bg-dark);
-        --section-bg: var(--section-bg-dark);
+      body.dark-mode{
+        --bg:var(--bg-dark); --ink:var(--ink-dark); --ink-2:var(--ink-2-dark);
+        --stroke:var(--stroke-dark); --shadow:var(--shadow-dark);
+        --card-bg:var(--card-bg-dark); --section-bg:var(--section-bg-dark);
       }
 
-      body {
-        margin: 0;
-        font-family: "Poppins", sans-serif;
-        color: var(--ink);
-        background: radial-gradient(
-            1400px 900px at 12% 18%,
-            rgba(246, 68, 184, 0.2),
-            transparent 60%
-          ),
-          radial-gradient(
-            1200px 800px at 88% 72%,
-            rgba(169, 132, 220, 0.2),
-            transparent 60%
-          ),
-          radial-gradient(
-            1000px 700px at 50% 95%,
-            rgba(252, 215, 131, 0.18),
-            transparent 70%
-          ),
+      body{
+        margin:0; font-family:"Poppins",sans-serif; color:var(--ink);
+        background:
+          radial-gradient(1400px 900px at 12% 18%, rgba(246,68,184,.2), transparent 60%),
+          radial-gradient(1200px 800px at 88% 72%, rgba(169,132,220,.2), transparent 60%),
+          radial-gradient(1000px 700px at 50% 95%, rgba(252,215,131,.18), transparent 70%),
           var(--bg);
-        background-size: 300% 300%;
-        animation: bgFlow 80s ease-in-out infinite alternate, fadeIn 0.5s ease-out;
-        min-height: 100vh;
-        position: relative;
+        background-size:300% 300%;
+        animation:bgFlow 80s ease-in-out infinite alternate, fadeIn .5s ease-out;
+        -webkit-font-smoothing:antialiased; min-height:100vh; position:relative;
+        transition:background-color .4s ease;
+        cursor:auto; /* same as veryfi */
       }
 
-      body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        z-index: 10000;
-        opacity: 0.035;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      /* Grain overlay (veryfi) */
+      body::before{
+        content:""; position:fixed; inset:0; pointer-events:none; z-index:10000; opacity:.035;
+        background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
       }
+      body.dark-mode::before{ opacity:.045; }
 
-      @keyframes bgFlow { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
-      @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+      @keyframes bgFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+      @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+      @keyframes shimmer{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+      @keyframes fadeOut{from{opacity:1}to{opacity:0}}
+      body.page-exit{animation:fadeOut .3s ease-in forwards;}
 
-      .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+      .wrap{ max-width:1120px; margin:0 auto; padding:48px 24px 80px; }
 
-      header {
-        display: flex; justify-content: space-between; align-items: center;
-        padding: 2rem 0;
+      /* Header (veryfi) */
+      header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:48px; }
+      .back{ color:var(--ink-2); text-decoration:none; font-weight:500; transition:color .3s ease; }
+      .back:hover{ color:var(--pink); }
+      nav{ display:flex; align-items:center; gap:18px; }
+      nav a{ color:var(--ink-2); text-decoration:none; font-weight:500; transition:color .3s ease; }
+      nav a:hover{ color:var(--pink); }
+
+      .theme-toggle{
+        width:40px;height:40px;border-radius:50%; border:none; background:var(--card-bg);
+        backdrop-filter:blur(10px); cursor:pointer; display:flex; align-items:center; justify-content:center;
+        transition:all .3s ease; box-shadow:var(--shadow); border:1px solid var(--stroke);
       }
-      header a { color: var(--ink); text-decoration: none; transition: all 0.3s; }
-      header a:hover { color: var(--pink); }
-      .back { font-weight: 500; }
-      nav { display: flex; gap: 2rem; align-items: center; }
-      nav a { font-weight: 500; }
+      .theme-toggle:hover{ transform:scale(1.05); }
+      .toggle-icon{ width:20px;height:20px; position:relative; }
+      .toggle-icon svg{ width:100%; height:100%; fill:var(--ink); }
+      .sun-icon{ display:none; } body.dark-mode .sun-icon{ display:block; } body.dark-mode .moon-icon{ display:none; }
 
-      .theme-toggle {
-        background: var(--card-bg); border: 1px solid var(--stroke);
-        border-radius: 50%; width: 40px; height: 40px; display:flex;
-        align-items:center; justify-content:center; cursor:pointer;
-        transition: all 0.3s ease; box-shadow: var(--shadow);
-      }
-      .theme-toggle:hover { transform: scale(1.05); box-shadow:0 5px 15px rgba(246,68,184,0.2); }
-      .toggle-icon { width:20px;height:20px;position:relative; }
-      .toggle-icon svg{position:absolute;inset:0;width:100%;height:100%;fill:var(--ink);}
-      .sun-icon{opacity:0;transform:scale(0);}
-      body.dark-mode .moon-icon{opacity:0;transform:scale(0);}
-      body.dark-mode .sun-icon{opacity:1;transform:scale(1);}
-
-      .hero{text-align:center;padding:3rem 0 4rem;}
+      /* Hero — centered title + 3-column meta (like veryfi layout but centered) */
+      .hero{ margin-bottom:64px; text-align:center; }
       .project-title{
-        font-size:clamp(2.5rem,6vw,5rem);font-weight:700;margin:0 0 2rem;
-        background:linear-gradient(135deg,var(--pink),var(--lavender),var(--gold));
-        -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-        background-clip:text;animation:shimmer 8s ease-in-out infinite;
+        font-size:clamp(3rem,8vw,5rem); font-weight:700; margin:0 0 24px;
+        text-transform:lowercase;
+        background:linear-gradient(120deg, var(--pink), var(--lavender), var(--gold));
+        background-size:300% 300%; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+        line-height:1; letter-spacing:-.03em; animation:shimmer 8s ease-in-out infinite;
       }
-     /* Centered Hero with 3-column meta layout */
-.hero {
-  text-align: center;
-  padding: 5rem 0 4rem;
-}
+      .project-meta{
+        display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:32px;
+        max-width:720px; margin:0 auto;
+      }
+      .meta-item{ display:flex; flex-direction:column; gap:4px; text-align:center; }
+      .meta-label{
+        font-size:.8rem; text-transform:uppercase; letter-spacing:.1em;
+        color:var(--ink-2); font-weight:600;
+      }
+      .meta-value{ font-size:1.1rem; color:var(--ink); font-weight:500; }
 
-.project-title {
-  font-size: clamp(3.5rem, 8vw, 6.5rem);
-  font-weight: 700;
-  margin-bottom: 2.5rem;
-  line-height: 1;
-  background: linear-gradient(135deg, var(--lavender), rgba(169, 132, 220, 0.9));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.project-meta {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 2rem;
-  justify-content: center;
-  align-items: start;
-  max-width: 700px;
-  margin: 0 auto;
-}
-
-.meta-item {
-  text-align: center;
-}
-
-.meta-label {
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-weight: 600;
-  color: var(--ink-2);
-  margin-bottom: 0.3rem;
-}
-
-.meta-value {
-  font-size: 1.15rem;
-  font-weight: 500;
-  color: var(--ink);
-}
-
-/* stack on mobile */
-@media (max-width: 640px) {
-  .project-meta {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-}
-
-
-      @keyframes shimmer{0%{background-position:0% 50%}100%{background-position:100% 50%}}
-
-      .section{margin-bottom:4rem;}
-      .section-title{font-size:clamp(1.75rem,3vw,2.5rem);font-weight:600;margin-bottom:1.5rem;color:var(--ink);}
+      /* Sections (veryfi) */
+      .section{ margin-bottom:64px; }
+      .section-title{
+        font-size:clamp(1.75rem,4vw,2.5rem); font-weight:600; margin:0 0 24px; text-transform:lowercase;
+        background:linear-gradient(90deg, var(--pink), var(--lavender), var(--gold), var(--pink));
+        background-size:300% 300%; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+        animation:shimmer 4s ease-in-out infinite;
+      }
       .section-content{
-        background:var(--section-bg);backdrop-filter:blur(10px);
-        border-radius:16px;border:1px solid var(--stroke);padding:2rem;
-        box-shadow:var(--shadow);font-size:1.05rem;line-height:1.7;color:var(--ink-2);
+        background:var(--section-bg); backdrop-filter:blur(12px);
+        border:1px solid var(--stroke); border-radius:20px; padding:32px;
+        box-shadow:var(--shadow); transition:all .4s ease;
       }
+      .section-content p{ font-size:1.1rem; line-height:1.8; color:var(--ink-2); margin:0 0 1rem; }
+      .section-content p:last-child{ margin-bottom:0; }
+      strong{ color:var(--pink); font-weight:600; }
 
-      .poster-grid{
-        display:grid;
-        grid-template-columns:repeat(3,minmax(0,1fr));
-        gap:1.5rem;
-      }
+      /* Poster grids (3 per row desktop, 2 tablet, 1 mobile) */
+      .poster-grid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:20px; }
       .poster{
-        border-radius:12px;overflow:hidden;
-        box-shadow:var(--shadow);
-        border:1px solid var(--stroke);
-        background:var(--card-bg);
-        transition:transform 0.3s ease,box-shadow 0.3s ease;
+        background:var(--card-bg); border:1px solid var(--stroke); border-radius:20px;
+        overflow:hidden; box-shadow:var(--shadow); transition:transform .3s ease, box-shadow .3s ease;
       }
-      .poster:hover{transform:translateY(-6px);box-shadow:0 15px 35px rgba(246,68,184,0.15);}
-      .poster img,
-      .poster video{
-        width:100%;height:100%;
-        aspect-ratio:3/4;
-        object-fit:cover;
-        display:block;
-        transition:transform 0.35s ease;
+      .poster:hover{ transform:translateY(-4px); box-shadow:0 12px 32px rgba(246,68,184,.15); }
+      .poster img, .poster video{
+        width:100%; height:100%; display:block; aspect-ratio:3/4; object-fit:cover; transition:transform .35s ease;
       }
-      .poster:hover img,
-      .poster:hover video{transform:scale(1.03);}
+      .poster:hover img, .poster:hover video{ transform:scale(1.03); }
 
-      @media(max-width:1024px){.poster-grid{grid-template-columns:repeat(2,1fr);}}
-      @media(max-width:640px){.poster-grid{grid-template-columns:1fr;gap:1rem;}}
+      @media (max-width:1024px){ .poster-grid{ grid-template-columns:repeat(2,1fr);} }
+      @media (max-width:640px){
+        .wrap{ padding:32px 20px 60px; }
+        .project-meta{ grid-template-columns:1fr; gap:16px; }
+        .poster-grid{ grid-template-columns:1fr; }
+        .section-content{ padding:24px; }
+      }
 
+      /* Cursor dot (same as veryfi file) */
       .cursor{
-        width:20px;height:20px;border-radius:50%;
-        background:var(--pink);position:fixed;pointer-events:none;
-        transform:translate(-50%,-50%);
-        transition:transform .15s ease,width .2s ease,height .2s ease;
-        box-shadow:0 0 15px rgba(246,68,184,0.5);z-index:10000;
+        width:20px; height:20px; border-radius:50%; background:var(--pink);
+        position:fixed; pointer-events:none; transform:translate(-50%,-50%);
+        transition:transform .15s ease, width .2s ease, height .2s ease;
+        box-shadow:0 0 15px rgba(246,68,184,.5); z-index:10000;
+      }
+      .cursor.click{ transform:translate(-50%,-50%) scale(.8); }
+
+      @media (prefers-reduced-motion: reduce){
+        *{ animation:none !important; }
       }
     </style>
   </head>
 
   <body>
-    <div class="container">
+    <div class="wrap">
       <header>
         <a class="back" href="works.html">← back</a>
         <nav>
-          <a href="works.html">work</a>
+          <a href="work.html">work</a>
           <a href="about.html">about</a>
           <a href="mailto:mikapham229@gmail.com">contact</a>
           <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
             <div class="toggle-icon">
-              <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.64,13a1,1,0,0,0-1.05-.14A8.05,8.05,0,0,1,17.22,13a8.15,8.15,0,0,1-8.14-8.24,8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Z"/></svg>
-              <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,6a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V5A1,1,0,0,0,12,6Zm0,12a1,1,0,0,0-1,1v2a1,1,0,0,0,2,0V19A1,1,0,0,0,12,18Z"/></svg>
+              <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Z"/>
+              </svg>
+              <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12,6a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V5A1,1,0,0,0,12,6Zm0,12a1,1,0,0,0-1,1v2a1,1,0,0,0,2,0V19A1,1,0,0,0,12,18Z"/>
+              </svg>
             </div>
           </button>
         </nav>
       </header>
 
+      <!-- Hero -->
       <div class="hero">
         <h1 class="project-title">confidance</h1>
         <div class="project-meta">
-          <div class="meta-item"><div class="meta-label">role</div><div class="meta-value">head of marketing</div></div>
-          <div class="meta-item"><div class="meta-label">timeline</div><div class="meta-value">2024–2025</div></div>
-          <div class="meta-item"><div class="meta-label">type</div><div class="meta-value">branding • graphic designs</div></div>
+          <div class="meta-item">
+            <div class="meta-label">role</div>
+            <div class="meta-value">head of marketing</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">timeline</div>
+            <div class="meta-value">2024–2025</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">type</div>
+            <div class="meta-value">branding • graphic designs</div>
+          </div>
         </div>
       </div>
 
+      <!-- Intro -->
       <div class="section">
         <h2 class="section-title">about confidance</h2>
         <div class="section-content">
-          <p>as part of <strong>vanderbilt's premier dance organization</strong>, confidance, i led visual branding and creative direction across performances and campaigns. as head of marketing, i designed <strong>promotional assets ranging from posters and flyers to video reels and social content</strong>. in my role as creative director, i <strong>planned and directed photoshoots, photographed our dancers</strong>, and translated movement into visual stories, crafting cohesive poster designs and marketing materials that reflected the energy and identity of each dancer and showcase.</p>
+          <p>
+            as part of <strong>vanderbilt's premier dance organization</strong>, confidance, i led visual branding and creative direction across
+            performances and campaigns. as head of marketing, i designed <strong>promotional assets ranging from posters and flyers to video reels and social content</strong>.
+            in my role as creative director, i <strong>planned and directed photoshoots, photographed our dancers</strong>, and translated movement into visual stories,
+            crafting cohesive poster designs and marketing materials that reflected the energy and identity of each dancer and showcase.
+          </p>
         </div>
       </div>
 
+      <!-- Showcase & Event Posters -->
       <div class="section">
         <h2 class="section-title">showcase & event posters</h2>
         <div class="poster-grid">
@@ -269,6 +219,7 @@
         </div>
       </div>
 
+      <!-- Board & Committee Posters -->
       <div class="section">
         <h2 class="section-title">board & committee posters</h2>
         <div class="poster-grid">
@@ -278,6 +229,7 @@
         </div>
       </div>
 
+      <!-- Individual Member Features -->
       <div class="section">
         <h2 class="section-title">individual member features</h2>
         <div class="poster-grid">
@@ -293,38 +245,41 @@
       </div>
     </div>
 
-    <svg class="cursor-trail" xmlns="http://www.w3.org/2000/svg"><path id="trail" fill="none" stroke="rgb(246,68,184)" stroke-width="2" stroke-linecap="round"/></svg>
+    <!-- optional pink cursor (same behavior as veryfi) -->
     <div class="cursor"></div>
 
     <script>
-      const themeToggle=document.getElementById("themeToggle"),body=document.body;
-      if(localStorage.getItem("theme")==="dark")body.classList.add("dark-mode");
-      themeToggle.addEventListener("click",()=>{body.classList.toggle("dark-mode");localStorage.setItem("theme",body.classList.contains("dark-mode")?"dark":"light");});
+      // Theme toggle (veryfi)
+      const themeToggle=document.getElementById("themeToggle");
+      const body=document.body;
+      const currentTheme=localStorage.getItem("theme")||"light";
+      if(currentTheme==="dark") body.classList.add("dark-mode");
+      themeToggle.addEventListener("click",()=>{
+        body.classList.toggle("dark-mode");
+        localStorage.setItem("theme", body.classList.contains("dark-mode") ? "dark":"light");
+      });
 
-      const cursor=document.querySelector(".cursor"),trail=document.getElementById("trail"),points=[],trailLength=25;
-      let lastMoveTime=Date.now();
-      function updateTrail(){
-        const now=Date.now();
-        if(now-lastMoveTime>80&&points.length>0)points.shift();
-        if(points.length>1){
-          let d=`M ${points[0].x} ${points[0].y}`;
-          for(let i=1;i<points.length-1;i++){
-            const xc=(points[i].x+points[i+1].x)/2,yc=(points[i].y+points[i+1].y)/2;
-            d+=` Q ${points[i].x} ${points[i].y} ${xc} ${yc}`;
-          }
-          const last=points[points.length-1];
-          d+=` L ${last.x} ${last.y}`;
-          trail.setAttribute("d",d);
-        }else trail.setAttribute("d","");
-        requestAnimationFrame(updateTrail);
-      }
-      window.addEventListener("mousemove",e=>{
-        cursor.style.left=e.clientX+"px";cursor.style.top=e.clientY+"px";lastMoveTime=Date.now();
-        if(points.length===0||Math.abs(points[points.length-1].x-e.clientX)>2||Math.abs(points[points.length-1].y-e.clientY)>2){
-          points.push({x:e.clientX,y:e.clientY});if(points.length>trailLength)points.shift();
+      // Smooth page transitions (veryfi)
+      document.addEventListener("DOMContentLoaded",()=>{
+        const links=document.querySelectorAll('a[href$=".html"]');
+        links.forEach(link=>{
+          link.addEventListener("click",(e)=>{
+            const href=link.getAttribute("href");
+            if(link.target==="_blank" || !href || href.startsWith("http")) return;
+            e.preventDefault();
+            document.body.classList.add("page-exit");
+            setTimeout(()=>{ window.location.href=href; },300);
+          });
+        });
+
+        // Cursor dot (veryfi)
+        const cursor=document.querySelector(".cursor");
+        if(cursor){
+          window.addEventListener("mousemove",(e)=>{ cursor.style.left=e.clientX+"px"; cursor.style.top=e.clientY+"px"; });
+          window.addEventListener("mousedown",()=>cursor.classList.add("click"));
+          window.addEventListener("mouseup",()=>cursor.classList.remove("click"));
         }
       });
-      updateTrail();
     </script>
   </body>
 </html>
