@@ -152,26 +152,69 @@ body.dark-mode { --glass-border: rgba(255,255,255,.08); } /* dark */
       .section-content p:last-child{ margin-bottom:0; }
       strong{ color:var(--pink); font-weight:600; }
 
-      /* Posters */
-      .poster-grid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:20px; }
-      .poster{
-        background:var(--card-bg); border:1px solid var(--stroke); border-radius:20px;
-        overflow:hidden; box-shadow:var(--shadow); transition:transform .3s ease, box-shadow .3s ease;
-      }
-      .poster:hover{ transform:translateY(-4px); box-shadow:0 12px 32px rgba(246,68,184,.15); }
-      .poster img, .poster video{
-        width:100%; height:100%; display:block; aspect-ratio:3/4; object-fit:cover; transition:transform .35s ease;
-      }
-      .poster:hover img, .poster:hover video{ transform:scale(1.03); }
+     /* Posters */
+.poster-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
 
-      @media (max-width:1024px){ .poster-grid{ grid-template-columns:repeat(2,1fr);} }
-      @media (max-width:640px){
-        .wrap{ padding:32px 20px 60px; }
-        .project-meta{ grid-template-columns:1fr; gap:16px; max-width:420px; }
-        .meta-value{ white-space:normal; }
-        .poster-grid{ grid-template-columns:1fr; }
-        .section-content{ padding:24px; }
-      }
+/* add glass effect + subtle border */
+.poster {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--stroke);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* translucent glass border layer */
+.poster::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px var(--glass-border);
+}
+
+/* subtle hover motion */
+.poster:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(246, 68, 184, 0.15);
+}
+
+/* image / video inside */
+.poster img,
+.poster video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+  border-radius: inherit;
+}
+
+.poster:hover img,
+.poster:hover video {
+  transform: scale(1.03);
+}
+
+@media (max-width: 1024px) {
+  .poster-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .poster-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 
       /* Pink cursor */
       .cursor{
