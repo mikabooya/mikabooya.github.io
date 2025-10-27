@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>mika pham — portfolio</title>
 
+    <!-- Poppins Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- spline viewer -->
     <script
       type="module"
@@ -40,7 +46,7 @@
         height: 100%;
         margin: 0;
         overflow: hidden;
-        font-family: "Inter", sans-serif;
+        font-family: "Poppins", sans-serif;
         transition: background 0.4s ease;
       }
 
@@ -51,6 +57,79 @@
 
       body.dark-mode {
         background: var(--bg-dark);
+      }
+
+      /* ============================================
+         LOADING SCREEN
+      ============================================ */
+      #loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: #fffdf5;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 100000;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+      }
+
+      body.dark-mode #loading-screen {
+        background: #1a1a1a;
+      }
+
+      #loading-screen.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .loader-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .progress-container {
+        width: 200px;
+        height: 2px;
+        background: rgba(246, 68, 184, 0.1);
+        border-radius: 2px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .progress-bar {
+        height: 100%;
+        background: #f644b8;
+        border-radius: 2px;
+        width: 0%;
+        animation: fillProgress 2s ease-out forwards;
+      }
+
+      @keyframes fillProgress {
+        0% {
+          width: 0%;
+        }
+        100% {
+          width: 100%;
+        }
+      }
+
+      .loading-text {
+        font-family: "Poppins", sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        color: #2b2b2b;
+        letter-spacing: 0.5px;
+      }
+
+      body.dark-mode .loading-text {
+        color: #f5f5f5;
       }
 
       /* Page transition animations */
@@ -152,49 +231,58 @@
         }
       }
 
-      /* Footer title */
-      .title {
+      /* Navigation Bar */
+      header {
         position: fixed;
-        bottom: 2rem;
-        left: 2rem;
-        font-weight: 600;
-        font-size: 1.2rem;
-        background: linear-gradient(
-          90deg,
-          var(--pink),
-          var(--gold),
-          var(--lavender),
-          var(--pink)
-        );
-        background-size: 300% 300%;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        animation: shimmer 5s ease infinite;
-        z-index: 2;
-        transition: opacity 0.3s ease;
+        top: 2rem;
+        right: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        z-index: 3;
+        opacity: 0;
+        animation: fadeInNav 0.8s ease-out 2.3s forwards;
       }
 
-      @keyframes shimmer {
-        0% {
-          background-position: 0% 50%;
+      @keyframes fadeInNav {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
         }
-        50% {
-          background-position: 100% 50%;
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
-        100% {
-          background-position: 0% 50%;
-        }
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+
+      nav a {
+        color: rgba(20, 20, 20, 0.75);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 15px;
+        transition: color 0.3s ease;
+      }
+
+      body.dark-mode nav a {
+        color: rgba(245, 245, 245, 0.8);
+      }
+
+      nav a:hover {
+        color: var(--pink);
       }
 
       /* Theme toggle button */
       .theme-toggle {
-        position: fixed;
-        top: 2rem;
-        right: 2rem;
-        width: 56px;
-        height: 56px;
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
-        border: none;
+        border: 1px solid rgba(0, 0, 0, 0.08);
         background: rgba(255, 255, 255, 0.15);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
@@ -203,12 +291,12 @@
         align-items: center;
         justify-content: center;
         transition: all 0.3s ease;
-        z-index: 3;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
       }
 
       body.dark-mode .theme-toggle {
         background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.1);
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
       }
 
@@ -227,8 +315,8 @@
 
       /* Toggle icon */
       .toggle-icon {
-        width: 24px;
-        height: 24px;
+        width: 20px;
+        height: 20px;
         position: relative;
         transition: transform 0.3s ease;
       }
@@ -250,11 +338,55 @@
       .toggle-icon svg {
         width: 100%;
         height: 100%;
-        fill: var(--text-light);
+        fill: none;
+        stroke: rgba(20, 20, 20, 0.75);
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
       }
 
       body.dark-mode .toggle-icon svg {
-        fill: var(--text-dark);
+        stroke: #ffffff;
+      }
+
+      /* Welcome Text - Centered */
+      .welcome-text {
+        position: fixed;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: "Poppins", sans-serif;
+        font-size: 15px;
+        font-weight: 400;
+        color: rgba(20, 20, 20, 0.75);
+        z-index: 2;
+        opacity: 0;
+        animation: fadeInWelcome 0.8s ease-out 2.5s forwards;
+        line-height: 1.6;
+        text-align: center;
+      }
+
+      body.dark-mode .welcome-text {
+        color: rgba(245, 245, 245, 0.8);
+      }
+
+      @keyframes fadeInWelcome {
+        from {
+          opacity: 0;
+          transform: translateX(-50%) translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(-50%) translateY(0);
+        }
+      }
+
+      .welcome-text .greeting {
+        font-weight: 500;
+        background: linear-gradient(135deg, var(--pink), var(--lavender));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
       }
 
       /* Custom cursor */
@@ -274,52 +406,126 @@
       .cursor.click {
         transform: translate(-50%, -50%) scale(0.8);
       }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        header {
+          top: 1.5rem;
+          right: 1.5rem;
+        }
+
+        nav {
+          gap: 14px;
+        }
+
+        nav a {
+          font-size: 14px;
+        }
+
+        .welcome-text {
+          bottom: 1.5rem;
+          font-size: 14px;
+          padding: 0 1.5rem;
+        }
+
+        .progress-container {
+          width: 160px;
+        }
+      }
     </style>
   </head>
 
   <body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+      <div class="loader-container">
+        <div class="progress-container">
+          <div class="progress-bar"></div>
+        </div>
+        <div class="loading-text">loading...</div>
+      </div>
+    </div>
+
     <!-- Transition overlay -->
     <div class="transition-overlay"></div>
 
-    <!-- Theme toggle button -->
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-      <div class="toggle-icon">
-        <!-- Moon icon for light mode -->
-        <svg
-          class="moon-icon"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-        >
-          <path
-            d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z"
-          />
-        </svg>
-        <!-- Sun icon for dark mode -->
-        <svg
-          class="sun-icon"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-        >
-          <path
-            d="M12,6a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V5A1,1,0,0,0,12,6ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-1.41-1.42A1,1,0,0,0,4.22,5.64ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm.64,5.05a1,1,0,0,0-1.41,1.41l1.41,1.42a1,1,0,0,0,.71.29,1,1,0,0,0,.7-.29,1,1,0,0,0,0-1.41ZM12,18a1,1,0,0,0-1,1v2a1,1,0,0,0,2,0V19A1,1,0,0,0,12,18Zm5.66-.36a1,1,0,0,0-1.41,1.41l1.41,1.42a1,1,0,0,0,.71.29,1,1,0,0,0,.7-.29,1,1,0,0,0,0-1.41ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-2.64-3.95a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29l1.41-1.42a1,1,0,1,0-1.41-1.41l-1.41,1.42A1,1,0,0,0,18.36,7.05ZM12,8a4,4,0,1,0,4,4A4,4,0,0,0,12,8Zm0,6a2,2,0,1,1,2-2A2,2,0,0,1,12,14Z"
-          />
-        </svg>
-      </div>
-    </button>
+    <!-- Navigation Bar -->
+    <header>
+      <nav>
+        <a href="works.html">work</a>
+        <a href="about.html">about</a>
+        <a href="resume.html">resume</a>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <div class="toggle-icon">
+          <!-- Moon icon for light mode -->
+          <svg
+            class="moon-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <!-- Sun icon for dark mode -->
+          <svg
+            class="sun-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </div>
+      </button>
+    </header>
 
     <!-- spline scene -->
     <spline-viewer
-     url="https://prod.spline.design/0OgmrUg00xI72hXH/scene.splinecode?v=2"
+      url="https://prod.spline.design/0OgmrUg00xI72hXH/scene.splinecode?v=2"
       events-target="global"
     ></spline-viewer>
 
     <!-- overlay with gradient -->
     <div class="overlay"></div>
 
+    <!-- Welcome Text -->
+    <div class="welcome-text">
+      <span class="greeting">hi, i'm mika pham.</span><br />
+      welcome to my marketing and design workspace.
+    </div>
+
     <!-- Custom cursor -->
     <div class="cursor"></div>
 
     <script>
+      // Loading Screen
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          const loadingScreen = document.getElementById("loading-screen");
+          loadingScreen.classList.add("hidden");
+          document.body.style.overflow = "auto";
+        }, 2000);
+      });
+
+      // Prevent scrolling while loading
+      if (!document.getElementById("loading-screen").classList.contains("hidden")) {
+        document.body.style.overflow = "hidden";
+      }
+
+      // Theme Toggle
       const themeToggle = document.getElementById("themeToggle");
       const body = document.body;
 
@@ -354,7 +560,7 @@
         cursor.classList.remove("click");
       });
 
-      // Smooth page transitions - simple approach
+      // Smooth page transitions
       let transitionStarted = false;
 
       // Override window.open to prevent new tabs from Spline
