@@ -26,6 +26,7 @@
   --stroke-light: rgba(0, 0, 0, 0.08);
   --shadow-light: 0 10px 25px rgba(0, 0, 0, 0.06);
   --card-bg-light: #fff;
+  --section-bg-light: rgba(255, 255, 255, 0.6);
   --footer-text-light: #555;
 
   /* Dark Mode Variables */
@@ -35,6 +36,7 @@
   --stroke-dark: rgba(255, 255, 255, 0.1);
   --shadow-dark: 0 10px 25px rgba(0, 0, 0, 0.3);
   --card-bg-dark: rgba(40, 40, 40, 0.6);
+  --section-bg-dark: rgba(40, 40, 40, 0.4);
   --footer-text-dark: #aaa;
 }
 
@@ -49,6 +51,7 @@ body {
   --stroke: var(--stroke-light);
   --shadow: var(--shadow-light);
   --card-bg: var(--card-bg-light);
+  --section-bg: var(--section-bg-light);
   --footer-text: var(--footer-text-light);
 
   margin: 0;
@@ -104,6 +107,7 @@ body.dark-mode {
   --stroke: var(--stroke-dark);
   --shadow: var(--shadow-dark);
   --card-bg: var(--card-bg-dark);
+  --section-bg: var(--section-bg-dark);
   --footer-text: var(--footer-text-dark);
 
   background: radial-gradient(
