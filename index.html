@@ -91,6 +91,11 @@
         pointer-events: none;
       }
 
+      /* Hide loading screen by default if already visited */
+      body.skip-loading #loading-screen {
+        display: none;
+      }
+
       .loader-container {
         display: flex;
         flex-direction: column;
@@ -248,7 +253,15 @@
         gap: 18px;
         z-index: 3;
         opacity: 0;
+      }
+
+      /* Conditional animation based on loading screen */
+      body:not(.skip-loading) header {
         animation: fadeInNav 0.8s ease-out 2.3s forwards;
+      }
+
+      body.skip-loading header {
+        animation: fadeInNav 0.8s ease-out 0.3s forwards;
       }
 
       @keyframes fadeInNav {
@@ -360,7 +373,7 @@
         stroke: #ffffff;
       }
 
-      /* Welcome Text - Centered */
+      /* Welcome Text - Centered - FIXED JUMPING */
       .welcome-text {
         position: fixed;
         bottom: 2rem;
@@ -372,13 +385,23 @@
         color: rgba(20, 20, 20, 0.75);
         z-index: 2;
         opacity: 0;
-        animation: fadeInWelcome 0.8s ease-out 2.5s forwards;
-        line-height: 1.6;
+        line-height: 1.4;
         text-align: center;
+        /* Prevent layout shift by reserving space */
+        min-height: 40px;
       }
 
       body.dark-mode .welcome-text {
         color: rgba(245, 245, 245, 0.8);
+      }
+
+      /* Conditional animation based on loading screen */
+      body:not(.skip-loading) .welcome-text {
+        animation: fadeInWelcome 0.8s ease-out 2.5s forwards;
+      }
+
+      body.skip-loading .welcome-text {
+        animation: fadeInWelcome 0.8s ease-out 0.5s forwards;
       }
 
       @keyframes fadeInWelcome {
@@ -398,6 +421,8 @@
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+        /* Prevent text from causing layout shift */
+        display: inline-block;
       }
 
       /* Custom cursor */
@@ -437,6 +462,7 @@
           bottom: 1.5rem;
           font-size: 14px;
           padding: 0 1.5rem;
+          min-height: 37px;
         }
 
         .progress-container {
@@ -522,18 +548,27 @@
     <div class="cursor"></div>
 
     <script>
-      // Loading Screen
-      window.addEventListener("load", () => {
-        setTimeout(() => {
-          const loadingScreen = document.getElementById("loading-screen");
-          loadingScreen.classList.add("hidden");
-        }, 2000);
-      });
-
-      // Prevent scrolling while loading
-      if (!document.getElementById("loading-screen").classList.contains("hidden")) {
-        document.body.style.overflow = "hidden";
+      // Check if this is the first visit (for loading screen)
+      const hasVisited = sessionStorage.getItem("hasVisited");
+      
+      if (hasVisited) {
+        // Skip loading screen if already visited in this session
+        document.body.classList.add("skip-loading");
+        document.getElementById("loading-screen").classList.add("hidden");
+      } else {
+        // Show loading screen on first visit
+        sessionStorage.setItem("hasVisited", "true");
       }
+
+      // Loading Screen (only for first visit)
+      window.addEventListener("load", () => {
+        if (!hasVisited) {
+          setTimeout(() => {
+            const loadingScreen = document.getElementById("loading-screen");
+            loadingScreen.classList.add("hidden");
+          }, 2000);
+        }
+      });
 
       // Theme Toggle
       const themeToggle = document.getElementById("themeToggle");
