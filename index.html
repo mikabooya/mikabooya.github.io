@@ -112,7 +112,7 @@
         background: #f644b8;
         border-radius: 2px;
         width: 0%;
-        animation: fillProgress 1.5s ease-out forwards;
+        animation: fillProgress 2s ease-out forwards;
       }
 
       @keyframes fillProgress {
@@ -527,7 +527,6 @@
         setTimeout(() => {
           const loadingScreen = document.getElementById("loading-screen");
           loadingScreen.classList.add("hidden");
-          document.body.style.overflow = "auto";
         }, 2000);
       });
 
