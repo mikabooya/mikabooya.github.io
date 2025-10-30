@@ -11,6 +11,9 @@
     <!-- Theme Color -->
     <meta name="theme-color" content="#F644B8">
 
+    <!-- Spline Viewer -->
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.90/build/spline-viewer.js"></script>
+
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
@@ -480,6 +483,38 @@
         font-weight: 600;
       }
 
+      /* Two column layout for about section */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        align-items: start;
+      }
+
+      .spline-container {
+        background: var(--section-bg);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--stroke);
+        border-radius: 20px;
+        padding: 0;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        position: sticky;
+        top: 24px;
+      }
+
+      @media (max-width: 900px) {
+        .about-grid {
+          grid-template-columns: 1fr;
+        }
+        
+        .spline-container {
+          position: relative;
+          top: 0;
+          order: -1;
+        }
+      }
+
       .tools-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -725,25 +760,34 @@
         </div>
       </div>
 
-      <!-- About Veryfi -->
+      <!-- About Veryfi with Spline -->
       <div class="section">
         <h2 class="section-title">about veryfi</h2>
-        <div class="section-content">
-          <p>
-            veryfi is a <strong>YC-backed fintech startup</strong> that turns
-            messy receipts and documents into clean, structured data using AI.
-            think of it as the
-            <strong>smartest OCR on the planet</strong> automating expense
-            management, fraud detection, and data extraction for enterprises who
-            are tired of manual entry.
-          </p>
-          <p>
-            as the company scaled, they needed marketing that could
-            <strong
-              >turn AI tech into stories people actually wanted to
-              read</strong
-            >. that's where i came in.
-          </p>
+        <div class="about-grid">
+          <div class="section-content">
+            <p>
+              veryfi is a <strong>YC-backed fintech startup</strong> that turns
+              messy receipts and documents into clean, structured data using AI.
+              think of it as the
+              <strong>smartest OCR on the planet</strong> automating expense
+              management, fraud detection, and data extraction for enterprises who
+              are tired of manual entry.
+            </p>
+            <p>
+              as the company scaled, they needed marketing that could
+              <strong
+                >turn AI tech into stories people actually wanted to
+                read</strong
+              >. that's where i came in.
+            </p>
+          </div>
+          
+          <div class="spline-container">
+            <spline-viewer 
+              url="https://prod.spline.design/GU4nzXuF7lk2sQ86/scene.splinecode"
+              style="width: 100%; height: 500px; display: block;">
+            </spline-viewer>
+          </div>
         </div>
       </div>
 
@@ -949,7 +993,7 @@
 
         <div class="showcase">
           <div class="showcase-item">
-            <a
+            
               href="https://www.veryfi.com/customer-stories/lala-whatsapp-promotional-campaign-case-study/"
               target="_blank"
               class="showcase-placeholder"
@@ -964,7 +1008,7 @@
           </div>
 
           <div class="showcase-item">
-            <a
+            
               href="https://www.veryfi.com/technology/hit-veryfi-back-to-school-whatsapp-campaign-case-study/"
               target="_blank"
               class="showcase-placeholder"
@@ -979,7 +1023,7 @@
           </div>
 
           <div class="showcase-item">
-            <a
+            
               href="https://www.veryfi.com/technology/veryfi-multi-channel-ocr-powers-pepsico-campaign-mexico/"
               target="_blank"
               class="showcase-placeholder"
@@ -994,7 +1038,7 @@
           </div>
 
           <div class="showcase-item">
-            <a
+            
               href="https://www.veryfi.com/technology/crem-helado-whatsapp-promotion/"
               target="_blank"
               class="showcase-placeholder"
@@ -1020,7 +1064,7 @@
 
         <div class="showcase">
           <div class="showcase-item">
-            <a
+            
               href="https://www.veryfi.com/technology/cpg-promotion-fraud-prevention/"
               target="_blank"
               class="showcase-placeholder"
@@ -1038,7 +1082,7 @@
           </div>
 
           <div class="showcase-item">
-            <a
+            
               href="https://www.veryfi.com/fraud-detection/upstream-fraud-prevention-ai-powered-detection-2025/"
               target="_blank"
               class="showcase-placeholder"
@@ -1056,7 +1100,7 @@
           </div>
 
           <div class="showcase-item">
-            <a
+            
               href="https://www.veryfi.com/technology/ocr-receipt-scanner-cpg/"
               target="_blank"
               class="showcase-placeholder"
@@ -1074,7 +1118,7 @@
           </div>
 
           <div class="showcase-item">
-            <a
+            
               href="https://www.veryfi.com/technology/multimodal-data-extraction-beyond-basic-ocr/"
               target="_blank"
               class="showcase-placeholder"
@@ -1158,7 +1202,7 @@
             positioned veryfi as the go to expert in fraud prevention and OCR.
             and those social shorts? they expanded reach to audiences who'd
             never heard of veryfi before (i scored <strong
-              >3000% increase in engagement</strong within my first month
+              >3000% increase in engagement</strong> within my first month
             >
             wohoo).
           </p>
