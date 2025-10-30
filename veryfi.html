@@ -11,9 +11,6 @@
     <!-- Theme Color -->
     <meta name="theme-color" content="#F644B8">
 
-    <!-- Spline Viewer -->
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.90/build/spline-viewer.js"></script>
-
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
@@ -125,9 +122,10 @@
         min-height: 100vh;
         position: relative;
         transition: background-color 0.4s ease;
-        cursor: auto;
+        cursor: auto; /* ensure default cursor */
       }
 
+      /* Grain overlay */
       body::before {
         content: "";
         position: fixed;
@@ -482,61 +480,6 @@
         font-weight: 600;
       }
 
-      .about-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 24px;
-        align-items: start;
-      }
-
-     .spline-container {
-        background: transparent;
-        border: none;
-        padding: 0;
-        box-shadow: none;
-        overflow: visible;
-        position: sticky;
-        top: 24px;
-        height: fit-content;
-      }
-
-      .spline-container spline-viewer {
-        background: transparent !important;
-      }
-
-      .spline-container spline-viewer::part(logo) {
-        display: none !important;
-      }
-
-      @media (max-width: 900px) {
-        .about-grid {
-          grid-template-columns: 1fr;
-        }
-        
-        .spline-container {
-          position: relative;
-          top: 0;
-          order: -1;
-          margin-bottom: 24px;
-        }
-        
-        .spline-container spline-viewer {
-          height: 350px !important;
-        }
-      }
-
-      @media (max-width: 900px) {
-        .about-grid {
-          grid-template-columns: 1fr;
-        }
-        
-        .spline-container {
-          position: relative;
-          top: 0;
-          order: -1;
-        }
-      }
-
       .tools-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -661,6 +604,8 @@
         transform: translateY(-2px);
       }
 
+      /* removed custom cursor styles; keep default */
+
       @media (prefers-reduced-motion: reduce) {
         * {
           animation: none !important;
@@ -682,6 +627,7 @@
         }
       }
 
+      /* Footer */
       footer {
         text-align: center;
         padding: 60px 0;
@@ -704,6 +650,7 @@
         color: var(--pink);
       }
 
+      /* Custom cursor */
       .cursor {
         width: 20px;
         height: 20px;
@@ -759,6 +706,7 @@
         </nav>
       </header>
 
+      <!-- Hero -->
       <div class="hero">
         <h1 class="project-title">veryfi</h1>
         <div class="project-meta">
@@ -777,48 +725,29 @@
         </div>
       </div>
 
-     <!-- About Veryfi with Spline -->
+      <!-- About Veryfi -->
       <div class="section">
         <h2 class="section-title">about veryfi</h2>
-        <div class="about-grid">
-          <div class="section-content">
-            <p>
-              veryfi is a <strong>YC-backed fintech startup</strong> that turns
-              messy receipts and documents into clean, structured data using AI.
-              think of it as the
-              <strong>smartest OCR on the planet</strong> automating expense
-              management, fraud detection, and data extraction for enterprises who
-              are tired of manual entry.
-            </p>
-            <p>
-              as the company scaled, they needed marketing that could
-              <strong
-                >turn AI tech into stories people actually wanted to
-                read</strong
-              >. that's where i came in.
-            </p>
-          </div>
-          
-          <div class="spline-container">
-            <spline-viewer 
-              url="https://prod.spline.design/GU4nzXuF7lk2sQ86/scene.splinecode"
-              style="width: 100%; height: 400px; display: block;"
-              loading-anim-type="spinner-small-dark">
-            </spline-viewer>
-          </div>
-        </div>
-      </div>
-          
-          <div class="spline-container">
-            <spline-viewer 
-              url="https://prod.spline.design/GU4nzXuF7lk2sQ86/scene.splinecode"
-              style="width: 100%; height: 500px; display: block;"
-              loading-anim-type="spinner-small-dark">
-            </spline-viewer>
-          </div>
+        <div class="section-content">
+          <p>
+            veryfi is a <strong>YC-backed fintech startup</strong> that turns
+            messy receipts and documents into clean, structured data using AI.
+            think of it as the
+            <strong>smartest OCR on the planet</strong> automating expense
+            management, fraud detection, and data extraction for enterprises who
+            are tired of manual entry.
+          </p>
+          <p>
+            as the company scaled, they needed marketing that could
+            <strong
+              >turn AI tech into stories people actually wanted to
+              read</strong
+            >. that's where i came in.
+          </p>
         </div>
       </div>
 
+      <!-- The Challenge -->
       <div class="section">
         <h2 class="section-title">the challenge</h2>
         <div class="section-content">
@@ -839,6 +768,7 @@
         </div>
       </div>
 
+      <!-- My Role -->
       <div class="section">
         <h2 class="section-title">my role</h2>
         <div class="section-content">
@@ -869,6 +799,7 @@
         </div>
       </div>
 
+      <!-- Tools -->
       <div class="section">
         <h2 class="section-title">tools & software</h2>
         <p
@@ -913,6 +844,7 @@
         </div>
       </div>
 
+      <!-- Motion Graphics & Animations -->
       <div class="section">
         <h2 class="section-title">motion graphics & animations</h2>
 
@@ -970,6 +902,7 @@
         </div>
       </div>
 
+      <!-- Product Demos -->
       <div class="section">
         <h2 class="section-title">product demo videos</h2>
 
@@ -1010,12 +943,13 @@
         </div>
       </div>
 
+      <!-- Case Studies -->
       <div class="section">
         <h2 class="section-title">customer case studies</h2>
 
         <div class="showcase">
           <div class="showcase-item">
-            
+            <a
               href="https://www.veryfi.com/customer-stories/lala-whatsapp-promotional-campaign-case-study/"
               target="_blank"
               class="showcase-placeholder"
@@ -1030,7 +964,7 @@
           </div>
 
           <div class="showcase-item">
-            
+            <a
               href="https://www.veryfi.com/technology/hit-veryfi-back-to-school-whatsapp-campaign-case-study/"
               target="_blank"
               class="showcase-placeholder"
@@ -1045,7 +979,7 @@
           </div>
 
           <div class="showcase-item">
-            
+            <a
               href="https://www.veryfi.com/technology/veryfi-multi-channel-ocr-powers-pepsico-campaign-mexico/"
               target="_blank"
               class="showcase-placeholder"
@@ -1060,7 +994,7 @@
           </div>
 
           <div class="showcase-item">
-            
+            <a
               href="https://www.veryfi.com/technology/crem-helado-whatsapp-promotion/"
               target="_blank"
               class="showcase-placeholder"
@@ -1080,12 +1014,13 @@
         </div>
       </div>
 
+      <!-- Technical Blogs -->
       <div class="section">
         <h2 class="section-title">technical blog content</h2>
 
         <div class="showcase">
           <div class="showcase-item">
-            
+            <a
               href="https://www.veryfi.com/technology/cpg-promotion-fraud-prevention/"
               target="_blank"
               class="showcase-placeholder"
@@ -1103,7 +1038,7 @@
           </div>
 
           <div class="showcase-item">
-            
+            <a
               href="https://www.veryfi.com/fraud-detection/upstream-fraud-prevention-ai-powered-detection-2025/"
               target="_blank"
               class="showcase-placeholder"
@@ -1121,7 +1056,7 @@
           </div>
 
           <div class="showcase-item">
-            
+            <a
               href="https://www.veryfi.com/technology/ocr-receipt-scanner-cpg/"
               target="_blank"
               class="showcase-placeholder"
@@ -1139,7 +1074,7 @@
           </div>
 
           <div class="showcase-item">
-            
+            <a
               href="https://www.veryfi.com/technology/multimodal-data-extraction-beyond-basic-ocr/"
               target="_blank"
               class="showcase-placeholder"
@@ -1158,6 +1093,7 @@
         </div>
       </div>
 
+      <!-- Social Media Shorts -->
       <div class="section">
         <h2 class="section-title">social media shorts</h2>
 
@@ -1209,6 +1145,7 @@
         </div>
       </div>
 
+      <!-- Impact & Results -->
       <div class="section">
         <h2 class="section-title">impact & results</h2>
         <div class="section-content">
@@ -1221,7 +1158,7 @@
             positioned veryfi as the go to expert in fraud prevention and OCR.
             and those social shorts? they expanded reach to audiences who'd
             never heard of veryfi before (i scored <strong
-              >3000% increase in engagement</strong> within my first month
+              >3000% increase in engagement</strong within my first month
             >
             wohoo).
           </p>
@@ -1234,6 +1171,7 @@
         </div>
       </div>
 
+      <!-- Footer -->
       <footer>
         <div class="footer-links">
           <a href="mailto:mikapham229@gmail.com" target="_blank">email ↗</a>
@@ -1245,8 +1183,10 @@
     </div>
 
     <script>
+      // Dynamic year
       document.getElementById("year").textContent = new Date().getFullYear();
 
+      // Theme toggle
       const themeToggle = document.getElementById("themeToggle");
       const body = document.body;
       const currentTheme = localStorage.getItem("theme") || "light";
@@ -1259,6 +1199,7 @@
         );
       });
 
+      // Smooth page transitions
       document.addEventListener("DOMContentLoaded", () => {
         const links = document.querySelectorAll('a[href$=".html"]');
         links.forEach((link) => {
@@ -1274,6 +1215,7 @@
           });
         });
 
+        // Custom cursor - initialize after DOM loads
         const cursor = document.querySelector(".cursor");
         if (cursor) {
           window.addEventListener("mousemove", (e) => {
@@ -1281,6 +1223,7 @@
             cursor.style.top = e.clientY + "px";
           });
 
+          // Cursor click effect
           window.addEventListener("mousedown", () => {
             cursor.classList.add("click");
           });
@@ -1292,6 +1235,7 @@
       });
     </script>
 
+    <!-- Custom cursor -->
     <div class="cursor"></div>
   </body>
 </html>
