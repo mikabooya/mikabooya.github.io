@@ -13,6 +13,9 @@
     />
 
     <style>
+      /* =============================================
+         BASE STYLES & CSS VARIABLES
+         ============================================= */
       * {
         cursor: none !important;
       }
@@ -35,6 +38,12 @@
         --shadow-dark: 0 10px 25px rgba(0, 0, 0, 0.3);
         --card-bg-dark: rgba(40, 40, 40, 0.6);
         --footer-text-dark: #aaa;
+        
+        /* Dock specific variables */
+        --dock-bg-light: rgba(255, 255, 255, 0.85);
+        --dock-bg-dark: rgba(30, 30, 30, 0.9);
+        --dock-border-light: rgba(0, 0, 0, 0.1);
+        --dock-border-dark: rgba(255, 255, 255, 0.1);
       }
 
       body {
@@ -45,6 +54,8 @@
         --shadow: var(--shadow-light);
         --card-bg: var(--card-bg-light);
         --footer-text: var(--footer-text-light);
+        --dock-bg: var(--dock-bg-light);
+        --dock-border: var(--dock-border-light);
         margin: 0;
         font-family: "Poppins", sans-serif;
         color: var(--ink);
@@ -74,6 +85,7 @@
         -webkit-font-smoothing: antialiased;
         min-height: 100vh;
         cursor: none;
+        padding-bottom: 80px; /* Space for the dock */
       }
 
       body::before {
@@ -97,6 +109,8 @@
         --shadow: var(--shadow-dark);
         --card-bg: var(--card-bg-dark);
         --footer-text: var(--footer-text-dark);
+        --dock-bg: var(--dock-bg-dark);
+        --dock-border: var(--dock-border-dark);
         background: radial-gradient(
             1400px 1100px at 15% 20%,
             rgba(246, 68, 184, 0.65),
@@ -156,6 +170,9 @@
         }
       }
 
+      /* =============================================
+         LAYOUT & HEADER
+         ============================================= */
       .wrap {
         max-width: 1280px;
         margin: 0 auto;
@@ -252,13 +269,15 @@
         font-weight: 400;
         letter-spacing: 0.3px;
       }
-
       .computer-layout {
         position: relative;
         min-height: 800px;
         margin-bottom: 100px;
       }
 
+      /* =============================================
+         WINDOW COMPONENTS
+         ============================================= */
       .window {
         position: absolute;
         background: var(--card-bg);
@@ -270,8 +289,9 @@
         -webkit-backdrop-filter: blur(20px);
         max-width: 500px;
         transform: translate3d(0, 0, 0);
-        transition: box-shadow 0.3s ease;
-        cursor: default;
+        transition: box-shadow 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+        cursor: move; /* Entire window is draggable */
+        user-select: none;
       }
 
       .window:hover {
@@ -290,6 +310,7 @@
         box-shadow: 0 20px 45px rgba(246, 68, 184, 0.4);
       }
 
+      /* Window header */
       .window-header {
         display: flex;
         align-items: center;
@@ -334,6 +355,9 @@
         flex: 1;
       }
 
+      /* =============================================
+         WINDOW CONTROL BUTTONS (Red, Yellow, Green)
+         ============================================= */
       .window-controls {
         display: flex;
         gap: 8px;
@@ -344,18 +368,105 @@
         width: 12px;
         height: 12px;
         border-radius: 50%;
+        cursor: pointer !important;
+        transition: transform 0.15s ease, filter 0.15s ease;
+        position: relative;
+      }
+
+      /* Hover effect for window control buttons */
+      .window-dot:hover {
+        transform: scale(1.15);
+        filter: brightness(1.1);
+      }
+
+      .window-dot:active {
+        transform: scale(0.95);
+      }
+
+      /* Show icons on hover */
+      .window-dot::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 8px;
+        font-weight: bold;
+        opacity: 0;
+        transition: opacity 0.15s ease;
+        color: rgba(0, 0, 0, 0.5);
+      }
+
+      .window-controls:hover .window-dot::after {
+        opacity: 1;
       }
 
       .dot-red {
         background: #ff5f56;
       }
+      .dot-red::after {
+        content: '×';
+        font-size: 10px;
+      }
+
       .dot-yellow {
         background: #ffbd2e;
       }
+      .dot-yellow::after {
+        content: '−';
+        font-size: 10px;
+      }
+
       .dot-green {
         background: #27c93f;
       }
+      .dot-green::after {
+        content: '+';
+        font-size: 9px;
+      }
 
+      /* =============================================
+         WINDOW STATES: Maximized, Hidden, Minimized
+         ============================================= */
+      
+      /* Maximized window state */
+      .window.maximized {
+        position: fixed !important;
+        top: 20px !important;
+        left: 20px !important;
+        right: 20px !important;
+        bottom: 100px !important;
+        width: auto !important;
+        max-width: none !important;
+        height: auto !important;
+        transform: none !important;
+        z-index: 9000 !important;
+        border-radius: 16px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .window.maximized .window-content {
+        max-height: calc(100vh - 180px);
+        overflow-y: auto;
+      }
+
+      /* Hidden window (closed) - moved to dock */
+      .window.hidden {
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(0.8) translateY(100px) !important;
+      }
+
+      /* Minimized window (collapsed) - moved to dock */
+      .window.minimized {
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(0.5) translateY(200px) !important;
+      }
+
+      /* =============================================
+         WINDOW CONTENT STYLES
+         ============================================= */
       .window-content {
         padding: 28px;
         color: #2b2b2b;
@@ -364,7 +475,6 @@
       body.dark-mode .window-content {
         color: #e8e8e8;
       }
-
       .window-content h2,
       .window-content .skill-name {
         color: #1a1a1a;
@@ -383,6 +493,9 @@
         color: #d0d0d0;
       }
 
+      /* =============================================
+         SPECIFIC WINDOW POSITIONS
+         ============================================= */
       .profile-window {
         top: 50px;
         left: 200px;
@@ -511,7 +624,6 @@
         max-width: 600px;
         z-index: 2;
       }
-
       .about-text p {
         font-size: 15px;
         line-height: 1.8;
@@ -610,49 +722,513 @@
         left: 100px;
       }
 
+      /* =============================================
+         SKILL ITEMS - Modern minimal hover style
+         ============================================= */
       .skill-item {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 12px 0;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
+        padding: 14px 16px;
+        margin: 0 -16px;
+        border-radius: 12px;
+        position: relative;
+        transition: background 0.2s ease, transform 0.2s ease;
+        cursor: default;
+      }
+
+      .skill-item::before {
+        content: '';
+        position: absolute;
+        left: 16px;
+        right: 16px;
+        bottom: 0;
+        height: 1px;
+        background: var(--stroke);
+        transition: opacity 0.2s ease;
+      }
+
+      .skill-item:last-child::before {
+        display: none;
       }
 
       .skill-item:hover {
-        padding-left: 8px;
-        background: rgba(246, 68, 184, 0.05);
+        background: rgba(246, 68, 184, 0.06);
+        transform: translateX(4px);
+      }
+
+      .skill-item:hover::before {
+        opacity: 0;
+      }
+
+      .skill-item:hover + .skill-item::before {
+        opacity: 0;
       }
 
       body.dark-mode .skill-item:hover {
-        background: rgba(246, 68, 184, 0.1);
-      }
-
-      body.dark-mode .skill-item {
-        border-bottom: 1px solid rgba(100, 100, 100, 0.3);
-      }
-
-      .skill-item:last-child {
-        border-bottom: none;
+        background: rgba(246, 68, 184, 0.12);
       }
 
       .skill-name {
         font-weight: 500;
         font-size: 14px;
+        transition: color 0.2s ease;
       }
 
-      .skill-stars {
+      .skill-item:hover .skill-name {
         color: var(--pink);
-        font-size: 14px;
-        letter-spacing: 2px;
-        transition: all 0.3s ease;
       }
 
-      .skill-item:hover .skill-stars {
-        transform: scale(1.15);
-        filter: drop-shadow(0 0 8px var(--pink));
+      /* Modern skill level indicator - horizontal bar style */
+      .skill-level {
+        display: flex;
+        align-items: center;
+        gap: 3px;
       }
 
+      .skill-level-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--stroke);
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .skill-level-dot.filled {
+        background: var(--pink);
+      }
+
+      .skill-item:hover .skill-level-dot.filled {
+        background: var(--pink);
+        box-shadow: 0 0 8px rgba(246, 68, 184, 0.5);
+        transform: scale(1.1);
+      }
+
+      /* Stagger animation on hover */
+      .skill-item:hover .skill-level-dot:nth-child(1) { transition-delay: 0ms; }
+      .skill-item:hover .skill-level-dot:nth-child(2) { transition-delay: 30ms; }
+      .skill-item:hover .skill-level-dot:nth-child(3) { transition-delay: 60ms; }
+      .skill-item:hover .skill-level-dot:nth-child(4) { transition-delay: 90ms; }
+      .skill-item:hover .skill-level-dot:nth-child(5) { transition-delay: 120ms; }
+
+      /* Legacy star support - hide stars, use dots instead */
+      .skill-stars {
+        display: none;
+      }
+      /* =============================================
+         ARCHIVED TABS DOCK (Frosted Glass UI)
+         ============================================= */
+      .archived-dock {
+        position: fixed;
+        bottom: 16px;
+        right: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+        padding: 10px 14px;
+        background: rgba(255, 255, 255, 0.65);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08),
+                    0 2px 8px rgba(0, 0, 0, 0.04),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        z-index: 9999;
+        min-height: 56px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(20px);
+        transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .archived-dock.visible {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      body.dark-mode .archived-dock {
+        background: rgba(30, 30, 30, 0.75);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
+                    0 2px 8px rgba(0, 0, 0, 0.2),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      }
+
+      /* =============================================
+         TRASH ICON (Always visible, triggers trash panel)
+         ============================================= */
+      .trash-icon {
+        position: fixed;
+        bottom: 16px;
+        right: 16px;
+        width: 52px;
+        height: 52px;
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer !important;
+        z-index: 9998;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .trash-icon:hover {
+        transform: scale(1.08);
+        box-shadow: 0 6px 24px rgba(246, 68, 184, 0.2),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      }
+
+      .trash-icon:active {
+        transform: scale(0.95);
+      }
+
+      .trash-icon.has-items::after {
+        content: '';
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 8px;
+        height: 8px;
+        background: var(--pink);
+        border-radius: 50%;
+        box-shadow: 0 0 6px var(--pink);
+      }
+
+      .trash-icon svg {
+        width: 24px;
+        height: 24px;
+        fill: var(--ink-2);
+        transition: fill 0.2s ease;
+      }
+
+      .trash-icon:hover svg {
+        fill: var(--pink);
+      }
+
+      body.dark-mode .trash-icon {
+        background: rgba(40, 40, 40, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      }
+      .trash-icon.hidden {
+        opacity: 0;
+        visibility: hidden;
+        transform: scale(0.8);
+      }
+
+      /* =============================================
+         TRASH PANEL (Dropdown showing deleted windows)
+         ============================================= */
+      .trash-panel {
+        position: fixed;
+        bottom: 80px;
+        right: 16px;
+        min-width: 180px;
+        max-width: 280px;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(24px) saturate(180%);
+        -webkit-backdrop-filter: blur(24px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 16px;
+        padding: 12px;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12),
+                    0 4px 12px rgba(0, 0, 0, 0.06),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        z-index: 10000;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px) scale(0.95);
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .trash-panel.visible {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0) scale(1);
+      }
+
+      body.dark-mode .trash-panel {
+        background: rgba(35, 35, 35, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4),
+                    0 4px 12px rgba(0, 0, 0, 0.2),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      }
+
+      .trash-panel-header {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--ink-2);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 4px 8px 12px;
+        border-bottom: 1px solid var(--stroke);
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .trash-panel-header svg {
+        width: 14px;
+        height: 14px;
+        fill: var(--ink-2);
+      }
+
+      .trash-panel-empty {
+        font-size: 12px;
+        color: var(--ink-2);
+        opacity: 0.6;
+        text-align: center;
+        padding: 16px 8px;
+      }
+
+      .trash-panel-items {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        max-height: 240px;
+        overflow-y: auto;
+      }
+
+      .trash-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 10px;
+        background: rgba(0, 0, 0, 0.03);
+        border-radius: 10px;
+        cursor: pointer !important;
+        transition: all 0.2s ease;
+      }
+
+      .trash-item:hover {
+        background: rgba(246, 68, 184, 0.1);
+        transform: translateX(4px);
+      }
+
+      body.dark-mode .trash-item {
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      body.dark-mode .trash-item:hover {
+        background: rgba(246, 68, 184, 0.2);
+      }
+
+      .trash-item-icon {
+        width: 28px;
+        height: 20px;
+        background: var(--card-bg);
+        border: 1.5px solid var(--pink);
+        border-radius: 4px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .trash-item-icon-header {
+        height: 6px;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.04), transparent);
+        border-bottom: 1px solid var(--stroke);
+        display: flex;
+        align-items: center;
+        padding: 0 2px;
+        gap: 1px;
+      }
+
+      .trash-item-icon-header span:nth-child(1) { background: #ff5f56; }
+      .trash-item-icon-header span:nth-child(2) { background: #ffbd2e; }
+      .trash-item-icon-header span:nth-child(3) { background: #27c93f; }
+
+      .trash-item-label {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--ink);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        flex: 1;
+      }
+      /* =============================================
+         DOCK TAB STYLES (Archived/Minimized Windows)
+         ============================================= */
+      .dock-tab {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        padding: 5px 4px;
+        cursor: pointer !important;
+        transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        position: relative;
+      }
+
+      .dock-tab:hover {
+        transform: translateY(-10px) scale(1.15);
+      }
+
+      .dock-tab:active {
+        transform: translateY(-5px) scale(1.05);
+      }
+
+      .dock-tab-icon {
+        width: 48px;
+        height: 34px;
+        background: var(--card-bg);
+        border: 2px solid var(--pink);
+        border-radius: 7px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        box-shadow: 0 3px 10px rgba(246, 68, 184, 0.15);
+        transition: all 0.25s ease;
+      }
+
+      .dock-tab:hover .dock-tab-icon {
+        box-shadow: 0 6px 20px rgba(246, 68, 184, 0.35);
+        transform: translateY(-2px);
+      }
+
+      .dock-tab-icon-header {
+        height: 10px;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.04), transparent);
+        border-bottom: 1px solid var(--stroke);
+        display: flex;
+        align-items: center;
+        padding: 0 3px;
+        gap: 2px;
+      }
+
+      body.dark-mode .dock-tab-icon-header {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), transparent);
+      }
+
+      .dock-tab-icon-header span {
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+      }
+
+      .dock-tab-icon-header span:nth-child(1) { background: #ff5f56; }
+      .dock-tab-icon-header span:nth-child(2) { background: #ffbd2e; }
+      .dock-tab-icon-header span:nth-child(3) { background: #27c93f; }
+
+      .dock-tab-icon-body {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(180deg, transparent, rgba(0,0,0,0.02));
+      }
+
+      body.dark-mode .dock-tab-icon-body {
+        background: linear-gradient(180deg, transparent, rgba(255,255,255,0.03));
+      }
+
+      .dock-tab-label {
+        font-size: 8px;
+        font-weight: 600;
+        color: var(--ink-2);
+        max-width: 56px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
+        opacity: 0.7;
+        transition: opacity 0.2s ease, color 0.2s ease;
+        letter-spacing: 0.2px;
+      }
+
+      .dock-tab:hover .dock-tab-label {
+        opacity: 1;
+        color: var(--ink);
+      }
+
+      .dock-tab::after {
+        content: '';
+        position: absolute;
+        bottom: -3px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--pink);
+        opacity: 0.9;
+        box-shadow: 0 0 6px var(--pink);
+        transition: all 0.2s ease;
+      }
+
+      .dock-tab:hover::after {
+        transform: translateX(-50%) scale(1.3);
+        box-shadow: 0 0 10px var(--pink);
+      }
+
+      .dock-separator {
+        width: 1px;
+        height: 36px;
+        background: var(--stroke);
+        margin: 0 6px;
+        opacity: 0.4;
+      }
+
+      .dock-trash {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer !important;
+        border-radius: 10px;
+        transition: all 0.2s ease;
+        position: relative;
+      }
+
+      .dock-trash:hover {
+        background: rgba(246, 68, 184, 0.1);
+        transform: scale(1.1);
+      }
+
+      .dock-trash:active {
+        transform: scale(0.95);
+      }
+
+      .dock-trash svg {
+        width: 22px;
+        height: 22px;
+        fill: var(--ink-2);
+        transition: fill 0.2s ease;
+      }
+
+      .dock-trash:hover svg {
+        fill: var(--pink);
+      }
+
+      .dock-trash.has-items::after {
+        content: '';
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        width: 7px;
+        height: 7px;
+        background: var(--pink);
+        border-radius: 50%;
+        box-shadow: 0 0 6px var(--pink);
+      }
+      /* =============================================
+         FOOTER
+         ============================================= */
       footer {
         text-align: center;
         padding: 60px 0;
@@ -678,6 +1254,9 @@
         color: var(--pink);
       }
 
+      /* =============================================
+         CUSTOM CURSOR
+         ============================================= */
       .cursor {
         width: 20px;
         height: 20px;
@@ -685,7 +1264,7 @@
         background: rgb(246, 68, 184);
         position: fixed;
         pointer-events: none;
-        z-index: 9999;
+        z-index: 99999;
         transform: translate(-50%, -50%);
         opacity: 1;
         box-shadow: 0 0 20px rgba(246, 68, 184, 0.6),
@@ -693,6 +1272,9 @@
         transition: width 0.2s ease, height 0.2s ease;
       }
 
+      /* =============================================
+         RESPONSIVE STYLES
+         ============================================= */
       @media (max-width: 768px) {
         .computer-layout {
           min-height: auto;
@@ -719,6 +1301,18 @@
         }
         .cursor {
           display: none;
+        }
+
+        .archived-dock {
+          bottom: 8px;
+          padding: 6px 10px;
+          max-width: calc(100% - 24px);
+          overflow-x: auto;
+        }
+
+        .dock-tab-icon {
+          width: 40px;
+          height: 30px;
         }
       }
     </style>
@@ -761,15 +1355,16 @@
       </header>
 
       <h1 class="page-title">about me</h1>
-      <p class="drag-hint">✿ click and drag windows to move them around</p>
+      <p class="drag-hint">✿ drag windows anywhere to move them</p>
 
       <div class="computer-layout">
-        <div class="window profile-window">
+        <!-- Profile Window -->
+        <div class="window profile-window" data-window-id="meet_mika">
           <div class="window-header">
             <div class="window-controls">
-              <div class="window-dot dot-red"></div>
-              <div class="window-dot dot-yellow"></div>
-              <div class="window-dot dot-green"></div>
+              <div class="window-dot dot-red" data-action="close" title="Close"></div>
+              <div class="window-dot dot-yellow" data-action="minimize" title="Minimize"></div>
+              <div class="window-dot dot-green" data-action="maximize" title="Maximize"></div>
             </div>
             <span class="window-title">meet_mika.txt</span>
           </div>
@@ -789,12 +1384,13 @@
           </div>
         </div>
 
-        <div class="window socials-window">
+        <!-- Socials Window -->
+        <div class="window socials-window" data-window-id="socials">
           <div class="window-header">
             <div class="window-controls">
-              <div class="window-dot dot-red"></div>
-              <div class="window-dot dot-yellow"></div>
-              <div class="window-dot dot-green"></div>
+              <div class="window-dot dot-red" data-action="close" title="Close"></div>
+              <div class="window-dot dot-yellow" data-action="minimize" title="Minimize"></div>
+              <div class="window-dot dot-green" data-action="maximize" title="Maximize"></div>
             </div>
             <span class="window-title">socials</span>
           </div>
@@ -842,12 +1438,13 @@
           </div>
         </div>
 
-        <div class="window about-window">
+        <!-- About Window -->
+        <div class="window about-window" data-window-id="about_mika">
           <div class="window-header">
             <div class="window-controls">
-              <div class="window-dot dot-red"></div>
-              <div class="window-dot dot-yellow"></div>
-              <div class="window-dot dot-green"></div>
+              <div class="window-dot dot-red" data-action="close" title="Close"></div>
+              <div class="window-dot dot-yellow" data-action="minimize" title="Minimize"></div>
+              <div class="window-dot dot-green" data-action="maximize" title="Maximize"></div>
             </div>
             <span class="window-title">about_mika.txt</span>
           </div>
@@ -893,12 +1490,13 @@
           </div>
         </div>
 
-        <div class="window interests-window">
+        <!-- Interests Window -->
+        <div class="window interests-window" data-window-id="interests_hobbies">
           <div class="window-header">
             <div class="window-controls">
-              <div class="window-dot dot-red"></div>
-              <div class="window-dot dot-yellow"></div>
-              <div class="window-dot dot-green"></div>
+              <div class="window-dot dot-red" data-action="close" title="Close"></div>
+              <div class="window-dot dot-yellow" data-action="minimize" title="Minimize"></div>
+              <div class="window-dot dot-green" data-action="maximize" title="Maximize"></div>
             </div>
             <span class="window-title">interests_hobbies.txt</span>
           </div>
@@ -914,73 +1512,142 @@
           </div>
         </div>
 
+        <!-- Skills Container with two skill windows -->
         <div class="skills-container">
-          <div class="window">
+          <!-- Creative Skills Window -->
+          <div class="window" data-window-id="creative_skills">
             <div class="window-header">
               <div class="window-controls">
-                <div class="window-dot dot-red"></div>
-                <div class="window-dot dot-yellow"></div>
-                <div class="window-dot dot-green"></div>
+                <div class="window-dot dot-red" data-action="close" title="Close"></div>
+                <div class="window-dot dot-yellow" data-action="minimize" title="Minimize"></div>
+                <div class="window-dot dot-green" data-action="maximize" title="Maximize"></div>
               </div>
               <span class="window-title">creative skills</span>
             </div>
             <div class="window-content">
               <div class="skill-item">
-                <span class="skill-name">photoshop</span
-                ><span class="skill-stars">★★★★☆</span>
+                <span class="skill-name">photoshop</span>
+                <div class="skill-level">
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot"></span>
+                </div>
               </div>
               <div class="skill-item">
-                <span class="skill-name">illustrator</span
-                ><span class="skill-stars">★★★☆☆</span>
+                <span class="skill-name">illustrator</span>
+                <div class="skill-level">
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot"></span>
+                  <span class="skill-level-dot"></span>
+                </div>
               </div>
               <div class="skill-item">
-                <span class="skill-name">premiere pro</span
-                ><span class="skill-stars">★★★★★</span>
+                <span class="skill-name">premiere pro</span>
+                <div class="skill-level">
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                </div>
               </div>
               <div class="skill-item">
-                <span class="skill-name">after effects</span
-                ><span class="skill-stars">★★★★☆</span>
+                <span class="skill-name">after effects</span>
+                <div class="skill-level">
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot"></span>
+                </div>
               </div>
               <div class="skill-item">
-                <span class="skill-name">spline</span
-                ><span class="skill-stars">★★★★☆</span>
+                <span class="skill-name">spline</span>
+                <div class="skill-level">
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot"></span>
+                </div>
               </div>
               <div class="skill-item">
-                <span class="skill-name">blender</span
-                ><span class="skill-stars">★★★☆☆</span>
+                <span class="skill-name">blender</span>
+                <div class="skill-level">
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot"></span>
+                  <span class="skill-level-dot"></span>
+                </div>
               </div>
             </div>
           </div>
 
-          <div class="window">
+          <!-- Marketing Skills Window -->
+          <div class="window" data-window-id="marketing_skills">
             <div class="window-header">
               <div class="window-controls">
-                <div class="window-dot dot-red"></div>
-                <div class="window-dot dot-yellow"></div>
-                <div class="window-dot dot-green"></div>
+                <div class="window-dot dot-red" data-action="close" title="Close"></div>
+                <div class="window-dot dot-yellow" data-action="minimize" title="Minimize"></div>
+                <div class="window-dot dot-green" data-action="maximize" title="Maximize"></div>
               </div>
               <span class="window-title">marketing skills</span>
             </div>
             <div class="window-content">
               <div class="skill-item">
-                <span class="skill-name">go-to-market strategy</span
-                ><span class="skill-stars">★★★★★</span>
+                <span class="skill-name">go-to-market strategy</span>
+                <div class="skill-level">
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                </div>
               </div>
               <div class="skill-item">
-                <span class="skill-name">content marketing</span
-                ><span class="skill-stars">★★★★★</span>
+                <span class="skill-name">content marketing</span>
+                <div class="skill-level">
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                </div>
               </div>
               <div class="skill-item">
-                <span class="skill-name">seo & analytics</span
-                ><span class="skill-stars">★★★★☆</span>
+                <span class="skill-name">seo & analytics</span>
+                <div class="skill-level">
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot"></span>
+                </div>
               </div>
               <div class="skill-item">
-                <span class="skill-name">campaign operations</span
-                ><span class="skill-stars">★★★★☆</span>
+                <span class="skill-name">campaign operations</span>
+                <div class="skill-level">
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot"></span>
+                </div>
               </div>
               <div class="skill-item">
-                <span class="skill-name">copywriting & storytelling</span
-                ><span class="skill-stars">★★★★★</span>
+                <span class="skill-name">copywriting & storytelling</span>
+                <div class="skill-level">
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                  <span class="skill-level-dot filled"></span>
+                </div>
               </div>
             </div>
           </div>
@@ -1001,6 +1668,37 @@
       </footer>
     </div>
 
+    <!-- Trash Icon (Always visible) -->
+    <div class="trash-icon" id="trashIcon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/>
+      </svg>
+    </div>
+
+    <!-- Trash Panel -->
+    <div class="trash-panel" id="trashPanel">
+      <div class="trash-panel-header">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/>
+        </svg>
+        Deleted Windows
+      </div>
+      <div class="trash-panel-items" id="trashPanelItems">
+        <div class="trash-panel-empty">No deleted windows</div>
+      </div>
+    </div>
+
+    <!-- Archived Dock -->
+    <div class="archived-dock" id="archivedDock">
+      <div class="dock-separator" id="dockSeparator" style="display: none;"></div>
+      <div class="dock-trash" id="dockTrash">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Custom Cursor -->
     <div class="cursor"></div>
 
     <script>
@@ -1010,6 +1708,7 @@
       const body = document.body;
       const currentTheme = localStorage.getItem("theme") || "light";
       if (currentTheme === "dark") body.classList.add("dark-mode");
+
       themeToggle.addEventListener("click", () => {
         body.classList.toggle("dark-mode");
         localStorage.setItem(
@@ -1022,136 +1721,6 @@
       window.addEventListener("mousemove", (e) => {
         cursor.style.left = e.clientX + "px";
         cursor.style.top = e.clientY + "px";
-      });
-
-      // Make windows draggable
-      const windows = document.querySelectorAll(".window");
-      let highestZIndex = 10;
-
-      windows.forEach((win, index) => {
-        let isDragging = false;
-        let currentX, currentY, initialX, initialY;
-        let xOffset = 0,
-          yOffset = 0;
-
-        // Generate unique ID for each window based on window title or class
-        let windowId;
-        const titleElement = win.querySelector(".window-title");
-        if (titleElement) {
-          windowId = titleElement.textContent
-            .trim()
-            .replace(/\s+/g, "-")
-            .toLowerCase();
-        } else {
-          windowId =
-            win.className
-              .split(" ")
-              .find((c) => c.endsWith("-window") || c === "window") +
-            "-" +
-            index;
-        }
-
-        // Load saved position from localStorage
-        const savedPosition = localStorage.getItem(windowId);
-        if (savedPosition) {
-          const { x, y, z } = JSON.parse(savedPosition);
-          xOffset = x;
-          yOffset = y;
-          win.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-          win.style.zIndex = z;
-          if (z > highestZIndex) highestZIndex = z;
-        }
-
-        win.style.cursor = "move";
-
-        // Bring window to front on click
-        win.addEventListener("mousedown", (e) => {
-          highestZIndex++;
-          win.style.zIndex = highestZIndex;
-          // Save z-index
-          const savedPos = localStorage.getItem(windowId);
-          if (savedPos) {
-            const pos = JSON.parse(savedPos);
-            pos.z = highestZIndex;
-            localStorage.setItem(windowId, JSON.stringify(pos));
-          } else {
-            localStorage.setItem(
-              windowId,
-              JSON.stringify({ x: xOffset, y: yOffset, z: highestZIndex })
-            );
-          }
-
-          // Start dragging
-          dragStart(e);
-        });
-
-        document.addEventListener("mousemove", drag);
-        document.addEventListener("mouseup", dragEnd);
-
-        function dragStart(e) {
-          // Prevent dragging if clicking on links or buttons
-          if (
-            e.target.tagName === "A" ||
-            e.target.tagName === "BUTTON" ||
-            e.target.closest("a")
-          ) {
-            return;
-          }
-
-          initialX = e.clientX - xOffset;
-          initialY = e.clientY - yOffset;
-          isDragging = true;
-        }
-
-        function drag(e) {
-          if (isDragging) {
-            e.preventDefault();
-            currentX = e.clientX - initialX;
-            currentY = e.clientY - initialY;
-            xOffset = currentX;
-            yOffset = currentY;
-
-            setTranslate(currentX, currentY, win);
-          }
-        }
-
-        function dragEnd(e) {
-          if (isDragging) {
-            initialX = currentX;
-            initialY = currentY;
-            isDragging = false;
-
-            // Save position to localStorage
-            localStorage.setItem(
-              windowId,
-              JSON.stringify({
-                x: xOffset,
-                y: yOffset,
-                z: parseInt(win.style.zIndex) || highestZIndex,
-              })
-            );
-          }
-        }
-
-        function setTranslate(xPos, yPos, el) {
-          el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
-        }
-      });
-
-      document.addEventListener("DOMContentLoaded", () => {
-        const links = document.querySelectorAll('a[href$=".html"]');
-        links.forEach((link) => {
-          link.addEventListener("click", (e) => {
-            const href = link.getAttribute("href");
-            if (link.target === "_blank" || !href || href.startsWith("http"))
-              return;
-            e.preventDefault();
-            document.body.style.opacity = "0";
-            setTimeout(() => {
-              window.location.href = href;
-            }, 300);
-          });
-        });
       });
     </script>
   </body>
