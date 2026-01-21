@@ -1,0 +1,284 @@
+/* =============================================
+   BASE STYLES & CSS VARIABLES
+   ============================================= */
+* {
+  cursor: none !important;
+}
+
+:root {
+  --pink: rgb(246, 68, 184);
+  --lavender: rgb(169, 132, 220);
+  --gold: rgb(252, 215, 131);
+  --bg-light: #fffdf5;
+  --ink-light: #2b2b2b;
+  --ink-2-light: rgba(20, 20, 20, 0.75);
+  --stroke-light: rgba(0, 0, 0, 0.08);
+  --shadow-light: 0 10px 25px rgba(0, 0, 0, 0.06);
+  --card-bg-light: #fff;
+  --footer-text-light: #555;
+  --bg-dark: #1a1a1a;
+  --ink-dark: #f5f5f5;
+  --ink-2-dark: rgba(245, 245, 245, 0.8);
+  --stroke-dark: rgba(255, 255, 255, 0.1);
+  --shadow-dark: 0 10px 25px rgba(0, 0, 0, 0.3);
+  --card-bg-dark: rgba(40, 40, 40, 0.6);
+  --footer-text-dark: #aaa;
+  --dock-bg-light: rgba(255, 255, 255, 0.85);
+  --dock-bg-dark: rgba(30, 30, 30, 0.9);
+  --dock-border-light: rgba(0, 0, 0, 0.1);
+  --dock-border-dark: rgba(255, 255, 255, 0.1);
+}
+
+body {
+  --bg: var(--bg-light);
+  --ink: var(--ink-light);
+  --ink-2: var(--ink-2-light);
+  --stroke: var(--stroke-light);
+  --shadow: var(--shadow-light);
+  --card-bg: var(--card-bg-light);
+  --footer-text: var(--footer-text-light);
+  --dock-bg: var(--dock-bg-light);
+  --dock-border: var(--dock-border-light);
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  color: var(--ink);
+  background: radial-gradient(
+      1200px 800px at 12% 18%,
+      rgba(246, 68, 184, 0.15),
+      transparent 60%
+    ),
+    radial-gradient(
+      1000px 700px at 88% 72%,
+      rgba(169, 132, 220, 0.15),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 600px at 50% 95%,
+      rgba(252, 215, 131, 0.12),
+      transparent 70%
+    ),
+    radial-gradient(
+      700px 500px at 25% 50%,
+      rgba(246, 68, 184, 0.08),
+      transparent 65%
+    ),
+    var(--bg);
+  background-size: 300% 300%;
+  animation: bgFlow 20s ease-in-out infinite alternate;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  cursor: none;
+  padding-bottom: 80px;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10000;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+body.dark-mode {
+  --bg: var(--bg-dark);
+  --ink: var(--ink-dark);
+  --ink-2: var(--ink-2-dark);
+  --stroke: var(--stroke-dark);
+  --shadow: var(--shadow-dark);
+  --card-bg: var(--card-bg-dark);
+  --footer-text: var(--footer-text-dark);
+  --dock-bg: var(--dock-bg-dark);
+  --dock-border: var(--dock-border-dark);
+  background: radial-gradient(
+      1400px 1100px at 15% 20%,
+      rgba(246, 68, 184, 0.65),
+      rgba(246, 68, 184, 0.25) 40%,
+      transparent 60%
+    ),
+    radial-gradient(
+      1300px 1000px at 85% 25%,
+      rgba(169, 132, 220, 0.6),
+      rgba(169, 132, 220, 0.22) 40%,
+      transparent 60%
+    ),
+    radial-gradient(
+      1200px 950px at 50% 80%,
+      rgba(252, 215, 131, 0.58),
+      rgba(252, 215, 131, 0.18) 42%,
+      transparent 62%
+    ),
+    radial-gradient(
+      1100px 850px at 70% 50%,
+      rgba(246, 68, 184, 0.52),
+      rgba(246, 68, 184, 0.15) 38%,
+      transparent 58%
+    ),
+    radial-gradient(
+      1000px 800px at 20% 60%,
+      rgba(169, 132, 220, 0.48),
+      rgba(169, 132, 220, 0.12) 40%,
+      transparent 58%
+    ),
+    var(--bg);
+  background-size: 400% 400%;
+  animation: darkModeFlow 35s ease-in-out infinite alternate;
+}
+
+body.dark-mode::before {
+  opacity: 0.045;
+}
+
+@keyframes bgFlow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes darkModeFlow {
+  0%, 100% {
+    background-position: 0% 50%, 100% 50%, 50% 100%, 80% 20%, 20% 80%;
+  }
+  50% {
+    background-position: 100% 50%, 0% 50%, 80% 20%, 20% 80%, 50% 100%;
+  }
+}
+
+/* =============================================
+   LAYOUT & HEADER
+   ============================================= */
+.wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 60px 24px 100px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 60px;
+}
+
+.back,
+nav a {
+  color: var(--ink-2);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.back:hover,
+nav a:hover {
+  color: var(--pink);
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--stroke);
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  box-shadow: var(--shadow);
+}
+
+.theme-toggle:hover {
+  transform: scale(1.02);
+}
+
+.theme-toggle:active {
+  transform: scale(0.98);
+}
+
+.toggle-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.toggle-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: var(--ink);
+}
+
+.sun-icon {
+  display: none;
+}
+
+body.dark-mode .sun-icon {
+  display: block;
+}
+
+body.dark-mode .moon-icon {
+  display: none;
+}
+
+/* =============================================
+   FOOTER
+   ============================================= */
+footer {
+  text-align: center;
+  padding: 60px 0;
+  color: var(--footer-text);
+  font-size: 14px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: var(--pink);
+}
+
+/* =============================================
+   CUSTOM CURSOR
+   ============================================= */
+.cursor {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgb(246, 68, 184);
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  box-shadow: 0 0 20px rgba(246, 68, 184, 0.6), 0 0 40px rgba(246, 68, 184, 0.3);
+  transition: width 0.2s ease, height 0.2s ease;
+}
+
+@media (max-width: 768px) {
+  .cursor {
+    display: none;
+  }
+}
