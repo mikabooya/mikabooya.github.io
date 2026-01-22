@@ -279,21 +279,22 @@
       /* =============================================
          WINDOW COMPONENTS
          ============================================= */
-      .window {
-        position: absolute;
-        background: var(--card-bg);
-        border: 1px solid var(--stroke);
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: var(--shadow);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        max-width: 500px;
-        transform: translate3d(0, 0, 0);
-        transition: box-shadow 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
-        cursor: move; /* Entire window is draggable */
-        user-select: none;
-      }
+     .window {
+  position: absolute;
+  background: var(--card-bg);
+  border: 1px solid var(--stroke);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  max-width: 500px;
+  transform: translate3d(0, 0, 0);
+  transition: box-shadow 0.3s ease, opacity 0.3s ease;  
+  cursor: move;
+  user-select: none;
+  will-change: transform;  /* ADD THIS LINE */
+}
 
       .window:hover {
         box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
@@ -511,12 +512,9 @@
         border-radius: 8px;
         overflow: hidden;
         margin-bottom: 16px;
-        transition: transform 0.3s ease;
       }
 
-      .profile-image-container:hover {
-        transform: scale(1.02);
-      }
+     
 
       .profile-image-container img {
         width: 100%;
