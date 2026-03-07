@@ -43,6 +43,23 @@
         --overlay-dark-1: rgba(246, 68, 184, 0.12);
         --overlay-dark-2: rgba(169, 132, 220, 0.12);
         --overlay-dark-3: rgba(252, 215, 131, 0.08);
+        .key-hint {
+  font-size: 11px;
+  font-weight: 400;
+  color: rgba(20, 20, 20, 0.35);
+  letter-spacing: 0.6px;
+  margin-top: 8px;
+  animation: hintPulse 3s ease-in-out infinite;
+}
+
+body.dark-mode .key-hint {
+  color: rgba(245, 245, 245, 0.3);
+}
+
+@keyframes hintPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
       }
 
       html,
@@ -540,9 +557,10 @@
 
     <!-- Welcome Text -->
     <div class="welcome-text">
-      <span class="greeting">hi, i'm mika pham.</span><br />
-      product marketer + creative.
-    </div>
+  <span class="greeting">hi, i'm mika pham.</span><br />
+  product marketer + creative.
+  <div class="key-hint">click a key ↑</div>
+</div>
 
     <!-- Custom cursor -->
     <div class="cursor"></div>
