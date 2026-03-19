@@ -106,15 +106,15 @@
       /* Window states */
       .window.maximized {
         position: fixed !important;
-        top: 20px !important; left: 20px !important;
-        right: 20px !important; bottom: 100px !important;
+        top: 80px !important; left: 40px !important;
+        right: 40px !important; bottom: 40px !important;
         width: auto !important; max-width: none !important;
         height: auto !important; transform: none !important;
         z-index: 9000 !important;
         border-radius: 16px;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
-      .window.maximized .window-content { max-height: calc(100vh - 180px); overflow-y: auto; }
+      .window.maximized .window-content { max-height: calc(100vh - 200px); overflow-y: auto; }
       .window.hidden    { opacity: 0; pointer-events: none; transform: scale(0.8)  translateY(100px)  !important; }
       .window.minimized { opacity: 0; pointer-events: none; transform: scale(0.5)  translateY(200px) !important; }
 
@@ -438,7 +438,9 @@
         </nav>
       </header>
 
-      <h1 class="page-title">about me</h1>
+      <div class="hero" style="text-align:center;margin-bottom:0;">
+        <h1 class="page-title">about me</h1>
+      </div>
       <p class="drag-hint">✿ drag windows anywhere to move them</p>
 
       <div class="computer-layout">
