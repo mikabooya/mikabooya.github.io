@@ -1,353 +1,197 @@
- /* ============================================================
-   MIKA PHAM — SHARED STYLES
-   styles.css — imported by every page
-   ============================================================ */
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>work — mika pham</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23F644B8'/></svg>">
+    <meta name="theme-color" content="#F644B8">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="styles.css" />
 
-/* ── Reset ── */
-*, *::before, *::after {
-  box-sizing: border-box;
-  cursor: none !important;
-}
+    <style>
+      /* ── Page-specific ── */
+      .wrap { max-width: 1200px; }
 
-/* ── Design tokens ── */
-:root {
-  --pink:     rgb(246, 68,  184);
-  --lavender: rgb(169, 132, 220);
-  --gold:     rgb(252, 215, 131);
+      .hero { text-align: center; margin-bottom: 28px; }
 
-  /* Light — clean white, grid paper */
-  --bg-light:          #f8f8f6;
-  --grid-line-light:   rgba(0, 0, 80, 0.03);
-  --ink-light:         #141414;
-  --ink-2-light:       rgba(14, 14, 14, 0.5);
-  --stroke-light:      rgba(0, 0, 0, 0.12);
-  --shadow-light:      0 4px 16px rgba(0, 0, 0, 0.06);
-  --card-bg-light:     #ffffff;
-  --section-bg-light:  #ffffff;
-  --footer-text-light: #999;
+      /* Finder window */
+      .wrap-narrow { max-width: 1100px; margin: 0 auto; }
+      .finder-window {
+        background: var(--card-bg);
+        border: 1px solid var(--stroke);
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+      .fw-titlebar {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--stroke);
+        background: linear-gradient(180deg, rgba(0,0,0,.03), transparent);
+      }
+      .fw-title  { color: var(--ink-2); font-weight: 600; }
+      .fw-actions { opacity: 0.7; }
+      .dots { display: flex; align-items: center; gap: 8px; }
+      .dot  { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+      .dot.red    { background: #ff5f57; }
+      .dot.yellow { background: #ffbd2e; }
+      .dot.green  { background: #28c840; }
 
-  /* Dark — near-black, grid paper */
-  --bg-dark:          #111110;
-  --grid-line-dark:   rgba(255, 255, 255, 0.03);
-  --ink-dark:         #f0ede8;
-  --ink-2-dark:       rgba(240, 237, 232, 0.5);
-  --stroke-dark:      rgba(255, 255, 255, 0.08);
-  --shadow-dark:      0 8px 32px rgba(0, 0, 0, 0.6);
-  --card-bg-dark:     #1c1c1a;
-  --section-bg-dark:   #1a1a18;
-  --footer-text-dark: #666;
-}
+      .fw-body {
+        display: grid;
+        grid-template-columns: 230px 1fr;
+        min-height: 520px;
+      }
+      .fw-sidebar {
+        border-right: 1px solid var(--stroke);
+        padding: 16px 14px;
+        background: rgba(0,0,0,.03);
+      }
+      body.dark-mode .fw-sidebar { background: rgba(255,255,255,.03); }
+      .fw-sidebar h4 { margin: 10px 8px 6px; font-size: .9rem; color: var(--ink-2); text-transform: lowercase; letter-spacing: .03em; }
+      .fw-sidebar ul { margin: 0 0 10px; padding: 0; list-style: none; }
+      .fw-sidebar li { padding: 8px 10px; border-radius: 10px; color: var(--ink-2); }
+      .fw-sidebar li:hover { background: rgba(0,0,0,.05); }
+      body.dark-mode .fw-sidebar li:hover { background: rgba(255,255,255,.06); }
+      .fw-sidebar li::first-letter { color: var(--pink); }
 
-/* ── Active theme tokens (defaults to light) ── */
-body {
-  --bg:          var(--bg-light);
-  --grid-line:   var(--grid-line-light);
-  --ink:         var(--ink-light);
-  --ink-2:       var(--ink-2-light);
-  --stroke:      var(--stroke-light);
-  --shadow:      var(--shadow-light);
-  --card-bg:     var(--card-bg-light);
-  --section-bg:  var(--section-bg-light);
-  --footer-text: var(--footer-text-light);
-}
-body.dark-mode {
-  --bg:          var(--bg-dark);
-  --grid-line:   var(--grid-line-dark);
-  --ink:         var(--ink-dark);
-  --ink-2:       var(--ink-2-dark);
-  --stroke:      var(--stroke-dark);
-  --shadow:      var(--shadow-dark);
-  --card-bg:     var(--card-bg-dark);
-  --section-bg:  var(--section-bg-dark);
-  --footer-text: var(--footer-text-dark);
-}
+      .fw-main    { padding: 18px 20px 24px; }
+      .fw-heading { margin: 6px 0 18px; font-size: 2.1rem; letter-spacing: -.02em; color: var(--ink); }
 
-/* ── Base body — grid paper ── */
-body {
-  margin: 0;
-  font-family: "Poppins", sans-serif;
-  color: var(--ink);
-  -webkit-font-smoothing: antialiased;
-  min-height: 100vh;
-  background-color: var(--bg);
-  background-image:
-    linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-  background-size: 20px 20px;
-  animation: fadeIn 0.4s ease-out;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  position: relative;
-}
+      .fw-grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
 
-body.dark-mode {
-  background-color: var(--bg);
-  background-image:
-    linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-  background-size: 20px 20px;
-}
+      .folder {
+        --folder: var(--pink);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 14px;
+        border: 1px solid var(--stroke);
+        border-radius: 14px;
+        background: var(--card-bg);
+        text-decoration: none;
+        box-shadow: 0 6px 18px rgba(0,0,0,.04);
+        transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      }
+      .folder:hover {
+        --folder: #f7b6d0;
+        transform: translateY(-3px);
+        box-shadow: 0 14px 30px rgba(246,68,184,.15);
+        border-color: rgba(246,68,184,.35);
+      }
+      .folder:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; }
+      .folder .icon   { width: 88px; height: 66px; color: var(--folder); filter: drop-shadow(0 4px 10px rgba(0,0,0,.06)); transition: color .25s ease; }
+      .folder .name   { font-weight: 600; color: var(--ink); text-transform: lowercase; }
+      .folder .meta   { font-size: .9rem; color: var(--ink-2); }
+      .badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 999px;
+        border: 1px solid var(--stroke);
+        background: rgba(0,0,0,.03);
+        font-size: .75rem;
+        color: var(--ink-2);
+      }
+      body.dark-mode .badge { background: rgba(255,255,255,.04); }
 
-/* ── Noise / grain texture overlay ── */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 10000;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 256px 256px;
-}
-body.dark-mode::before { opacity: 0.07; }
+      footer {
+        margin-top: 80px;
+      }
 
-/* ── Animations ── */
-@keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
-@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+      @media (max-width: 820px) {
+        .fw-body { grid-template-columns: 1fr; }
+        .fw-sidebar { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+              <a class="back" href="index.html">← back</a>
+      <header>
+        <nav>
+          <a href="works.html">work</a>
+          <a href="about.html">about</a>
+          <a href="/cdn-cgi/l/email-protection#533e3a3832233b323e61616a13343e323a3f7d303c3e">contact</a>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <div class="toggle-icon">
+              <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            </div>
+          </button>
+        </nav>
+      </header>
 
-body.page-exit { animation: fadeOut 0.3s ease-in forwards; }
+      <div class="hero">
+        <h1>selected works</h1>
+      </div>
 
-@media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+      <section class="finder wrap-narrow">
+        <div class="finder-window">
+          <div class="fw-titlebar">
+            <div class="dots">
+              <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+            </div>
+            <div class="fw-title">mika — recent</div>
+            <div class="fw-actions">≡ 🔎</div>
+          </div>
+          <div class="fw-body">
+            <aside class="fw-sidebar">
+              <h4>favorites</h4>
+              <ul>
+                <li>✿ airdrop</li><li>✿ recents</li><li>✿ documents</li><li>✿ iCloud</li><li>✿ books</li>
+              </ul>
+              <h4>iCloud</h4>
+              <ul>
+                <li>✿ downloads</li><li>✿ music</li><li>✿ safari</li>
+              </ul>
+            </aside>
+            <main class="fw-main">
+              <h1 class="fw-heading">recent</h1>
+              <div id="projectGrid" class="fw-grid" aria-label="project folders"></div>
+            </main>
+          </div>
+        </div>
+      </section>
 
-/* ── Page wrapper ── */
-.wrap {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 140px 24px 80px; /* top clears fixed nav with breathing room */
-}
+      <footer>
+        <div class="footer-links">
+          <a href="/cdn-cgi/l/email-protection#8fe2e6e4eeffe7eee2bdbdb6cfe8e2eee6e3a1ece0e2" target="_blank">email ↗</a>
+          <a href="https://www.linkedin.com/in/khanh-mika-pham/" target="_blank">linkedin ↗</a>
+          <a href="https://www.instagram.com/mikaphaam/" target="_blank">instagram ↗</a>
+        </div>
+        <div class="credit">© <span id="year"></span> mika pham</div>
+      </footer>
+    </div>
 
-/* ── Header & nav — fixed floating glass (matches index.html) ── */
-header {
-  position: fixed;
-  top: 2rem;
-  right: 2rem;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  z-index: 10001; /* above noise overlay */
-  opacity: 0;
-  animation: fadeInNav 0.8s ease-out 0.3s forwards;
-}
+    <div class="cursor"></div>
 
-@keyframes fadeInNav {
-  from { opacity: 0; transform: translateY(-10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* Back link — sits in the normal flow (top-left), not fixed */
-.back {
-  color: var(--ink-2);
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 15px;
-  transition: color 0.3s ease;
-  position: fixed;
-  top: 2rem;
-  left: 2rem;
-  z-index: 10001;
-  opacity: 0;
-  animation: fadeInNav 0.8s ease-out 0.3s forwards;
-}
-.back:hover { color: var(--pink); }
-
-nav {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
-
-nav a {
-  color: rgba(20, 20, 20, 0.75);
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 15px;
-  transition: color 0.3s ease;
-}
-body.dark-mode nav a       { color: rgba(245, 245, 245, 0.8); }
-nav a:hover                { color: var(--pink); }
-body.dark-mode nav a:hover { color: var(--pink); }
-
-/* ── Theme toggle — translucent glass ── */
-.theme-toggle {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-body.dark-mode .theme-toggle {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-.theme-toggle:hover  { transform: scale(1.02); box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15); }
-body.dark-mode .theme-toggle:hover { box-shadow: 0 6px 25px rgba(246, 68, 184, 0.3); }
-.theme-toggle:active { transform: scale(0.98); }
-
-/* Toggle icon */
-.toggle-icon {
-  width: 20px;
-  height: 20px;
-  position: relative;
-  transition: transform 0.3s ease;
-}
-.toggle-icon svg {
-  width: 100%;
-  height: 100%;
-  fill: none;
-  stroke: rgba(20, 20, 20, 0.75);
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  display: block;
-}
-body.dark-mode .toggle-icon svg { stroke: #ffffff; }
-
-/* Sun/moon swap */
-.sun-icon  { display: none !important; }
-body.dark-mode .sun-icon  { display: block !important; }
-body.dark-mode .moon-icon { display: none  !important; }
-
-/* ── macOS-style window shell ── */
-.window-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 12px;
-  background: linear-gradient(180deg, rgba(0,0,0,.03), transparent);
-  border-bottom: 1px solid var(--stroke);
-}
-body.dark-mode .window-header {
-  background: linear-gradient(180deg, rgba(255,255,255,.03), transparent);
-}
-.window-title {
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.3px;
-  color: var(--ink-2);
-  flex: 1;
-}
-.window-controls { display: flex; gap: 8px; order: -1; }
-.window-dot { width: 12px; height: 12px; border-radius: 50%; }
-.dot-red    { background: #ff5f56; }
-.dot-yellow { background: #ffbd2e; }
-.dot-green  { background: #27c93f; }
-
-
-/* ── Headings — DM Serif Display italic for titles ── */
-
-/* Big project/page titles (veryfi, narb, selected works, resume, about me) */
-.project-title,
-.page-title {
-  font-family: 'DM Serif Display', serif;
-  font-style: italic;
-  font-weight: 400;
-  color: var(--pink);
-  line-height: 1;
-  letter-spacing: -0.01em;
-  text-transform: lowercase;
-  margin: 0 0 16px;
-}
-.project-title { font-size: clamp(3rem, 8vw, 5rem); }
-.page-title    { font-size: clamp(2.5rem, 7vw, 5rem); text-align: center; margin-bottom: 28px; }
-
-/* Hero h1 on works page */
-.hero h1 {
-  font-family: 'DM Serif Display', serif;
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  line-height: 1;
-  margin: 0;
-  text-transform: lowercase;
-  color: var(--pink);
-  letter-spacing: -0.01em;
-}
-
-/* Section titles on project pages */
-.section-title {
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
-  font-weight: 600;
-  margin: 0 0 24px;
-  text-transform: lowercase;
-  color: var(--ink);
-}
-
-/* Project meta (role, timeline, type) */
-.hero          { margin-bottom: 64px; }
-.project-meta  { display: flex; gap: 32px; flex-wrap: wrap; margin-top: 24px; }
-.meta-item     { display: flex; flex-direction: column; gap: 4px; }
-.meta-label    { font-size: .8rem; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-2); font-weight: 600; }
-.meta-value    { font-size: 1.1rem; color: var(--ink); font-weight: 500; }
-
-/* Section content card */
-.section         { margin-bottom: 64px; }
-.section-content {
-  background: var(--section-bg);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--stroke);
-  border-radius: 20px;
-  padding: 32px;
-  box-shadow: var(--shadow);
-}
-.section-content p { font-size: 1.1rem; line-height: 1.8; color: var(--ink-2); margin: 0 0 1rem; }
-.section-content p:last-child { margin-bottom: 0; }
-strong { color: var(--ink); font-weight: 700; }
-
-@media (max-width: 768px) {
-  .section-content { padding: 24px; }
-  .project-meta    { gap: 20px; }
-}
-
-
-/* ── Footer ── */
-footer {
-  text-align: center;
-  padding: 60px 0;
-  color: var(--footer-text);
-  font-size: 14px;
-}
-.footer-links {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-  margin-bottom: 16px;
-  flex-wrap: wrap;
-}
-.footer-links a {
-  color: var(--ink-2);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-.footer-links a:hover { color: var(--pink); }
-
-/* ── Custom cursor ── */
-.cursor {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: var(--pink);
-  position: fixed;
-  pointer-events: none;
-  z-index: 100001; /* above everything including noise overlay */
-  transform: translate(-50%, -50%);
-  transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease;
-  box-shadow: 0 0 15px rgba(246, 68, 184, 0.5);
-}
-.cursor.click { transform: translate(-50%, -50%) scale(0.8); }
-
-/* ── Responsive ── */
-@media (max-width: 768px) {
-  .wrap   { padding: 100px 20px 60px; }
-  header  { top: 1.5rem; right: 1.5rem; gap: 14px; }
-  .back   { top: 1.5rem; left: 1.5rem; }
-  nav a   { font-size: 14px; }
-  .cursor { display: none; }
-}
+    <script>
+      const projects = [
+        { name: "veryfi",     url: "veryfi.html",     meta: "b2b saas marketing" },
+        { name: "confidance", url: "confidance.html", meta: "branding & marketing" },
+        { name: "narb",       url: "narbai.html",     meta: "branding & marketing" },
+      ];
+      const folderSVG = `<svg class="icon" viewBox="0 0 96 72" aria-hidden="true"><path d="M8 18a6 6 0 0 1 6-6h21l8 7h39a6 6 0 0 1 6 6v33a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V18z" fill="currentColor" opacity=".85"/><path d="M8 26h80a6 6 0 0 1 6 6v26a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V26z" fill="currentColor"/></svg>`;
+      document.getElementById("projectGrid").innerHTML = projects
+        .map(p => `<a class="folder" href="${p.url}">${folderSVG}<div class="name">${p.name}</div><div class="meta"><span class="badge">${p.meta}</span></div></a>`)
+        .join("");
+    </script>
+    <script src="main.js"></script>
+  </body>
+</html>
