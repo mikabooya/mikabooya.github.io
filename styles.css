@@ -17,7 +17,7 @@
 
   /* Light — clean white, grid paper */
   --bg-light:          #f8f8f6;
-  --grid-line-light:   rgba(0, 0, 80, 0.03);
+  --grid-line-light:   rgba(0, 0, 80, 0.02);
   --ink-light:         #141414;
   --ink-2-light:       rgba(14, 14, 14, 0.5);
   --stroke-light:      rgba(0, 0, 0, 0.12);
