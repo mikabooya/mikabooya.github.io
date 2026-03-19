@@ -127,27 +127,42 @@ body.page-exit { animation: fadeOut 0.3s ease-in forwards; }
 .wrap {
   max-width: 1120px;
   margin: 0 auto;
-  padding: 48px 24px 80px;
+  padding: 96px 24px 80px; /* top clears the fixed nav */
 }
 
-/* ── Header & nav ── */
+/* ── Header & nav — fixed floating glass (matches index.html) ── */
 header {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 48px;
+  gap: 18px;
+  z-index: 10001; /* above noise overlay */
+  opacity: 0;
+  animation: fadeInNav 0.8s ease-out 0.3s forwards;
 }
 
-.back,
-nav a {
+@keyframes fadeInNav {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Back link — sits in the normal flow (top-left), not fixed */
+.back {
   color: var(--ink-2);
   text-decoration: none;
   font-weight: 500;
   font-size: 15px;
   transition: color 0.3s ease;
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  z-index: 10001;
+  opacity: 0;
+  animation: fadeInNav 0.8s ease-out 0.3s forwards;
 }
-.back:hover,
-nav a:hover { color: var(--pink); }
+.back:hover { color: var(--pink); }
 
 nav {
   display: flex;
@@ -155,13 +170,24 @@ nav {
   gap: 18px;
 }
 
-/* ── Theme toggle button ── */
+nav a {
+  color: rgba(20, 20, 20, 0.75);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 15px;
+  transition: color 0.3s ease;
+}
+body.dark-mode nav a       { color: rgba(245, 245, 245, 0.8); }
+nav a:hover                { color: var(--pink); }
+body.dark-mode nav a:hover { color: var(--pink); }
+
+/* ── Theme toggle — translucent glass ── */
 .theme-toggle {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 1px solid var(--stroke);
-  background: var(--card-bg);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   cursor: pointer;
@@ -169,21 +195,35 @@ nav {
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  box-shadow: var(--shadow);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
-.theme-toggle:hover  { transform: scale(1.05); }
-.theme-toggle:active { transform: scale(0.95); }
+body.dark-mode .theme-toggle {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+.theme-toggle:hover  { transform: scale(1.02); box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15); }
+body.dark-mode .theme-toggle:hover { box-shadow: 0 6px 25px rgba(246, 68, 184, 0.3); }
+.theme-toggle:active { transform: scale(0.98); }
 
+/* Toggle icon — stroked, not filled */
 .toggle-icon {
   width: 20px;
   height: 20px;
   position: relative;
+  transition: transform 0.3s ease;
 }
 .toggle-icon svg {
   width: 100%;
   height: 100%;
-  fill: var(--ink);
+  fill: none;
+  stroke: rgba(20, 20, 20, 0.75);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
+body.dark-mode .toggle-icon svg { stroke: #ffffff; }
+
 /* Sun/moon swap */
 .sun-icon  { display: none; }
 body.dark-mode .sun-icon  { display: block; }
@@ -243,7 +283,7 @@ footer {
   background: var(--pink);
   position: fixed;
   pointer-events: none;
-  z-index: 99999;
+  z-index: 100001; /* above everything including noise overlay */
   transform: translate(-50%, -50%);
   transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease;
   box-shadow: 0 0 15px rgba(246, 68, 184, 0.5);
@@ -252,9 +292,9 @@ footer {
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
-  .wrap    { padding: 32px 20px 60px; }
-  header   { margin-bottom: 32px; }
-  nav      { gap: 14px; }
-  nav a    { font-size: 14px; }
-  .cursor  { display: none; }
+  .wrap   { padding: 32px 20px 60px; }
+  header  { top: 1.5rem; right: 1.5rem; gap: 14px; }
+  .back   { top: 1.5rem; left: 1.5rem; }
+  nav a   { font-size: 14px; }
+  .cursor { display: none; }
 }
