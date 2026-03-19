@@ -180,12 +180,17 @@
 
     <div class="cursor"></div>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
       const projects = [
-        { name: "veryfi",      url: "veryfi.html",      meta: "b2b saas marketing" },
-        { name: "confidance",  url: "confidance.html",  meta: "branding & marketing" },
-        { name: "narb",        url: "narbai.html",      meta: "branding & marketing" },
+        { name: "veryfi",     url: "veryfi.html",     meta: "b2b saas marketing" },
+        { name: "confidance", url: "confidance.html", meta: "branding & marketing" },
+        { name: "narb",       url: "narbai.html",     meta: "branding & marketing" },
       ];
       const folderSVG = `<svg class="icon" viewBox="0 0 96 72" aria-hidden="true"><path d="M8 18a6 6 0 0 1 6-6h21l8 7h39a6 6 0 0 1 6 6v33a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V18z" fill="currentColor" opacity=".85"/><path d="M8 26h80a6 6 0 0 1 6 6v26a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V26z" fill="currentColor"/></svg>`;
       document.getElementById("projectGrid").innerHTML = projects
-        .map(p => `<a class="folder" href="${p.url}">${f
+        .map(p => `<a class="folder" href="${p.url}">${folderSVG}<div class="name">${p.name}</div><div class="meta"><span class="badge">${p.meta}</span></div></a>`)
+        .join("");
+    </script>
+    <script src="main.js"></script>
+  </body>
+</html>
