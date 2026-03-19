@@ -5,55 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>narb — mika pham</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23F644B8'/></svg>">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="styles.css" />
 
     <style>
       /* ── Page-specific ── */
-      .hero { margin-bottom: 64px; }
-
-      .project-title {
-        font-size: clamp(3rem, 8vw, 5rem);
-        font-weight: 700;
-        margin: 0 0 16px;
-        text-transform: lowercase;
-        background: linear-gradient(120deg, var(--pink), var(--lavender), var(--gold));
-        background-size: 300% 300%;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        line-height: 1;
-        letter-spacing: -0.03em;
-        animation: shimmer 8s ease-in-out infinite;
-      }
-
-      .project-meta { display: flex; gap: 32px; flex-wrap: wrap; margin-top: 24px; }
-      .meta-item    { display: flex; flex-direction: column; gap: 4px; }
-      .meta-label   { font-size: .8rem; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-2); font-weight: 600; }
-      .meta-value   { font-size: 1.1rem; color: var(--ink); font-weight: 500; }
-
-      .section       { margin-bottom: 64px; }
-      .section-title {
-        font-size: clamp(1.75rem, 4vw, 2.5rem);
-        font-weight: 600;
-        margin: 0 0 24px;
-        text-transform: lowercase;
-        background: linear-gradient(90deg, var(--pink), var(--lavender), var(--gold), var(--pink));
-        background-size: 300% 300%;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        animation: shimmer 4s ease-in-out infinite;
-      }
-
-      .section-content {
-        background: var(--section-bg);
-        backdrop-filter: blur(12px);
-        border: 1px solid var(--stroke);
-        border-radius: 20px;
-        padding: 32px;
-        box-shadow: var(--shadow);
-      }
-      .section-content p { font-size: 1.1rem; line-height: 1.8; color: var(--ink-2); margin: 0; }
-      strong { color: var(--pink); font-weight: 600; }
 
       .asset-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
       .asset-card {
@@ -78,7 +34,7 @@
       .linkedin-box iframe { width: 100%; height: 650px; max-height: 70vh; border: 0; border-radius: 16px; display: block; }
 
       @media (max-width: 768px) {
-        .section-content { padding: 24px; }
+  
         .asset-card { padding: 22px; }
         .linkedin-box iframe { height: 550px; max-height: 60vh; }
       }
