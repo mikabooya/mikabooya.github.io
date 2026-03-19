@@ -229,17 +229,17 @@ body.dark-mode .window-header {
 .dot-green  { background: #27c93f; }
 
 
-/* ── Headings — Space Grotesk for everything ── */
+/* ── Headings — DM Serif Display italic for titles ── */
 
 /* Big project/page titles (veryfi, narb, selected works, resume, about me) */
 .project-title,
 .page-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-style: normal;
-  font-weight: 700;
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-weight: 400;
   color: var(--pink);
   line-height: 1;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.01em;
   text-transform: lowercase;
   margin: 0 0 16px;
 }
@@ -248,9 +248,9 @@ body.dark-mode .window-header {
 
 /* Hero h1 on works page */
 .hero h1 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-style: normal;
-  font-weight: 700;
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-weight: 400;
   font-size: clamp(2.5rem, 6vw, 4rem);
   line-height: 1;
   margin: 0;
