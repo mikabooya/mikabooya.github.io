@@ -15,25 +15,25 @@
   --lavender: rgb(169, 132, 220);
   --gold:     rgb(252, 215, 131);
 
-  /* Light */
-  --bg-light:          #fffdf5;
-  --ink-light:         #2b2b2b;
-  --ink-2-light:       rgba(20, 20, 20, 0.75);
-  --stroke-light:      rgba(0, 0, 0, 0.08);
-  --shadow-light:      0 10px 25px rgba(0, 0, 0, 0.06);
-  --card-bg-light:     #fff;
-  --section-bg-light:  rgba(255, 255, 255, 0.6);
-  --footer-text-light: #555;
+  /* Light — warm off-white, flat */
+  --bg-light:          #f5f2ed;
+  --ink-light:         #1a1a18;
+  --ink-2-light:       rgba(20, 20, 18, 0.55);
+  --stroke-light:      rgba(0, 0, 0, 0.09);
+  --shadow-light:      0 8px 24px rgba(0, 0, 0, 0.07);
+  --card-bg-light:     #ffffff;
+  --section-bg-light:  rgba(255, 255, 255, 0.75);
+  --footer-text-light: #888;
 
-  /* Dark */
-  --bg-dark:          #1a1a1a;
-  --ink-dark:         #f5f5f5;
-  --ink-2-dark:       rgba(245, 245, 245, 0.8);
-  --stroke-dark:      rgba(255, 255, 255, 0.1);
-  --shadow-dark:      0 10px 25px rgba(0, 0, 0, 0.3);
-  --card-bg-dark:     rgba(40, 40, 40, 0.6);
-  --section-bg-dark:  rgba(40, 40, 40, 0.4);
-  --footer-text-dark: #aaa;
+  /* Dark — near-black, flat */
+  --bg-dark:          #111110;
+  --ink-dark:         #f0ede8;
+  --ink-2-dark:       rgba(240, 237, 232, 0.5);
+  --stroke-dark:      rgba(255, 255, 255, 0.08);
+  --shadow-dark:      0 8px 32px rgba(0, 0, 0, 0.6);
+  --card-bg-dark:     #1c1c1a;
+  --section-bg-dark:  #181816;
+  --footer-text-dark: #666;
 }
 
 /* ── Active theme tokens (defaults to light) ── */
@@ -58,66 +58,39 @@ body.dark-mode {
   --footer-text: var(--footer-text-dark);
 }
 
-/* ── Base body ── */
+/* ── Base body — flat + grain ── */
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
-  background:
-    radial-gradient(1200px 800px at 12% 18%, rgba(246,68,184,.15), transparent 60%),
-    radial-gradient(1000px 700px at 88% 72%, rgba(169,132,220,.15), transparent 60%),
-    radial-gradient(900px  600px at 50% 95%, rgba(252,215,131,.12), transparent 70%),
-    radial-gradient(700px  500px at 25% 50%, rgba(246,68,184,.08),  transparent 65%),
-    var(--bg);
-  background-size: 300% 300%;
-  animation: bgFlow 20s ease-in-out infinite alternate, fadeIn 0.5s ease-out;
-  transition: background-color 0.4s ease;
+  background: var(--bg);
+  animation: fadeIn 0.4s ease-out;
+  transition: background-color 0.3s ease, color 0.3s ease;
   position: relative;
 }
 
 body.dark-mode {
-  background:
-    radial-gradient(1400px 1100px at 15% 20%, rgba(246,68,184,.65),  rgba(246,68,184,.25)  40%, transparent 60%),
-    radial-gradient(1300px 1000px at 85% 25%, rgba(169,132,220,.6),   rgba(169,132,220,.22) 40%, transparent 60%),
-    radial-gradient(1200px 950px  at 50% 80%, rgba(252,215,131,.58),  rgba(252,215,131,.18) 42%, transparent 62%),
-    radial-gradient(1100px 850px  at 70% 50%, rgba(246,68,184,.52),   rgba(246,68,184,.15)  38%, transparent 58%),
-    radial-gradient(1000px 800px  at 20% 60%, rgba(169,132,220,.48),  rgba(169,132,220,.12) 40%, transparent 58%),
-    var(--bg);
-  background-size: 400% 400%;
-  animation: darkModeFlow 35s ease-in-out infinite alternate;
+  background: var(--bg);
 }
 
-/* ── Noise texture overlay ── */
+/* ── Noise / grain texture overlay ── */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 10000;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
 }
-body.dark-mode::before { opacity: 0.045; }
+body.dark-mode::before { opacity: 0.075; }
 
 /* ── Animations ── */
-@keyframes bgFlow {
-  0%   { background-position: 0%   50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0%   50%; }
-}
-@keyframes darkModeFlow {
-  0%,100% { background-position: 0% 50%, 100% 50%, 50% 100%, 80% 20%, 20% 80%; }
-  50%     { background-position: 100% 50%, 0% 50%, 80% 20%, 20% 80%, 50% 100%; }
-}
 @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
 @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
-@keyframes shimmer {
-  0%   { background-position: 0%   50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0%   50%; }
-}
 
 body.page-exit { animation: fadeOut 0.3s ease-in forwards; }
 
