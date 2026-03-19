@@ -206,7 +206,7 @@ body.dark-mode .theme-toggle {
 body.dark-mode .theme-toggle:hover { box-shadow: 0 6px 25px rgba(246, 68, 184, 0.3); }
 .theme-toggle:active { transform: scale(0.98); }
 
-/* Toggle icon — stroked, not filled */
+/* Toggle icon */
 .toggle-icon {
   width: 20px;
   height: 20px;
@@ -221,13 +221,14 @@ body.dark-mode .theme-toggle:hover { box-shadow: 0 6px 25px rgba(246, 68, 184, 0
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
+  display: block;
 }
 body.dark-mode .toggle-icon svg { stroke: #ffffff; }
 
 /* Sun/moon swap */
-.sun-icon  { display: none; }
-body.dark-mode .sun-icon  { display: block; }
-body.dark-mode .moon-icon { display: none;  }
+.sun-icon  { display: none !important; }
+body.dark-mode .sun-icon  { display: block !important; }
+body.dark-mode .moon-icon { display: none  !important; }
 
 /* ── macOS-style window shell ── */
 .window-header {
