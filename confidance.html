@@ -19,27 +19,6 @@
         text-transform: lowercase;
         background: linear-gradient(120deg, var(--pink), var(--lavender), var(--gold));
         background-size: 300% 300%;
-        -webkit-background-clip: text;a<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>confidance — mika pham</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23F644B8'/></svg>">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="styles.css" />
-
-    <style>
-      /* ── Page-specific ── */
-      .hero { margin-bottom: 64px; }
-
-      .project-title {
-        font-size: clamp(3rem, 8vw, 5rem);
-        font-weight: 700;
-        margin: 0 0 16px;
-        text-transform: lowercase;
-        background: linear-gradient(120deg, var(--pink), var(--lavender), var(--gold));
-        background-size: 300% 300%;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         line-height: 1;
@@ -132,8 +111,20 @@
           <a href="/cdn-cgi/l/email-protection#711c181a100119101c43434831161c10181d5f121e1c">contact</a>
           <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
             <div class="toggle-icon">
-              <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-              <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg>
+              <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
             </div>
           </button>
         </nav>
@@ -198,162 +189,9 @@
         </div>
         <div class="credit">© <span id="year"></span> mika pham</div>
       </footer>
-    </div
-        -webkit-text-fill-color: transparent;
-        line-height: 1;
-        letter-spacing: -0.03em;
-        animation: shimmer 8s ease-in-out infinite;
-      }
+    </div>
 
-      .project-meta { display: flex; gap: 32px; flex-wrap: wrap; margin-top: 24px; }
-      .meta-item    { display: flex; flex-direction: column; gap: 4px; }
-      .meta-label   { font-size: .8rem; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-2); font-weight: 600; }
-      .meta-value   { font-size: 1.1rem; color: var(--ink); font-weight: 500; }
-
-      .section       { margin-bottom: 64px; }
-      .section-title {
-        font-size: clamp(1.75rem, 4vw, 2.5rem);
-        font-weight: 600;
-        margin: 0 0 24px;
-        text-transform: lowercase;
-        background: linear-gradient(90deg, var(--pink), var(--lavender), var(--gold), var(--pink));
-        background-size: 300% 300%;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        animation: shimmer 4s ease-in-out infinite;
-      }
-
-      .section-content {
-        background: var(--section-bg);
-        backdrop-filter: blur(12px);
-        border: 1px solid var(--stroke);
-        border-radius: 20px;
-        padding: 32px;
-        box-shadow: var(--shadow);
-      }
-      .section-content p { font-size: 1.1rem; line-height: 1.8; color: var(--ink-2); margin: 0; }
-      strong { color: var(--pink); font-weight: 600; }
-
-      /* Poster grid */
-      .poster-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 20px;
-      }
-      .poster {
-        position: relative;
-        background: var(--card-bg);
-        border: 1px solid var(--stroke);
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: var(--shadow);
-        transition: transform .3s ease, box-shadow .3s ease;
-      }
-      .poster::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        border-radius: inherit;
-        pointer-events: none;
-        box-shadow: inset 0 0 0 1px rgba(0,0,0,.06);
-      }
-      body.dark-mode .poster::after { box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); }
-      .poster:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 32px rgba(246,68,184,.15);
-      }
-      .poster img,
-      .poster video {
-        width: 100%;
-        height: 100%;
-        display: block;
-        aspect-ratio: 3 / 4;
-        object-fit: cover;
-        transition: transform .35s ease;
-        border-radius: inherit;
-      }
-      .poster:hover img,
-      .poster:hover video { transform: scale(1.03); }
-
-      @media (max-width: 1024px) { .poster-grid { grid-template-columns: repeat(2, 1fr); } }
-      @media (max-width: 640px)  { .poster-grid { grid-template-columns: 1fr; } }
-      @media (max-width: 768px)  { .section-content { padding: 24px; } }
-    </style>
-  </head>
-  <body>
-    <div class="wrap">
-      <header>
-        <a class="back" href="works.html">← back</a>
-        <nav>
-          <a href="works.html">work</a>
-          <a href="about.html">about</a>
-          <a href="/cdn-cgi/l/email-protection#aac7c3c1cbdac2cbc7989893eacdc7cbc3c684c9c5c7">contact</a>
-          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-            <div class="toggle-icon">
-              <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-              <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg>
-            </div>
-          </button>
-        </nav>
-      </header>
-
-      <div class="hero">
-        <h1 class="project-title">confidance</h1>
-        <div class="project-meta">
-          <div class="meta-item"><div class="meta-label">role</div><div class="meta-value">head of marketing</div></div>
-          <div class="meta-item"><div class="meta-label">timeline</div><div class="meta-value">2024–2025</div></div>
-          <div class="meta-item"><div class="meta-label">type</div><div class="meta-value">branding • graphic designs</div></div>
-        </div>
-      </div>
-
-      <div class="section">
-        <h2 class="section-title">about confidance</h2>
-        <div class="section-content">
-          <p>
-            as part of <strong>vanderbilt's premier dance organization</strong>, confidance, i led visual branding and creative direction across
-            performances and campaigns. as head of marketing, i designed <strong>promotional assets ranging from posters and flyers to video reels and social content</strong>.
-            in my role as creative director, i <strong>planned and directed photoshoots, photographed our dancers</strong>, and translated movement into visual stories,
-            crafting cohesive poster designs and marketing materials that reflected the energy and identity of each dancer and showcase.
-          </p>
-        </div>
-      </div>
-
-      <div class="section">
-        <h2 class="section-title">showcase & event posters</h2>
-        <div class="poster-grid">
-          <div class="poster"><img src="workshop_1.PNG" alt="Confidance Spring 2025 - First workshop" loading="lazy"/></div>
-          <div class="poster"><img src="showcase_poster.jpeg" alt="Confidance Aura Showcase April 18" loading="lazy"/></div>
-          <div class="poster"><img src="workshop.jpg" alt="Confidance Workshop Event" loading="lazy"/></div>
-        </div>
-      </div>
-
-      <div class="section">
-        <h2 class="section-title">board & committee posters</h2>
-        <div class="poster-grid">
-          <div class="poster"><img src="1board.png" alt="Confidance Core Magazine Cover" loading="lazy"/></div>
-          <div class="poster"><img src="board_1.PNG" alt="Confidance Executive Board" loading="lazy"/></div>
-          <div class="poster"><img src="board_2.PNG" alt="Confidance Committee Members" loading="lazy"/></div>
-        </div>
-      </div>
-
-      <div class="section">
-        <h2 class="section-title">individual member features</h2>
-        <div class="poster-grid">
-          <div class="poster"><video src="newmem.MP4" autoplay loop muted playsinline></video></div>
-          <div class="poster"><img src="new_1.png" alt="Chloe Lee - Class of 2028" loading="lazy"/></div>
-          <div class="poster"><img src="new_3.png" alt="Joie Kuan - Class of 2028" loading="lazy"/></div>
-          <div class="poster"><img src="indiv-poster3.JPG" alt="Individual Dancer Poster" loading="lazy"/></div>
-          <div class="poster"><img src="indiv-poster4.jpg" alt="Individual Dancer Poster" loading="lazy"/></div>
-          <div class="poster"><img src="cd.png" alt="Individual poster" loading="lazy"/></div>
-        </div>
-      </div>
-
-      <footer>
-        <div class="footer-links">
-          <a href="/cdn-cgi/l/email-protection#c0ada9aba1b0a8a1adf2f2f980a7ada1a9aceea3afad" target="_blank">email ↗</a>
-          <a href="https://www.linkedin.com/in/khanh-mika-pham/" target="_blank">linkedin ↗</a>
-          <a href="https://www.instagram.com/mikaphaam/" target="_blank">instagram ↗</a>
-        </div>
-        <div class="credit">© <span id="year"></span> mika pham</div>
-      </footer>
-    </div
+    <div class="cursor"></div>
+    <script src="main.js"></script>
+  </body>
+</html>
