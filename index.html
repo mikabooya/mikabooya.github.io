@@ -4,487 +4,220 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>mika pham — portfolio</title>
-
-    <!-- Pink Circle Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23F644B8'/></svg>">
     <meta name="theme-color" content="#F644B8">
-
-    <!-- Poppins Font -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- spline viewer -->
-    <script
-      type="module"
-      src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"
-    ></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"></script>
 
     <style>
-      * {
-        cursor: none !important;
-      }
+      * { cursor: none !important; }
 
       :root {
-        --pink: rgb(246, 68, 184);
-        --lavender: rgb(169, 132, 220);
-        --gold: rgb(252, 215, 131);
-
-        /* Light mode colors */
-        --bg-light: #fffdf5;
-        --text-light: #2b1e2e;
-        --overlay-light-1: rgba(255, 200, 240, 0.15);
-        --overlay-light-2: rgba(255, 253, 245, 0.3);
-
-        /* Dark mode colors */
-        --bg-dark: #1a1a1a;
-        --text-dark: #f5f5f5;
-        --overlay-dark-1: rgba(246, 68, 184, 0.12);
-        --overlay-dark-2: rgba(169, 132, 220, 0.12);
-        --overlay-dark-3: rgba(252, 215, 131, 0.08);
-        .key-hint {
-  font-size: 11px;
-  font-weight: 400;
-  color: rgba(20, 20, 20, 0.35);
-  letter-spacing: 0.6px;
-  margin-top: 8px;
-  animation: hintPulse 3s ease-in-out infinite;
-}
-
-body.dark-mode .key-hint {
-  color: rgba(245, 245, 245, 0.3);
-}
-
-@keyframes hintPulse {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
-}
+        --pink:     rgb(246, 68, 184);
+        --bg-light: #f8f8f6;
+        --bg-dark:  #111110;
       }
 
-      html,
-      body {
+      html, body {
         height: 100%;
         margin: 0;
         overflow: hidden;
         font-family: "Poppins", sans-serif;
-        transition: background 0.4s ease;
+        transition: background 0.3s ease;
       }
 
       body {
         background: var(--bg-light);
         animation: fadeIn 0.5s ease-out;
       }
+      body.dark-mode { background: var(--bg-dark); }
 
-      body.dark-mode {
-        background: var(--bg-dark);
-      }
-
-      /* ============================================
-         LOADING SCREEN
-      ============================================ */
-      #loading-screen {
+      /* ── Grain overlay — matches inner pages ── */
+      body::before {
+        content: "";
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background: #fffdf5;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        inset: 0;
+        pointer-events: none;
+        z-index: 10000;
+        opacity: 0.03;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        background-size: 256px 256px;
+      }
+      body.dark-mode::before { opacity: 0.07; }
+
+      /* ── Loading screen ── */
+      #loading-screen {
+        position: fixed; inset: 0;
+        background: var(--bg-light);
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
         z-index: 100000;
         transition: opacity 0.5s ease, visibility 0.5s ease;
       }
+      body.dark-mode #loading-screen { background: var(--bg-dark); }
+      #loading-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+      body.skip-loading #loading-screen { display: none; }
 
-      body.dark-mode #loading-screen {
-        background: #1a1a1a;
-      }
-
-      #loading-screen.hidden {
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-      }
-
-      /* Hide loading screen by default if already visited */
-      body.skip-loading #loading-screen {
-        display: none;
-      }
-
-      .loader-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-      }
-
+      .loader-container { display: flex; flex-direction: column; align-items: center; gap: 20px; }
       .progress-container {
-        width: 200px;
-        height: 2px;
-        background: rgba(246, 68, 184, 0.1);
-        border-radius: 2px;
-        overflow: hidden;
-        position: relative;
+        width: 200px; height: 2px;
+        background: rgba(246, 68, 184, 0.12);
+        border-radius: 2px; overflow: hidden;
       }
-
       .progress-bar {
-        height: 100%;
-        background: #f644b8;
-        border-radius: 2px;
-        width: 0%;
+        height: 100%; background: var(--pink);
+        border-radius: 2px; width: 0%;
         animation: fillProgress 2s ease-out forwards;
       }
-
-      @keyframes fillProgress {
-        0% {
-          width: 0%;
-        }
-        100% {
-          width: 100%;
-        }
-      }
+      @keyframes fillProgress { from { width: 0%; } to { width: 100%; } }
 
       .loading-text {
-        font-family: "Poppins", sans-serif;
-        font-size: 14px;
-        font-weight: 400;
-        color: #2b2b2b;
-        letter-spacing: 0.5px;
+        font-size: 13px; font-weight: 400;
+        color: rgba(20, 20, 20, 0.45);
+        letter-spacing: 1px; text-transform: lowercase;
       }
+      body.dark-mode .loading-text { color: rgba(240, 237, 232, 0.4); }
 
-      body.dark-mode .loading-text {
-        color: #f5f5f5;
-      }
+      /* ── Transitions ── */
+      @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+      body.page-exit { animation: fadeOut 0.4s ease-in-out forwards; }
 
-      /* Page transition animations */
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-
-      @keyframes fadeOut {
-        from {
-          opacity: 1;
-        }
-        to {
-          opacity: 0;
-        }
-      }
-
-      body.page-exit {
-        animation: fadeOut 0.4s ease-in-out forwards;
-      }
-
-      /* Transition overlay */
       .transition-overlay {
-        position: fixed;
-        inset: 0;
+        position: fixed; inset: 0;
         background: var(--bg-light);
-        z-index: 9999;
-        opacity: 0;
-        pointer-events: none;
+        z-index: 9999; opacity: 0; pointer-events: none;
         transition: opacity 0.4s ease-in-out;
       }
+      body.dark-mode .transition-overlay { background: var(--bg-dark); }
+      body.page-exit .transition-overlay { opacity: 1; pointer-events: all; }
 
-      body.dark-mode .transition-overlay {
-        background: var(--bg-dark);
-      }
-
-      body.page-exit .transition-overlay {
-        opacity: 1;
-        pointer-events: all;
-      }
-
+      /* ── Spline ── */
       spline-viewer {
         position: fixed;
-        left: 0;
-        right: 0;
-        top: -5%;
-        bottom: 5%;
-        display: block;
-        width: 100vw;
-        height: 100vh;
-        z-index: 0;
+        left: 0; right: 0; top: -5%; bottom: 5%;
+        display: block; width: 100vw; height: 100vh; z-index: 0;
       }
 
-      /* Light mode overlay */
+      /* ── Vignette — no colored gradients, just subtle edge darkening ── */
       .overlay {
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        background: radial-gradient(
-          circle at 30% 30%,
-          var(--overlay-light-1),
-          var(--overlay-light-2)
-        );
+        position: fixed; inset: 0; pointer-events: none;
+        background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.06) 100%);
         z-index: 1;
-        transition: opacity 0.4s ease;
       }
-
-      /* Dark mode overlay with dynamic gradient */
       body.dark-mode .overlay {
-        background: radial-gradient(
-            1200px 800px at 15% 20%,
-            var(--overlay-dark-1),
-            transparent 60%
-          ),
-          radial-gradient(
-            1000px 700px at 85% 75%,
-            var(--overlay-dark-2),
-            transparent 60%
-          ),
-          radial-gradient(
-            900px 600px at 50% 90%,
-            var(--overlay-dark-3),
-            transparent 70%
-          );
-        background-size: 300% 300%;
-        animation: gradientFlow 15s ease-in-out infinite alternate;
+        background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.3) 100%);
       }
 
-      @keyframes gradientFlow {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
-      }
-
-      /* Navigation Bar */
+      /* ── Nav ── */
       header {
-        position: fixed;
-        top: 2rem;
-        right: 2rem;
-        display: flex;
-        align-items: center;
-        gap: 18px;
-        z-index: 3;
-        opacity: 0;
+        position: fixed; top: 2rem; right: 2rem;
+        display: flex; align-items: center; gap: 18px;
+        z-index: 10001; opacity: 0;
       }
-
-      /* Conditional animation based on loading screen */
-      body:not(.skip-loading) header {
-        animation: fadeInNav 0.8s ease-out 2.3s forwards;
-      }
-
-      body.skip-loading header {
-        animation: fadeInNav 0.8s ease-out 0.3s forwards;
-      }
-
+      body:not(.skip-loading) header { animation: fadeInNav 0.8s ease-out 2.3s forwards; }
+      body.skip-loading       header { animation: fadeInNav 0.8s ease-out 0.3s forwards; }
       @keyframes fadeInNav {
-        from {
-          opacity: 0;
-          transform: translateY(-10px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(-10px); }
+        to   { opacity: 1; transform: translateY(0); }
       }
 
-      nav {
-        display: flex;
-        align-items: center;
-        gap: 18px;
-      }
-
+      nav { display: flex; align-items: center; gap: 18px; }
       nav a {
-        color: rgba(20, 20, 20, 0.75);
-        text-decoration: none;
-        font-weight: 500;
-        font-size: 15px;
+        color: rgba(20, 20, 20, 0.7);
+        text-decoration: none; font-weight: 500; font-size: 15px;
         transition: color 0.3s ease;
       }
+      body.dark-mode nav a       { color: rgba(240, 237, 232, 0.6); }
+      nav a:hover                { color: var(--pink); }
+      body.dark-mode nav a:hover { color: var(--pink); }
 
-      body.dark-mode nav a {
-        color: rgba(245, 245, 245, 0.8);
-      }
-
-      nav a:hover {
-        color: var(--pink);
-      }
-
-      body.dark-mode nav a:hover {
-        color: var(--pink);
-      }
-
-      /* Theme toggle button */
+      /* ── Theme toggle ── */
       .theme-toggle {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
+        width: 40px; height: 40px; border-radius: 50%;
         border: 1px solid rgba(0, 0, 0, 0.08);
         background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+        cursor: pointer; display: flex; align-items: center; justify-content: center;
         transition: all 0.3s ease;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
       }
-
       body.dark-mode .theme-toggle {
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.08);
         border-color: rgba(255, 255, 255, 0.1);
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
       }
+      .theme-toggle:hover  { transform: scale(1.02); box-shadow: 0 6px 25px rgba(0,0,0,0.15); }
+      body.dark-mode .theme-toggle:hover { box-shadow: 0 6px 25px rgba(246,68,184,0.3); }
+      .theme-toggle:active { transform: scale(0.98); }
 
-      .theme-toggle:hover {
-        transform: scale(1.02);
-        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
-      }
-
-      body.dark-mode .theme-toggle:hover {
-        box-shadow: 0 6px 25px rgba(246, 68, 184, 0.3);
-      }
-
-      .theme-toggle:active {
-        transform: scale(0.98);
-      }
-
-      /* Toggle icon */
-      .toggle-icon {
-        width: 20px;
-        height: 20px;
-        position: relative;
-        transition: transform 0.3s ease;
-      }
-
-      /* Sun icon (shown in dark mode) */
-      .sun-icon {
-        display: none;
-      }
-
-      body.dark-mode .sun-icon {
-        display: block;
-      }
-
-      body.dark-mode .moon-icon {
-        display: none;
-      }
-
-      /* Icon styles */
+      .toggle-icon { width: 20px; height: 20px; position: relative; transition: transform 0.3s ease; }
       .toggle-icon svg {
-        width: 100%;
-        height: 100%;
-        fill: none;
+        width: 100%; height: 100%; fill: none;
         stroke: rgba(20, 20, 20, 0.75);
-        stroke-width: 2;
-        stroke-linecap: round;
-        stroke-linejoin: round;
+        stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; display: block;
       }
+      body.dark-mode .toggle-icon svg { stroke: #ffffff; }
+      .sun-icon  { display: none !important; }
+      body.dark-mode .sun-icon  { display: block !important; }
+      body.dark-mode .moon-icon { display: none  !important; }
 
-      body.dark-mode .toggle-icon svg {
-        stroke: #ffffff;
-      }
-
-      /* Welcome Text - Centered - FIXED JUMPING */
+      /* ── Welcome text ── */
       .welcome-text {
-        position: fixed;
-        bottom: 2rem;
-        left: 50%;
+        position: fixed; bottom: 2rem; left: 50%;
         transform: translateX(-50%);
-        font-family: "Poppins", sans-serif;
-        font-size: 15px;
-        font-weight: 400;
-        color: rgba(20, 20, 20, 0.75);
-        z-index: 2;
-        opacity: 0;
-        line-height: 1.4;
-        text-align: center;
-        /* Prevent layout shift by reserving space */
-        min-height: 40px;
+        font-size: 15px; font-weight: 400;
+        color: rgba(20, 20, 20, 0.65);
+        z-index: 2; opacity: 0;
+        line-height: 1.5; text-align: center;
+        min-height: 40px; white-space: nowrap;
       }
+      body.dark-mode .welcome-text { color: rgba(240, 237, 232, 0.55); }
 
-      body.dark-mode .welcome-text {
-        color: rgba(245, 245, 245, 0.8);
-      }
-
-      /* Conditional animation based on loading screen */
-      body:not(.skip-loading) .welcome-text {
-        animation: fadeInWelcome 0.8s ease-out 2.5s forwards;
-      }
-
-      body.skip-loading .welcome-text {
-        animation: fadeInWelcome 0.8s ease-out 0.5s forwards;
-      }
-
+      body:not(.skip-loading) .welcome-text { animation: fadeInWelcome 0.8s ease-out 2.5s forwards; }
+      body.skip-loading       .welcome-text { animation: fadeInWelcome 0.8s ease-out 0.5s forwards; }
       @keyframes fadeInWelcome {
-        from {
-          opacity: 0;
-          transform: translate(-50%, 10px);
-        }
-        to {
-          opacity: 1;
-          transform: translate(-50%, 0);
-        }
+        from { opacity: 0; transform: translate(-50%, 10px); }
+        to   { opacity: 1; transform: translate(-50%, 0); }
       }
 
+      /* Greeting — Space Grotesk bold pink, no gradient */
       .welcome-text .greeting {
-        font-weight: 500;
-        background: linear-gradient(135deg, var(--pink), var(--lavender));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        /* Prevent text from causing layout shift */
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 700;
+        color: var(--pink);
         display: inline-block;
       }
 
-      /* Custom cursor */
+      .key-hint {
+        font-size: 11px; font-weight: 400;
+        color: rgba(20, 20, 20, 0.3);
+        letter-spacing: 0.6px; margin-top: 6px;
+        animation: hintPulse 3s ease-in-out infinite;
+      }
+      body.dark-mode .key-hint { color: rgba(240, 237, 232, 0.25); }
+      @keyframes hintPulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+      /* ── Cursor ── */
       .cursor {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
+        width: 20px; height: 20px; border-radius: 50%;
         background: var(--pink);
-        position: fixed;
-        pointer-events: none;
-        z-index: 10000;
+        position: fixed; pointer-events: none;
+        z-index: 100001;
         transform: translate(-50%, -50%);
         transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease;
         box-shadow: 0 0 15px rgba(246, 68, 184, 0.5);
       }
+      .cursor.click { transform: translate(-50%, -50%) scale(0.8); }
 
-      .cursor.click {
-        transform: translate(-50%, -50%) scale(0.8);
-      }
-
-      /* Responsive */
+      /* ── Responsive ── */
       @media (max-width: 768px) {
-        header {
-          top: 1.5rem;
-          right: 1.5rem;
-        }
-
-        nav {
-          gap: 14px;
-        }
-
-        nav a {
-          font-size: 14px;
-        }
-
-        .welcome-text {
-          bottom: 1.5rem;
-          font-size: 14px;
-          padding: 0 1.5rem;
-          min-height: 37px;
-        }
-
-        .progress-container {
-          width: 160px;
-        }
+        header { top: 1.5rem; right: 1.5rem; }
+        nav    { gap: 14px; }
+        nav a  { font-size: 14px; }
+        .welcome-text { bottom: 1.5rem; font-size: 14px; padding: 0 1.5rem; }
+        .progress-container { width: 160px; }
+        .cursor { display: none; }
       }
     </style>
   </head>
@@ -493,9 +226,7 @@ body.dark-mode .key-hint {
     <!-- Loading Screen -->
     <div id="loading-screen">
       <div class="loader-container">
-        <div class="progress-container">
-          <div class="progress-bar"></div>
-        </div>
+        <div class="progress-container"><div class="progress-bar"></div></div>
         <div class="loading-text">loading...</div>
       </div>
     </div>
@@ -503,7 +234,7 @@ body.dark-mode .key-hint {
     <!-- Transition overlay -->
     <div class="transition-overlay"></div>
 
-    <!-- Navigation Bar -->
+    <!-- Nav -->
     <header>
       <nav>
         <a href="works.html">work</a>
@@ -512,26 +243,10 @@ body.dark-mode .key-hint {
       </nav>
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
         <div class="toggle-icon">
-          <!-- Moon icon for light mode -->
-          <svg
-            class="moon-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
+          <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
           </svg>
-          <!-- Sun icon for dark mode -->
-          <svg
-            class="sun-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
+          <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="5"></circle>
             <line x1="12" y1="1" x2="12" y2="3"></line>
             <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -546,138 +261,89 @@ body.dark-mode .key-hint {
       </button>
     </header>
 
-    <!-- spline scene -->
-    <spline-viewer
-      url="https://prod.spline.design/0OgmrUg00xI72hXH/scene.splinecode?v=2"
-      events-target="global"
-    ></spline-viewer>
+    <!-- Spline scene — untouched -->
+    <spline-viewer url="https://prod.spline.design/0OgmrUg00xI72hXH/scene.splinecode?v=2" events-target="global"></spline-viewer>
 
-    <!-- overlay with gradient -->
+    <!-- Vignette overlay -->
     <div class="overlay"></div>
 
-    <!-- Welcome Text -->
+    <!-- Welcome text -->
     <div class="welcome-text">
-  <span class="greeting">hi, i'm mika pham.</span><br />
-  product marketer + creative.
-  <div class="key-hint">click a key ↑</div>
-</div>
+      <span class="greeting">hi, i'm mika pham.</span><br/>
+      product marketer + creative.
+      <div class="key-hint">click a key ↑</div>
+    </div>
 
-    <!-- Custom cursor -->
+    <!-- Cursor -->
     <div class="cursor"></div>
 
     <script>
-      // Check if this is the first visit (for loading screen)
+      // Loading screen — first visit only
       const hasVisited = sessionStorage.getItem("hasVisited");
-      
       if (hasVisited) {
-        // Skip loading screen if already visited in this session
         document.body.classList.add("skip-loading");
         document.getElementById("loading-screen").classList.add("hidden");
       } else {
-        // Show loading screen on first visit
         sessionStorage.setItem("hasVisited", "true");
       }
-
-      // Loading Screen (only for first visit)
       window.addEventListener("load", () => {
         if (!hasVisited) {
-          setTimeout(() => {
-            const loadingScreen = document.getElementById("loading-screen");
-            loadingScreen.classList.add("hidden");
-          }, 2000);
+          setTimeout(() => document.getElementById("loading-screen").classList.add("hidden"), 2000);
         }
       });
 
-      // Theme Toggle
+      // Theme toggle
       const themeToggle = document.getElementById("themeToggle");
       const body = document.body;
-
-      // Check for saved theme preference or default to light mode
       const currentTheme = localStorage.getItem("theme") || "light";
-      if (currentTheme === "dark") {
-        body.classList.add("dark-mode");
-      }
-
-      // Toggle theme
+      if (currentTheme === "dark") body.classList.add("dark-mode");
       themeToggle.addEventListener("click", () => {
         body.classList.toggle("dark-mode");
-
-        // Save preference
-        const theme = body.classList.contains("dark-mode") ? "dark" : "light";
-        localStorage.setItem("theme", theme);
+        localStorage.setItem("theme", body.classList.contains("dark-mode") ? "dark" : "light");
       });
 
-      // Custom cursor
+      // Cursor
       const cursor = document.querySelector(".cursor");
-      window.addEventListener("mousemove", (e) => {
-        cursor.style.left = e.clientX + "px";
-        cursor.style.top = e.clientY + "px";
-      });
+      window.addEventListener("mousemove", (e) => { cursor.style.left = e.clientX + "px"; cursor.style.top = e.clientY + "px"; });
+      window.addEventListener("mousedown", () => cursor.classList.add("click"));
+      window.addEventListener("mouseup",   () => cursor.classList.remove("click"));
 
-      // Cursor click effect
-      window.addEventListener("mousedown", () => {
-        cursor.classList.add("click");
-      });
-
-      window.addEventListener("mouseup", () => {
-        cursor.classList.remove("click");
-      });
-
-      // Smooth page transitions
+      // Spline navigation — intercept window.open calls
       let transitionStarted = false;
-
-      // Override window.open to prevent new tabs from Spline
       const originalWindowOpen = window.open;
-      window.open = function (url, target, features) {
-        // If it's an HTML file (internal navigation), keep it in same tab
+      window.open = function(url, target, features) {
         if (url && url.includes(".html")) {
           transitionStarted = true;
           document.body.classList.add("page-exit");
-          setTimeout(() => {
-            window.location.href = url;
-          }, 400);
+          setTimeout(() => { window.location.href = url; }, 400);
           return null;
         }
-        // For external links, use original behavior
         return originalWindowOpen.call(window, url, target, features);
       };
 
-      // Start transition on ANY click
-      document.addEventListener(
-        "click",
-        () => {
-          if (!transitionStarted) {
-            transitionStarted = true;
-            document.body.classList.add("page-exit");
-
-            // If no navigation happens, remove the class
-            setTimeout(() => {
-              if (window.location.href === document.URL) {
-                document.body.classList.remove("page-exit");
-                transitionStarted = false;
-              }
-            }, 500);
-          }
-        },
-        true
-      );
+      // Click-any-key transition
+      document.addEventListener("click", () => {
+        if (!transitionStarted) {
+          transitionStarted = true;
+          document.body.classList.add("page-exit");
+          setTimeout(() => {
+            if (window.location.href === document.URL) {
+              document.body.classList.remove("page-exit");
+              transitionStarted = false;
+            }
+          }, 500);
+        }
+      }, true);
 
       document.addEventListener("DOMContentLoaded", () => {
-        // Add smooth transition to regular HTML links
-        const links = document.querySelectorAll('a[href$=".html"]');
-        links.forEach((link) => {
+        document.querySelectorAll('a[href$=".html"]').forEach((link) => {
           link.addEventListener("click", (e) => {
             const href = link.getAttribute("href");
-            if (link.target === "_blank" || !href || href.startsWith("http")) {
-              return;
-            }
+            if (link.target === "_blank" || !href || href.startsWith("http")) return;
             e.preventDefault();
-
             transitionStarted = true;
             document.body.classList.add("page-exit");
-            setTimeout(() => {
-              window.location.href = href;
-            }, 400);
+            setTimeout(() => { window.location.href = href; }, 400);
           });
         });
       });
