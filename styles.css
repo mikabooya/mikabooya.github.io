@@ -127,7 +127,7 @@ body.page-exit { animation: fadeOut 0.3s ease-in forwards; }
 .wrap {
   max-width: 1120px;
   margin: 0 auto;
-  padding: 96px 24px 80px; /* top clears the fixed nav */
+  padding: 140px 24px 80px; /* top clears fixed nav with breathing room */
 }
 
 /* ── Header & nav — fixed floating glass (matches index.html) ── */
@@ -293,7 +293,7 @@ footer {
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
-  .wrap   { padding: 32px 20px 60px; }
+  .wrap   { padding: 100px 20px 60px; }
   header  { top: 1.5rem; right: 1.5rem; gap: 14px; }
   .back   { top: 1.5rem; left: 1.5rem; }
   nav a   { font-size: 14px; }
