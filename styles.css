@@ -1,4 +1,4 @@
-/* ============================================================
+ /* ============================================================
    MIKA PHAM — SHARED STYLES
    styles.css — imported by every page
    ============================================================ */
@@ -28,7 +28,7 @@
 
   /* Dark — near-black, grid paper */
   --bg-dark:          #111110;
-  --grid-line-dark:   rgba(255, 255, 255, 0.055);
+  --grid-line-dark:   rgba(255, 255, 255, 0.03);
   --ink-dark:         #f0ede8;
   --ink-2-dark:       rgba(240, 237, 232, 0.5);
   --stroke-dark:      rgba(255, 255, 255, 0.08);
@@ -306,47 +306,6 @@ strong { color: var(--ink); font-weight: 700; }
   .project-meta    { gap: 20px; }
 }
 
-
-/* ── Scattered decorations ── */
-.deco {
-  position: absolute;
-  pointer-events: none;
-  user-select: none;
-  color: var(--pink);
-  opacity: 0.35;
-  z-index: 0;
-  font-style: normal;
-}
-.deco-dot {
-  position: absolute;
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--pink);
-  opacity: 0.25;
-  pointer-events: none;
-  z-index: 0;
-}
-.deco-circle {
-  position: absolute;
-  border-radius: 50%;
-  border: 1.5px solid var(--pink);
-  opacity: 0.18;
-  pointer-events: none;
-  z-index: 0;
-}
-.deco-line {
-  position: absolute;
-  height: 1px;
-  background: var(--pink);
-  opacity: 0.18;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Hero wrapper needs relative positioning for decos */
-.hero-wrap {
-  position: relative;
-}
 
 /* ── Footer ── */
 footer {
