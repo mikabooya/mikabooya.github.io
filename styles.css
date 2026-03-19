@@ -15,8 +15,9 @@
   --lavender: rgb(169, 132, 220);
   --gold:     rgb(252, 215, 131);
 
-  /* Light — clean white, flat */
+  /* Light — clean white, grid paper */
   --bg-light:          #f8f8f6;
+  --grid-line-light:   rgba(0, 0, 180, 0.055);
   --ink-light:         #141414;
   --ink-2-light:       rgba(14, 14, 14, 0.5);
   --stroke-light:      rgba(0, 0, 0, 0.12);
@@ -25,20 +26,22 @@
   --section-bg-light:  #ffffff;
   --footer-text-light: #999;
 
-  /* Dark — near-black, flat */
+  /* Dark — near-black, grid paper */
   --bg-dark:          #111110;
+  --grid-line-dark:   rgba(255, 255, 255, 0.045);
   --ink-dark:         #f0ede8;
   --ink-2-dark:       rgba(240, 237, 232, 0.5);
   --stroke-dark:      rgba(255, 255, 255, 0.08);
   --shadow-dark:      0 8px 32px rgba(0, 0, 0, 0.6);
   --card-bg-dark:     #1c1c1a;
-  --section-bg-dark:  #181816;
+  --section-bg-dark:   #1a1a18;
   --footer-text-dark: #666;
 }
 
 /* ── Active theme tokens (defaults to light) ── */
 body {
   --bg:          var(--bg-light);
+  --grid-line:   var(--grid-line-light);
   --ink:         var(--ink-light);
   --ink-2:       var(--ink-2-light);
   --stroke:      var(--stroke-light);
@@ -49,6 +52,7 @@ body {
 }
 body.dark-mode {
   --bg:          var(--bg-dark);
+  --grid-line:   var(--grid-line-dark);
   --ink:         var(--ink-dark);
   --ink-2:       var(--ink-2-dark);
   --stroke:      var(--stroke-dark);
@@ -58,21 +62,29 @@ body.dark-mode {
   --footer-text: var(--footer-text-dark);
 }
 
-/* ── Base body — flat + grain ── */
+/* ── Base body — grid paper ── */
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 24px 24px;
   animation: fadeIn 0.4s ease-out;
   transition: background-color 0.3s ease, color 0.3s ease;
   position: relative;
 }
 
 body.dark-mode {
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 /* ── Noise / grain texture overlay ── */
@@ -292,6 +304,48 @@ strong { color: var(--ink); font-weight: 700; }
 @media (max-width: 768px) {
   .section-content { padding: 24px; }
   .project-meta    { gap: 20px; }
+}
+
+
+/* ── Scattered decorations ── */
+.deco {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  color: var(--pink);
+  opacity: 0.35;
+  z-index: 0;
+  font-style: normal;
+}
+.deco-dot {
+  position: absolute;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--pink);
+  opacity: 0.25;
+  pointer-events: none;
+  z-index: 0;
+}
+.deco-circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid var(--pink);
+  opacity: 0.18;
+  pointer-events: none;
+  z-index: 0;
+}
+.deco-line {
+  position: absolute;
+  height: 1px;
+  background: var(--pink);
+  opacity: 0.18;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Hero wrapper needs relative positioning for decos */
+.hero-wrap {
+  position: relative;
 }
 
 /* ── Footer ── */
