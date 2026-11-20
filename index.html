@@ -2,327 +2,73 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>mika pham — portfolio</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23F644B8'/></svg>">
-    <meta name="theme-color" content="#F644B8">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-    <script type="module" src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"></script>
-
-    <style>
-      :root {
-        --pink:     rgb(246, 68, 184);
-        --bg-light: #f8f8f6;
-        --bg-dark:  #111110;
-      }
-
-      html, body {
-        height: 100%;
-        margin: 0;
-        overflow: hidden;
-        font-family: "Poppins", sans-serif;
-        transition: background 0.3s ease;
-      }
-
-      body {
-        background: var(--bg-light);
-        animation: fadeIn 0.5s ease-out;
-      }
-      body.dark-mode { background: var(--bg-dark); }
-
-      /* ── Grain overlay — matches inner pages ── */
-      body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        z-index: 10000;
-        opacity: 0.03;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-        background-size: 256px 256px;
-      }
-      body.dark-mode::before { opacity: 0.07; }
-
-      /* ── Loading screen ── */
-      #loading-screen {
-        position: fixed; inset: 0;
-        background: var(--bg-light);
-        display: flex; flex-direction: column;
-        align-items: center; justify-content: center;
-        z-index: 100000;
-        transition: opacity 0.5s ease, visibility 0.5s ease;
-      }
-      body.dark-mode #loading-screen { background: var(--bg-dark); }
-      #loading-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-      body.skip-loading #loading-screen { display: none; }
-
-      .loader-container { display: flex; flex-direction: column; align-items: center; gap: 20px; }
-      .progress-container {
-        width: 200px; height: 2px;
-        background: rgba(246, 68, 184, 0.12);
-        border-radius: 2px; overflow: hidden;
-      }
-      .progress-bar {
-        height: 100%; background: var(--pink);
-        border-radius: 2px; width: 0%;
-        animation: fillProgress 2s ease-out forwards;
-      }
-      @keyframes fillProgress { from { width: 0%; } to { width: 100%; } }
-
-      .loading-text {
-        font-size: 13px; font-weight: 400;
-        color: rgba(20, 20, 20, 0.45);
-        letter-spacing: 1px; text-transform: lowercase;
-      }
-      body.dark-mode .loading-text { color: rgba(240, 237, 232, 0.4); }
-
-      /* ── Transitions ── */
-      @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
-      @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
-      body.page-exit { animation: fadeOut 0.4s ease-in-out forwards; }
-
-      .transition-overlay {
-        position: fixed; inset: 0;
-        background: var(--bg-light);
-        z-index: 9999; opacity: 0; pointer-events: none;
-        transition: opacity 0.4s ease-in-out;
-      }
-      body.dark-mode .transition-overlay { background: var(--bg-dark); }
-      body.page-exit .transition-overlay { opacity: 1; pointer-events: all; }
-
-      /* ── Spline ── */
-      spline-viewer {
-        position: fixed;
-        left: 0; right: 0; top: -5%; bottom: 5%;
-        display: block; width: 100vw; height: 100vh; z-index: 0;
-      }
-
-      /* ── Vignette — no colored gradients, just subtle edge darkening ── */
-      .overlay {
-        position: fixed; inset: 0; pointer-events: none;
-        background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.06) 100%);
-        z-index: 1;
-      }
-      body.dark-mode .overlay {
-        background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.3) 100%);
-      }
-
-      /* ── Nav ── */
-      header {
-        position: fixed; top: 2rem; right: 2rem;
-        display: flex; align-items: center; gap: 18px;
-        z-index: 10001; opacity: 0;
-      }
-      body:not(.skip-loading) header { animation: fadeInNav 0.8s ease-out 2.3s forwards; }
-      body.skip-loading       header { animation: fadeInNav 0.8s ease-out 0.3s forwards; }
-      @keyframes fadeInNav {
-        from { opacity: 0; transform: translateY(-10px); }
-        to   { opacity: 1; transform: translateY(0); }
-      }
-
-      nav { display: flex; align-items: center; gap: 18px; }
-      nav a {
-        color: rgba(20, 20, 20, 0.7);
-        text-decoration: none; font-weight: 500; font-size: 15px;
-        transition: color 0.3s ease;
-      }
-      body.dark-mode nav a       { color: rgba(240, 237, 232, 0.6); }
-      nav a:hover                { color: var(--pink); }
-      body.dark-mode nav a:hover { color: var(--pink); }
-
-      /* ── Theme toggle ── */
-      .theme-toggle {
-        width: 40px; height: 40px; border-radius: 50%;
-        border: 1px solid rgba(0, 0, 0, 0.08);
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-        cursor: pointer; display: flex; align-items: center; justify-content: center;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      }
-      body.dark-mode .theme-toggle {
-        background: rgba(255, 255, 255, 0.08);
-        border-color: rgba(255, 255, 255, 0.1);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      }
-      .theme-toggle:hover  { transform: scale(1.02); box-shadow: 0 6px 25px rgba(0,0,0,0.15); }
-      body.dark-mode .theme-toggle:hover { box-shadow: 0 6px 25px rgba(246,68,184,0.3); }
-      .theme-toggle:active { transform: scale(0.98); }
-
-      .toggle-icon { width: 20px; height: 20px; position: relative; transition: transform 0.3s ease; }
-      .toggle-icon svg {
-        width: 100%; height: 100%; fill: none;
-        stroke: rgba(20, 20, 20, 0.75);
-        stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; display: block;
-      }
-      body.dark-mode .toggle-icon svg { stroke: #ffffff; }
-      .sun-icon  { display: none !important; }
-      body.dark-mode .sun-icon  { display: block !important; }
-      body.dark-mode .moon-icon { display: none  !important; }
-
-      /* ── Welcome text ── */
-      .welcome-text {
-        position: fixed; bottom: 2rem; left: 50%;
-        transform: translateX(-50%);
-        font-size: 15px; font-weight: 400;
-        color: rgba(20, 20, 20, 0.65);
-        z-index: 2; opacity: 0;
-        line-height: 1.5; text-align: center;
-        min-height: 40px; white-space: nowrap;
-      }
-      body.dark-mode .welcome-text { color: rgba(240, 237, 232, 0.55); }
-
-      body:not(.skip-loading) .welcome-text { animation: fadeInWelcome 0.8s ease-out 2.5s forwards; }
-      body.skip-loading       .welcome-text { animation: fadeInWelcome 0.8s ease-out 0.5s forwards; }
-      @keyframes fadeInWelcome {
-        from { opacity: 0; transform: translate(-50%, 10px); }
-        to   { opacity: 1; transform: translate(-50%, 0); }
-      }
-
-      /* Greeting — Poppins, plain pink */
-      .welcome-text .greeting {
-        font-weight: 500;
-        color: var(--pink);
-        display: inline-block;
-      }
-
-      .key-hint {
-        font-size: 11px; font-weight: 400;
-        color: rgba(20, 20, 20, 0.3);
-        letter-spacing: 0.6px; margin-top: 6px;
-        animation: hintPulse 3s ease-in-out infinite;
-      }
-      body.dark-mode .key-hint { color: rgba(240, 237, 232, 0.25); }
-      @keyframes hintPulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
-
-      /* ── Responsive ── */
-      @media (max-width: 768px) {
-        header { top: 1.5rem; right: 1.5rem; }
-        nav    { gap: 14px; }
-        nav a  { font-size: 14px; }
-        .welcome-text { bottom: 1.5rem; font-size: 14px; padding: 0 1.5rem; }
-        .progress-container { width: 160px; }
-      }
-    </style>
+    <meta name="description" content="mika pham: full-stack marketer with a designer's eye." />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23F4B6E6'/></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Space+Mono:wght@400&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="styles.css" />
   </head>
-
   <body>
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-      <div class="loader-container">
-        <div class="progress-container"><div class="progress-bar"></div></div>
-        <div class="loading-text">loading...</div>
-      </div>
-    </div>
+    <header class="hero">
+      <!-- 3D scene: asterisk, glow and the "mikapham" name all live in Spline -->
+      <iframe class="hero-scene" src="https://my.spline.design/windherocopycopy-VtLTno9LZNbdy0uxQL0xcwXo-Exs/" frameborder="0" width="100%" height="100%" title="mika pham 3D hero" loading="lazy"></iframe>
+      <h1 class="visually-hidden">mika pham</h1>
 
-    <!-- Transition overlay -->
-    <div class="transition-overlay"></div>
-
-    <!-- Nav -->
-    <header>
-      <nav>
-        <a href="works.html">work</a>
-        <a href="about.html">about</a>
-        <a href="resume.html">resume</a>
-      </nav>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-        <div class="toggle-icon">
-          <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-          </svg>
-          <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
-            <line x1="12" y1="21" x2="12" y2="23"></line>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line x1="1" y1="12" x2="3" y2="12"></line>
-            <line x1="21" y1="12" x2="23" y2="12"></line>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-          </svg>
+      <!-- Text layer: ignores the mouse (so the scene stays interactive), except the nav -->
+      <div class="hero-overlay">
+        <div class="hero-top">
+          <div class="hero-intro">
+            <p class="label">mika pham</p>
+            <p class="blurb">full-stack marketer with a designer's eye. currently at inscribe.</p>
+          </div>
+          <nav class="site-nav label" aria-label="main">
+            <a href="works.html">works</a>
+            <a href="about.html">about</a>
+            <a href="resume.html">resume</a>
+          </nav>
         </div>
-      </button>
+        <p class="hero-tagline label">product marketing · marketing design</p>
+      </div>
     </header>
 
-    <!-- Spline scene — untouched -->
-    <spline-viewer url="https://prod.spline.design/0OgmrUg00xI72hXH/scene.splinecode?v=2" events-target="global"></spline-viewer>
+    <main class="wrap work" id="work">
+      <h2 class="section-label label label--lg">selected work</h2>
+      <div class="card-grid">
+        <a class="card is-veryfi" href="veryfi.html">
+          <p class="blurb">veryfi is a yc-backed fintech startup that turns messy receipts and documents into clean, structured data using ai.</p>
+          <h3 class="card-title">veryfi</h3>
+          <div class="card-meta label"><span>product &amp; content marketer</span><span>b2b saas marketing</span><span>2025–2026</span></div>
+        </a>
+        <a class="card is-confidance" href="confidance.html">
+          <p class="blurb">as part of vanderbilt's premier dance organization, confidance, i led visual branding and creative direction across performances and campaigns.</p>
+          <h3 class="card-title script-title">Confidance</h3>
+          <div class="card-meta label"><span>head of marketing</span><span>branding • graphic designs</span><span>2024–2025</span></div>
+        </a>
+        <a class="card is-narb" href="narbai.html">
+          <p class="blurb">at narb, i supported the creative team by designing social media posts, motion graphics, and branded content that aligned with the company's visual identity.</p>
+          <h3 class="card-title">narb</h3>
+          <div class="card-meta label"><span>marketing intern</span><span>social media • motion graphics</span><span>summer 2025</span></div>
+        </a>
+        <div class="card is-inscribe">
+          <p class="blurb">&nbsp;</p>
+          <h3 class="card-title">inscribe</h3>
+          <div class="card-meta label"><span>coming soon</span></div>
+        </div>
+      </div>
+    </main>
 
-    <!-- Vignette overlay -->
-    <div class="overlay"></div>
+    <footer class="site-footer">
+      <div class="wrap label label--lg">
+        <a href="mailto:mikapham229@gmail.com" target="_blank">email ↗</a>
+        <a href="https://www.linkedin.com/in/khanh-mika-pham/" target="_blank">linkedin ↗</a>
+        <a href="https://www.instagram.com/mikaphaam/" target="_blank">instagram ↗</a>
+        <span>© <span id="year"></span> mika pham</span>
+      </div>
+    </footer>
 
-    <!-- Welcome text -->
-    <div class="welcome-text">
-      <span class="greeting">hi, i'm mika pham.</span><br/>
-      marketing specialist + creative.
-      <div class="key-hint">click a key ↑</div>
-    </div>
-
-    <script>
-      // Loading screen — first visit only
-      const hasVisited = sessionStorage.getItem("hasVisited");
-      if (hasVisited) {
-        document.body.classList.add("skip-loading");
-        document.getElementById("loading-screen").classList.add("hidden");
-      } else {
-        sessionStorage.setItem("hasVisited", "true");
-      }
-      window.addEventListener("load", () => {
-        if (!hasVisited) {
-          setTimeout(() => document.getElementById("loading-screen").classList.add("hidden"), 2000);
-        }
-      });
-
-      // Theme toggle
-      const themeToggle = document.getElementById("themeToggle");
-      const body = document.body;
-      const currentTheme = localStorage.getItem("theme") || "light";
-      if (currentTheme === "dark") body.classList.add("dark-mode");
-      themeToggle.addEventListener("click", () => {
-        body.classList.toggle("dark-mode");
-        localStorage.setItem("theme", body.classList.contains("dark-mode") ? "dark" : "light");
-      });
-
-      // Spline navigation — intercept window.open calls
-      let transitionStarted = false;
-      const originalWindowOpen = window.open;
-      window.open = function(url, target, features) {
-        if (url && url.includes(".html")) {
-          transitionStarted = true;
-          document.body.classList.add("page-exit");
-          setTimeout(() => { window.location.href = url; }, 400);
-          return null;
-        }
-        return originalWindowOpen.call(window, url, target, features);
-      };
-
-      // Click-any-key transition
-      document.addEventListener("click", () => {
-        if (!transitionStarted) {
-          transitionStarted = true;
-          document.body.classList.add("page-exit");
-          setTimeout(() => {
-            if (window.location.href === document.URL) {
-              document.body.classList.remove("page-exit");
-              transitionStarted = false;
-            }
-          }, 500);
-        }
-      }, true);
-
-      document.addEventListener("DOMContentLoaded", () => {
-        document.querySelectorAll('a[href$=".html"]').forEach((link) => {
-          link.addEventListener("click", (e) => {
-            const href = link.getAttribute("href");
-            if (link.target === "_blank" || !href || href.startsWith("http")) return;
-            e.preventDefault();
-            transitionStarted = true;
-            document.body.classList.add("page-exit");
-            setTimeout(() => { window.location.href = href; }, 400);
-          });
-        });
-      });
-    </script>
+    <script src="main.js"></script>
   </body>
 </html>
-

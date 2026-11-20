@@ -4,83 +4,59 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>work — mika pham</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23F644B8'/></svg>">
-    <meta name="theme-color" content="#F644B8">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <meta name="description" content="selected work by mika pham." />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23F4B6E6'/></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Space+Mono:wght@400&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <a class="back" href="index.html">← back</a>
-    <header class="site-header">
-      <nav class="site-nav">
-        <a href="works.html">work</a>
+    <header class="site-header label label--lg">
+      <a href="index.html">mika pham</a>
+      <nav class="site-nav" aria-label="main">
+        <a href="works.html" aria-current="page">works</a>
         <a href="about.html">about</a>
-        <a href="mailto:mikapham229@gmail.com">contact</a>
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-          <div class="toggle-icon">
-            <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-            <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-          </div>
-        </button>
+        <a href="resume.html">resume</a>
       </nav>
     </header>
 
     <main class="wrap">
-      <header class="page-header page-header--tight">
-        <h1 class="page-title">selected works</h1>
-      </header>
-
-      <section class="window">
-        <div class="window-header">
-          <div class="window-controls">
-            <span class="window-dot dot-red"></span><span class="window-dot dot-yellow"></span><span class="window-dot dot-green"></span>
-          </div>
-          <div class="window-title">mika — recent</div>
-          <div class="finder-actions">≡ 🔎</div>
+      <div class="page-header">
+        <h1 class="headline">selected works</h1>
+      </div>
+      <div class="card-grid">
+        <a class="card is-veryfi" href="veryfi.html">
+          <p class="blurb">veryfi is a yc-backed fintech startup that turns messy receipts and documents into clean, structured data using ai.</p>
+          <h3 class="card-title">veryfi</h3>
+          <div class="card-meta label"><span>product &amp; content marketer</span><span>b2b saas marketing</span><span>2025–2026</span></div>
+        </a>
+        <a class="card is-confidance" href="confidance.html">
+          <p class="blurb">as part of vanderbilt's premier dance organization, confidance, i led visual branding and creative direction across performances and campaigns.</p>
+          <h3 class="card-title script-title">Confidance</h3>
+          <div class="card-meta label"><span>head of marketing</span><span>branding • graphic designs</span><span>2024–2025</span></div>
+        </a>
+        <a class="card is-narb" href="narbai.html">
+          <p class="blurb">at narb, i supported the creative team by designing social media posts, motion graphics, and branded content that aligned with the company's visual identity.</p>
+          <h3 class="card-title">narb</h3>
+          <div class="card-meta label"><span>marketing intern</span><span>social media • motion graphics</span><span>summer 2025</span></div>
+        </a>
+        <div class="card is-inscribe">
+          <p class="blurb">&nbsp;</p>
+          <h3 class="card-title">inscribe</h3>
+          <div class="card-meta label"><span>coming soon</span></div>
         </div>
-        <div class="finder-body">
-          <aside class="finder-sidebar">
-            <h4>favorites</h4>
-            <ul>
-              <li>✿ airdrop</li><li>✿ recents</li><li>✿ documents</li><li>✿ iCloud</li><li>✿ books</li>
-            </ul>
-            <h4>iCloud</h4>
-            <ul>
-              <li>✿ downloads</li><li>✿ music</li><li>✿ safari</li>
-            </ul>
-          </aside>
-          <div class="finder-main">
-            <h2 class="finder-heading">recent</h2>
-            <div class="grid grid-folders" aria-label="project folders">
-              <a class="folder" href="veryfi.html">
-                <svg class="icon" viewBox="0 0 96 72" aria-hidden="true"><path d="M8 18a6 6 0 0 1 6-6h21l8 7h39a6 6 0 0 1 6 6v33a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V18z" fill="currentColor" opacity=".85"/><path d="M8 26h80a6 6 0 0 1 6 6v26a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V26z" fill="currentColor"/></svg>
-                <div class="name">veryfi</div>
-                <div class="meta"><span class="badge">b2b saas marketing</span></div>
-              </a>
-              <a class="folder" href="confidance.html">
-                <svg class="icon" viewBox="0 0 96 72" aria-hidden="true"><path d="M8 18a6 6 0 0 1 6-6h21l8 7h39a6 6 0 0 1 6 6v33a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V18z" fill="currentColor" opacity=".85"/><path d="M8 26h80a6 6 0 0 1 6 6v26a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V26z" fill="currentColor"/></svg>
-                <div class="name">confidance</div>
-                <div class="meta"><span class="badge">branding &amp; marketing</span></div>
-              </a>
-              <a class="folder" href="narbai.html">
-                <svg class="icon" viewBox="0 0 96 72" aria-hidden="true"><path d="M8 18a6 6 0 0 1 6-6h21l8 7h39a6 6 0 0 1 6 6v33a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V18z" fill="currentColor" opacity=".85"/><path d="M8 26h80a6 6 0 0 1 6 6v26a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V26z" fill="currentColor"/></svg>
-                <div class="name">narb</div>
-                <div class="meta"><span class="badge">branding &amp; marketing</span></div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <footer class="site-footer">
-        <div class="footer-links">
-          <a href="mailto:mikapham229@gmail.com" target="_blank">email ↗</a>
-          <a href="https://www.linkedin.com/in/khanh-mika-pham/" target="_blank">linkedin ↗</a>
-          <a href="https://www.instagram.com/mikaphaam/" target="_blank">instagram ↗</a>
-        </div>
-        <div class="credit">© <span id="year"></span> mika pham</div>
-      </footer>
+      </div>
     </main>
+
+    <footer class="site-footer">
+      <div class="wrap label label--lg">
+        <a href="mailto:mikapham229@gmail.com" target="_blank">email ↗</a>
+        <a href="https://www.linkedin.com/in/khanh-mika-pham/" target="_blank">linkedin ↗</a>
+        <a href="https://www.instagram.com/mikaphaam/" target="_blank">instagram ↗</a>
+        <span>© <span id="year"></span> mika pham</span>
+      </div>
+    </footer>
 
     <script src="main.js"></script>
   </body>

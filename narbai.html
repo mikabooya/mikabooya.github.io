@@ -4,40 +4,37 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>narb — mika pham</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23F644B8'/></svg>">
-    <meta name="theme-color" content="#F644B8">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <meta name="description" content="narb case study: social media and motion graphics." />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23F4B6E6'/></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Space+Mono:wght@400&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <a class="back" href="works.html">← back</a>
-    <header class="site-header">
-      <nav class="site-nav">
-        <a href="works.html">work</a>
+    <header class="site-header label label--lg">
+      <a href="index.html">mika pham</a>
+      <a class="muted" href="works.html">← all work</a>
+      <nav class="site-nav" aria-label="main">
+        <a href="works.html">works</a>
         <a href="about.html">about</a>
-        <a href="mailto:mikapham229@gmail.com">contact</a>
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-          <div class="toggle-icon">
-            <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-            <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-          </div>
-        </button>
+        <a href="resume.html">resume</a>
       </nav>
     </header>
 
     <main class="wrap">
-      <header class="page-header">
-        <h1 class="page-title">narb</h1>
-        <div class="project-meta">
-          <div class="meta-item"><div class="meta-label">role</div><div class="meta-value">marketing intern</div></div>
-          <div class="meta-item"><div class="meta-label">timeline</div><div class="meta-value">summer 2025</div></div>
-          <div class="meta-item"><div class="meta-label">type</div><div class="meta-value">social media • motion graphics</div></div>
-        </div>
-      </header>
+      <section class="cs-header is-narb">
+        <dl class="cs-meta label label--lg">
+          <dt>role</dt><dd>marketing intern</dd>
+          <dt>timeline</dt><dd>summer 2025</dd>
+          <dt>type</dt><dd>social media • motion graphics</dd>
+        </dl>
+        <h1>narb</h1>
+      </section>
 
-      <section class="section">
-        <h2 class="section-title">my role</h2>
-        <div class="card prose">
+      <section class="cs-section">
+        <h2 class="section-label label label--lg">my role</h2>
+        <div class="prose">
           <p>
             at narb, i supported the creative team by designing
             <strong>social media posts, motion graphics, and branded content</strong>
@@ -48,34 +45,38 @@
         </div>
       </section>
 
-      <section class="section">
-        <div class="grid grid-1">
-          <div class="card hover-lift">
-            <div class="media media--wide">
-              <video src="Narb_Logo_Animation.mp4" autoplay loop muted playsinline></video>
-            </div>
+      <section class="cs-section">
+        <div class="stack">
+          <div class="media media--16x9">
+            <video src="Narb_Logo_Animation.mp4" autoplay loop muted playsinline></video>
           </div>
-          <div class="card hover-lift">
-            <div class="embed embed--post">
-              <iframe
-                src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7346849291627356160"
-                title="narb LinkedIn post"
-                allowfullscreen>
-              </iframe>
-            </div>
+          <div class="media embed-tall embed-tall--post">
+            <iframe
+              src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7346849291627356160"
+              title="narb LinkedIn post"
+              allowfullscreen
+              loading="lazy">
+            </iframe>
           </div>
         </div>
       </section>
-
-      <footer class="site-footer">
-        <div class="footer-links">
-          <a href="mailto:mikapham229@gmail.com" target="_blank">email ↗</a>
-          <a href="https://www.linkedin.com/in/khanh-mika-pham/" target="_blank">linkedin ↗</a>
-          <a href="https://www.instagram.com/mikaphaam/" target="_blank">instagram ↗</a>
-        </div>
-        <div class="credit">© <span id="year"></span> mika pham</div>
-      </footer>
     </main>
+
+    <a class="next-project is-veryfi" href="veryfi.html">
+      <div class="wrap">
+        <span class="label label--lg">next project →</span>
+        <span class="headline">veryfi</span>
+      </div>
+    </a>
+
+    <footer class="site-footer">
+      <div class="wrap label label--lg">
+        <a href="mailto:mikapham229@gmail.com" target="_blank">email ↗</a>
+        <a href="https://www.linkedin.com/in/khanh-mika-pham/" target="_blank">linkedin ↗</a>
+        <a href="https://www.instagram.com/mikaphaam/" target="_blank">instagram ↗</a>
+        <span>© <span id="year"></span> mika pham</span>
+      </div>
+    </footer>
 
     <script src="main.js"></script>
   </body>

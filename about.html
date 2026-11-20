@@ -4,32 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>about — mika pham</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23F644B8'/></svg>">
-    <meta name="theme-color" content="#F644B8">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <meta name="description" content="about mika pham." />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23F4B6E6'/></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Space+Mono:wght@400&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="has-dock">
-    <a class="back" href="index.html">← back</a>
-    <header class="site-header">
-      <nav class="site-nav">
-        <a href="works.html">work</a>
-        <a href="about.html">about</a>
-        <a href="mailto:mikapham229@gmail.com">contact</a>
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-          <div class="toggle-icon">
-            <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-            <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-          </div>
-        </button>
+    <header class="site-header label label--lg">
+      <a href="index.html">mika pham</a>
+      <nav class="site-nav" aria-label="main">
+        <a href="works.html">works</a>
+        <a href="about.html" aria-current="page">about</a>
+        <a href="resume.html">resume</a>
       </nav>
     </header>
 
-    <main class="wrap wrap--wide">
-      <header class="page-header">
-        <h1 class="page-title">about me</h1>
-        <p class="page-hint">✿ drag windows anywhere to move them</p>
-      </header>
+    <main class="wrap">
+      <div class="page-header">
+        <h1 class="headline">about me</h1>
+        <p class="blurb blurb--lg muted">✿ drag windows anywhere to move them</p>
+      </div>
 
       <div class="desktop">
 
@@ -41,7 +37,7 @@
               <div class="window-dot dot-yellow" data-action="minimize" title="Minimize"></div>
               <div class="window-dot dot-green"  data-action="maximize" title="Maximize"></div>
             </div>
-            <span class="window-title">meet_mika.txt</span>
+            <span class="window-title label">meet_mika.txt</span>
           </div>
           <div class="window-content">
             <div class="profile-photo">
@@ -62,19 +58,19 @@
               <div class="window-dot dot-yellow" data-action="minimize" title="Minimize"></div>
               <div class="window-dot dot-green"  data-action="maximize" title="Maximize"></div>
             </div>
-            <span class="window-title">socials</span>
+            <span class="window-title label">socials</span>
           </div>
           <div class="window-content">
             <div class="socials-grid">
               <a href="https://www.instagram.com/mikaphaam/" target="_blank" class="social-folder">
                 <svg class="icon" viewBox="0 0 96 72"><path d="M8 18a6 6 0 0 1 6-6h21l8 7h39a6 6 0 0 1 6 6v33a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V18z" fill="currentColor" opacity=".85"/><path d="M8 26h80a6 6 0 0 1 6 6v26a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V26z" fill="currentColor"/></svg>
-                <p class="name">Instagram</p>
-                <p class="badge">@mikaphaam</p>
+                <p class="name label label--lg">Instagram</p>
+                <p class="handle blurb">@mikaphaam</p>
               </a>
               <a href="https://www.linkedin.com/in/khanh-mika-pham/" target="_blank" class="social-folder">
                 <svg class="icon" viewBox="0 0 96 72"><path d="M8 18a6 6 0 0 1 6-6h21l8 7h39a6 6 0 0 1 6 6v33a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V18z" fill="currentColor" opacity=".85"/><path d="M8 26h80a6 6 0 0 1 6 6v26a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V26z" fill="currentColor"/></svg>
-                <p class="name">LinkedIn</p>
-                <p class="badge">mika pham</p>
+                <p class="name label label--lg">LinkedIn</p>
+                <p class="handle blurb">mika pham</p>
               </a>
             </div>
           </div>
@@ -88,18 +84,18 @@
               <div class="window-dot dot-yellow" data-action="minimize" title="Minimize"></div>
               <div class="window-dot dot-green"  data-action="maximize" title="Maximize"></div>
             </div>
-            <span class="window-title">about_mika.txt</span>
+            <span class="window-title label">about_mika.txt</span>
           </div>
           <div class="window-content prose">
             <p>hello, i'm mika ◡̈ born and raised in <strong>ho chi minh city, vietnam</strong>, graduated from <strong>vanderbilt university</strong>, and somehow found my way to sunny <strong>bay area california</strong>.</p>
             <p>i'm a product &amp; content marketer with an engineering brain and a designer heart (a self taught one, actually). i learned design by experimenting, remixing, and teaching myself everything from motion to layout to storytelling. i love building stories that *look good, feel good,* and actually make sense!</p>
             <p>this portfolio is a mix of my two tracks: <strong>marketing</strong> (positioning, launches, campaigns) and <strong>creative</strong> (motion, editing, 3d, storytelling). it's a little all over the place (like myself tehee).</p>
-            <div class="tags tags--outline">
-              <span class="tag">product &amp; growth marketing</span>
-              <span class="tag">storytelling with data</span>
-              <span class="tag">motion &amp; 3d design</span>
-              <span class="tag">go-to-market launches</span>
-              <span class="tag">creative direction</span>
+            <div class="chips label">
+              <span class="chip">product &amp; growth marketing</span>
+              <span class="chip">storytelling with data</span>
+              <span class="chip">motion &amp; 3d design</span>
+              <span class="chip">go-to-market launches</span>
+              <span class="chip">creative direction</span>
             </div>
           </div>
         </div>
@@ -112,7 +108,7 @@
               <div class="window-dot dot-yellow" data-action="minimize" title="Minimize"></div>
               <div class="window-dot dot-green"  data-action="maximize" title="Maximize"></div>
             </div>
-            <span class="window-title">interests_hobbies.txt</span>
+            <span class="window-title label">interests_hobbies.txt</span>
           </div>
           <div class="window-content prose">
             <p>when i'm not working, you'll find me cooking (viet food &gt; everything), cafe hopping, dancing, or cuddling my cat ◡̈</p>
@@ -128,7 +124,7 @@
                 <div class="window-dot dot-yellow" data-action="minimize" title="Minimize"></div>
                 <div class="window-dot dot-green"  data-action="maximize" title="Maximize"></div>
               </div>
-              <span class="window-title">creative skills</span>
+              <span class="window-title label">creative skills</span>
             </div>
             <div class="window-content">
               <div class="skill-item"><span class="skill-name">photoshop</span><div class="skill-level"><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot"></span></div></div>
@@ -147,7 +143,7 @@
                 <div class="window-dot dot-yellow" data-action="minimize" title="Minimize"></div>
                 <div class="window-dot dot-green"  data-action="maximize" title="Maximize"></div>
               </div>
-              <span class="window-title">marketing skills</span>
+              <span class="window-title label">marketing skills</span>
             </div>
             <div class="window-content">
               <div class="skill-item"><span class="skill-name">go-to-market strategy</span><div class="skill-level"><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span></div></div>
@@ -160,14 +156,6 @@
         </div>
       </div>
 
-      <footer class="site-footer">
-        <div class="footer-links">
-          <a href="mailto:mikapham229@gmail.com" target="_blank">email ↗</a>
-          <a href="https://www.linkedin.com/in/khanh-mika-pham/" target="_blank">linkedin ↗</a>
-          <a href="https://www.instagram.com/mikaphaam/" target="_blank">instagram ↗</a>
-        </div>
-        <div class="credit">© <span id="year"></span> mika pham</div>
-      </footer>
     </main>
 
     <!-- Desktop chrome (driven by about.js) -->
@@ -191,6 +179,16 @@
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
       </div>
     </div>
+
+
+    <footer class="site-footer">
+      <div class="wrap label label--lg">
+        <a href="mailto:mikapham229@gmail.com" target="_blank">email ↗</a>
+        <a href="https://www.linkedin.com/in/khanh-mika-pham/" target="_blank">linkedin ↗</a>
+        <a href="https://www.instagram.com/mikaphaam/" target="_blank">instagram ↗</a>
+        <span>© <span id="year"></span> mika pham</span>
+      </div>
+    </footer>
 
     <script src="main.js"></script>
     <script src="about.js"></script>
