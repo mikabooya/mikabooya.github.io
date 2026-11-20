@@ -5,82 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>narb — mika pham</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23F644B8'/></svg>">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <meta name="theme-color" content="#F644B8">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="styles.css" />
-
-    <style>
-      /* ── Page-specific ── */
-
-      .asset-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
-      .asset-card {
-        background: var(--card-bg);
-        border: 1px solid var(--stroke);
-        border-radius: 20px;
-        padding: 28px;
-        box-shadow: var(--shadow);
-        overflow: hidden;
-        transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
-      }
-      .asset-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 32px rgba(246,68,184,.15);
-        border-color: rgba(246,68,184,.3);
-      }
-
-      .video-box { border-radius: 16px; overflow: hidden; background: #0f1222; }
-      .video-box video { width: 100%; height: auto; display: block; aspect-ratio: 16/9; object-fit: contain; background: #0f1222; }
-
-      .linkedin-box { border-radius: 16px; overflow: hidden; width: 100%; }
-      .linkedin-box iframe { width: 100%; height: 650px; max-height: 70vh; border: 0; border-radius: 16px; display: block; }
-
-      @media (max-width: 768px) {
-  
-        .asset-card { padding: 22px; }
-        .linkedin-box iframe { height: 550px; max-height: 60vh; }
-      }
-    </style>
   </head>
   <body>
-    <div class="wrap">
-              <a class="back" href="works.html">← back</a>
-      <header>
-        <nav>
-          <a href="works.html">work</a>
-          <a href="about.html">about</a>
-          <a href="/cdn-cgi/l/email-protection#e78a8e8c86978f868ad5d5dea7808a868e8bc984888a">contact</a>
-          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-            <div class="toggle-icon">
-              <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-              </svg>
-              <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="5"></circle>
-                <line x1="12" y1="1" x2="12" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="23"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-              </svg>
-            </div>
-          </button>
-        </nav>
-      </header>
+    <a class="back" href="works.html">← back</a>
+    <header class="site-header">
+      <nav class="site-nav">
+        <a href="works.html">work</a>
+        <a href="about.html">about</a>
+        <a href="mailto:mikapham229@gmail.com">contact</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <div class="toggle-icon">
+            <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </div>
+        </button>
+      </nav>
+    </header>
 
-      <div class="hero">
-        <h1 class="project-title">narb</h1>
+    <main class="wrap">
+      <header class="page-header">
+        <h1 class="page-title">narb</h1>
         <div class="project-meta">
           <div class="meta-item"><div class="meta-label">role</div><div class="meta-value">marketing intern</div></div>
           <div class="meta-item"><div class="meta-label">timeline</div><div class="meta-value">summer 2025</div></div>
           <div class="meta-item"><div class="meta-label">type</div><div class="meta-value">social media • motion graphics</div></div>
         </div>
-      </div>
+      </header>
 
-      <div class="section">
+      <section class="section">
         <h2 class="section-title">my role</h2>
-        <div class="section-content">
+        <div class="card prose">
           <p>
             at narb, i supported the creative team by designing
             <strong>social media posts, motion graphics, and branded content</strong>
@@ -89,17 +46,17 @@
             help guide content strategy and optimize future campaigns.
           </p>
         </div>
-      </div>
+      </section>
 
-      <div class="section">
-        <div class="asset-grid">
-          <div class="asset-card">
-            <div class="video-box">
+      <section class="section">
+        <div class="grid grid-1">
+          <div class="card hover-lift">
+            <div class="media media--wide">
               <video src="Narb_Logo_Animation.mp4" autoplay loop muted playsinline></video>
             </div>
           </div>
-          <div class="asset-card">
-            <div class="linkedin-box">
+          <div class="card hover-lift">
+            <div class="embed embed--post">
               <iframe
                 src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7346849291627356160"
                 title="narb LinkedIn post"
@@ -108,19 +65,18 @@
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <footer>
+      <footer class="site-footer">
         <div class="footer-links">
-          <a href="/cdn-cgi/l/email-protection#adc0c4c6ccddc5ccc09f9f94edcac0ccc4c183cec2c0" target="_blank">email ↗</a>
+          <a href="mailto:mikapham229@gmail.com" target="_blank">email ↗</a>
           <a href="https://www.linkedin.com/in/khanh-mika-pham/" target="_blank">linkedin ↗</a>
           <a href="https://www.instagram.com/mikaphaam/" target="_blank">instagram ↗</a>
         </div>
         <div class="credit">© <span id="year"></span> mika pham</div>
       </footer>
-    </div>
+    </main>
 
-    <div class="cursor"></div>
     <script src="main.js"></script>
   </body>
 </html>

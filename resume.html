@@ -6,122 +6,49 @@
     <title>resume — mika pham</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23F644B8'/></svg>">
     <meta name="theme-color" content="#F644B8">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="styles.css" />
-
-    <style>
-      /* ── Page-specific ── */
-      .wrap { max-width: 980px; }
-
-      .subtitle {
-        text-align: center;
-        margin: -6px 0 28px;
-        color: var(--ink-2);
-        text-transform: lowercase;
-        font-weight: 500;
-      }
-
-      .window {
-        background: var(--card-bg);
-        border: 1px solid var(--stroke);
-        border-radius: 16px;
-        box-shadow: var(--shadow);
-        overflow: hidden;
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        transition: transform 0.26s ease, box-shadow 0.26s ease, border-color 0.26s;
-      }
-      .window:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 18px 45px rgba(0,0,0,.12);
-        border-color: rgba(246,68,184,.22);
-      }
-      .window-content { padding: 24px; }
-
-      .resume-link {
-        color: var(--ink-2);
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 14px;
-        transition: color 0.3s ease;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-      }
-      .resume-link:hover { color: var(--pink); }
-
-      .resume-img {
-        width: 100%;
-        height: auto;
-        display: block;
-        border-radius: 12px;
-        border: 1px solid var(--stroke);
-        box-shadow: 0 8px 24px rgba(0,0,0,.08);
-        transition: transform 0.25s ease, box-shadow 0.25s ease;
-      }
-      .resume-img:hover {
-        transform: scale(1.01);
-        box-shadow: 0 12px 32px rgba(246,68,184,.15);
-      }
-      body.dark-mode .resume-img       { box-shadow: 0 8px 24px rgba(0,0,0,.3); }
-      body.dark-mode .resume-img:hover { box-shadow: 0 12px 32px rgba(246,68,184,.35); }
-
-      .note { margin-top: 14px; font-size: .95rem; color: var(--ink-2); text-transform: lowercase; }
-      .note a { color: var(--pink); text-decoration: none; font-weight: 500; }
-      .note a:hover { text-decoration: underline; }
-    </style>
   </head>
   <body>
-    <div class="wrap">
-              <a href="index.html" class="back">← back</a>
-      <header>
-        <nav>
-          <a href="works.html">work</a>
-          <a href="about.html">about</a>
-          <a href="/cdn-cgi/l/email-protection#44292d2f25342c252976767d042329252d286a272b29">contact</a>
-          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-            <div class="toggle-icon">
-              <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-              </svg>
-              <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="5"></circle>
-                <line x1="12" y1="1" x2="12" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="23"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-              </svg>
-            </div>
-          </button>
-        </nav>
+    <a class="back" href="index.html">← back</a>
+    <header class="site-header">
+      <nav class="site-nav">
+        <a href="works.html">work</a>
+        <a href="about.html">about</a>
+        <a href="mailto:mikapham229@gmail.com">contact</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <div class="toggle-icon">
+            <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </div>
+        </button>
+      </nav>
+    </header>
+
+    <main class="wrap wrap--narrow">
+      <header class="page-header page-header--tight">
+        <h1 class="page-title">resume</h1>
       </header>
 
-      <h1 class="page-title">resume</h1>
-
-      <div class="window">
+      <div class="window hover-lift">
         <div class="window-header">
           <div class="window-controls">
-            <div class="window-dot dot-red"></div>
-            <div class="window-dot dot-yellow"></div>
-            <div class="window-dot dot-green"></div>
+            <span class="window-dot dot-red"></span><span class="window-dot dot-yellow"></span><span class="window-dot dot-green"></span>
           </div>
           <span class="window-title">resume_preview.pdf</span>
-          <a class="resume-link" href="mikapham.pdf" target="_blank" rel="noopener">open resume ↗</a>
+          <a class="window-link" href="mikapham.pdf" target="_blank" rel="noopener">open resume ↗</a>
         </div>
         <div class="window-content">
-          <img src="mikapham.png" alt="mika pham — resume preview" class="resume-img" />
+          <img src="mikapham.png" alt="mika pham — resume preview" class="media-shot" />
           <p class="note">want the original? <a href="mikapham.pdf" target="_blank" rel="noopener">download the pdf</a>.</p>
         </div>
       </div>
 
-      <footer>© <span id="year"></span> mika pham</footer>
-    </div>
+      <footer class="site-footer">
+        <div class="credit">© <span id="year"></span> mika pham</div>
+      </footer>
+    </main>
 
-    <div class="cursor"></div>
     <script src="main.js"></script>
   </body>
 </html>

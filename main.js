@@ -1,15 +1,16 @@
 /* ============================================================
    MIKA PHAM — SHARED SCRIPTS
-   main.js — imported by every page
+   main.js — loaded by every page except index.html.
+   Page-specific behavior lives in its own file (e.g. about.js).
    ============================================================ */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* ── Dynamic year ── */
+  /* ── Dynamic year: fills any <span id="year"> ── */
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  /* ── Theme toggle ── */
+  /* ── Theme toggle: saved choice, else the system setting ── */
   const themeToggle = document.getElementById("themeToggle");
   const saved = localStorage.getItem("theme");
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -19,18 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
   });
 
-  /* ── Custom cursor ── */
-  const cursor = document.querySelector(".cursor");
-  if (cursor) {
-    window.addEventListener("mousemove", (e) => {
-      cursor.style.left = e.clientX + "px";
-      cursor.style.top  = e.clientY + "px";
-    });
-    window.addEventListener("mousedown", () => cursor.classList.add("click"));
-    window.addEventListener("mouseup",   () => cursor.classList.remove("click"));
-  }
-
-  /* ── Smooth internal page transitions ── */
+  /* ── Smooth exit when following an internal .html link ── */
   document.querySelectorAll('a[href$=".html"]').forEach((link) => {
     link.addEventListener("click", (e) => {
       const href = link.getAttribute("href");

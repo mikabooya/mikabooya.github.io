@@ -5,447 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>about — mika pham</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23F644B8'/></svg>">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <meta name="theme-color" content="#F644B8">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="styles.css" />
-
-    <style>
-      /* ── about.html overrides & page-specific styles ── */
-
-      /* Wider wrap + extra bottom padding for dock */
-      .wrap {
-        max-width: 1280px;
-      }
-
-      /* Dock-specific tokens (not in shared styles) */
-      body {
-        --dock-bg:     rgba(255, 255, 255, 0.85);
-        --dock-border: rgba(0, 0, 0, 0.1);
-        padding-bottom: 80px;
-      }
-      body.dark-mode {
-        --dock-bg:     rgba(30, 30, 30, 0.9);
-        --dock-border: rgba(255, 255, 255, 0.1);
-      }
-
-      /* Page heading */
-
-      .drag-hint {
-        text-align: center;
-        font-size: 14px;
-        color: var(--ink-2);
-        margin: 0 0 60px;
-        opacity: 0.7;
-        font-weight: 400;
-        letter-spacing: 0.3px;
-      }
-
-      /* Desktop layout container */
-      .computer-layout {
-        position: relative;
-        min-height: 800px;
-        margin-bottom: 100px;
-      }
-
-      /* ── Draggable window shell ── */
-      .window {
-        position: absolute;
-        background: var(--card-bg);
-        border: 1px solid var(--stroke);
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: var(--shadow);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        max-width: 500px;
-        transform: translate3d(0, 0, 0);
-        transition: box-shadow 0.3s ease, opacity 0.3s ease;
-        cursor: move;
-        user-select: none;
-        will-change: transform;
-      }
-
-      .window:hover       { box-shadow: 0 15px 35px rgba(0,0,0,.12); }
-      body.dark-mode .window:hover  { box-shadow: 0 15px 35px rgba(0,0,0,.5); }
-      .window.active      { box-shadow: 0 20px 45px rgba(246,68,184,.25); }
-      body.dark-mode .window.active { box-shadow: 0 20px 45px rgba(246,68,184,.4); }
-
-      /* Window header (override shared — needs cursor:move + hover tint) */
-      .window-header {
-        cursor: move;
-        user-select: none;
-        transition: background 0.2s ease;
-      }
-      .window-header:hover { background: linear-gradient(180deg, rgba(246,68,184,.08), transparent); }
-      body.dark-mode .window-header:hover { background: linear-gradient(180deg, rgba(246,68,184,.12), transparent); }
-
-      /* Window dot overrides — interactive on this page */
-      .window-dot {
-        cursor: pointer !important;
-        transition: transform 0.15s ease, filter 0.15s ease;
-        position: relative;
-      }
-      .window-dot:hover  { transform: scale(1.15); filter: brightness(1.1); }
-      .window-dot:active { transform: scale(0.95); }
-
-      .window-dot::after {
-        content: '';
-        position: absolute;
-        top: 50%; left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 8px;
-        font-weight: bold;
-        opacity: 0;
-        transition: opacity 0.15s ease;
-        color: rgba(0,0,0,.5);
-      }
-      .window-controls:hover .window-dot::after { opacity: 1; }
-      .dot-red::after    { content: '×'; font-size: 10px; }
-      .dot-yellow::after { content: '−'; font-size: 10px; }
-      .dot-green::after  { content: '+'; font-size: 9px;  }
-
-      /* Window states */
-      .window.maximized {
-        position: fixed !important;
-        top: 80px !important; left: 40px !important;
-        right: 40px !important; bottom: 40px !important;
-        width: auto !important; max-width: none !important;
-        height: auto !important; transform: none !important;
-        z-index: 9000 !important;
-        border-radius: 16px;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-      .window.maximized .window-content { max-height: calc(100vh - 200px); overflow-y: auto; }
-      .window.hidden    { opacity: 0; pointer-events: none; transform: scale(0.8)  translateY(100px)  !important; }
-      .window.minimized { opacity: 0; pointer-events: none; transform: scale(0.5)  translateY(200px) !important; }
-
-      /* Window content */
-      .window-content { padding: 28px; color: #2b2b2b; }
-      body.dark-mode .window-content { color: #e8e8e8; }
-      .window-content h2, .window-content .skill-name { color: #1a1a1a; }
-      body.dark-mode .window-content h2,
-      body.dark-mode .window-content .skill-name { color: #f5f5f5; }
-      .window-content p, .window-content .subtitle { color: #555; }
-      body.dark-mode .window-content p,
-      body.dark-mode .window-content .subtitle { color: #d0d0d0; }
-
-      /* ── Window positions ── */
-      .profile-window   { top: 50px;  left: 200px; width: 380px; z-index: 4; }
-      .socials-window   { top: 0;     left: 650px; width: 380px; z-index: 3; }
-      .about-window     { top: 170px; left: 400px; width: 600px; max-width: 600px; z-index: 2; }
-      .interests-window { top: 380px; left: 850px; width: 600px; max-width: 600px; z-index: 2; }
-
-      /* Profile window */
-      .profile-image-container { width: 100%; aspect-ratio: 1; border-radius: 8px; overflow: hidden; margin-bottom: 16px; }
-      .profile-image-container img { width: 100%; height: 100%; object-fit: cover; display: block; }
-      .profile-intro h2       { font-size: 24px; font-weight: 700; margin: 0 0 8px; }
-      .profile-intro .subtitle { font-size: 15px; margin: 0; }
-
-      /* Socials window */
-      .socials-grid { display: flex; gap: 0; padding: 0; }
-      .social-folder:first-child { margin-right: -30px; z-index: 1; }
-      .social-folder {
-        display: flex; flex-direction: column; gap: 8px;
-        text-decoration: none; flex: 1; align-items: center; text-align: center;
-        transition: transform 0.18s ease, filter 0.18s ease;
-      }
-      .social-folder:hover { transform: translateY(-3px) scale(1.05); filter: brightness(1.1); }
-      .folder-icon { width: 88px; height: 66px; color: var(--pink); filter: drop-shadow(0 4px 10px rgba(0,0,0,.06)); transition: all 0.3s ease; }
-      .social-folder:hover .folder-icon { color: #f7b6d0; filter: drop-shadow(0 8px 20px rgba(246,68,184,.4)); transform: rotateY(15deg); }
-      .social-folder .social-name     { font-weight: 600; color: var(--ink); font-size: 14px; margin: 0; text-transform: lowercase; }
-      .social-folder .social-username {
-        font-size: 11px; color: var(--ink-2); margin: 0;
-        padding: 2px 8px; border-radius: 999px;
-        border: 1px solid var(--stroke); background: rgba(0,0,0,.03);
-      }
-      body.dark-mode .social-folder .social-username { background: rgba(255,255,255,.04); }
-
-      /* About text */
-      .about-text p       { font-size: 15px; line-height: 1.8; margin: 0 0 16px; }
-      .about-text p:last-child { margin-bottom: 0; }
-      .about-text strong  { color: #1a1a1a; font-weight: 600; }
-      body.dark-mode .about-text strong { color: #f5f5f5; }
-
-      /* Tags */
-      .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
-      .tag {
-        --c: var(--pink);
-        display: inline-block; padding: 7px 15px; border-radius: 20px;
-        border: 2px solid var(--c); color: var(--c); background: transparent;
-        font-size: 13px; font-weight: 500; line-height: 1;
-        transition: background-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
-      }
-      .tag:hover, .tag:focus-visible {
-        background-color: var(--c); color: #fff; outline: none;
-        box-shadow: 0 6px 16px color-mix(in oklab, var(--c) 25%, transparent);
-      }
-      .tag:nth-child(1) { --c: var(--pink); }
-      .tag:nth-child(2) { --c: var(--lavender); }
-      .tag:nth-child(3) { --c: var(--gold); }
-      .tag:nth-child(4) { --c: var(--pink); }
-      .tag:nth-child(5) { --c: var(--lavender); }
-      @media (prefers-reduced-motion: reduce) { .tag { transition: none; } }
-
-      /* Skills container */
-      .skills-container { position: absolute; top: 100px; left: 100px; display: flex; gap: 30px; }
-      .skills-container .window          { position: absolute; width: 450px; max-width: 450px; z-index: 1; }
-      .skills-container .window:first-child { top: 0;    left: 750px; }
-      .skills-container .window:last-child  { top: 400px; left: 100px; }
-
-      /* Skill rows */
-      .skill-item {
-        display: flex; justify-content: space-between; align-items: center;
-        padding: 14px 16px; margin: 0 -16px; border-radius: 12px;
-        position: relative;
-        transition: background 0.2s ease, transform 0.2s ease;
-        cursor: default;
-      }
-      .skill-item::before {
-        content: ''; position: absolute; left: 16px; right: 16px; bottom: 0;
-        height: 1px; background: var(--stroke); transition: opacity 0.2s ease;
-      }
-      .skill-item:last-child::before { display: none; }
-      .skill-item:hover { background: rgba(246,68,184,.06); transform: translateX(4px); }
-      .skill-item:hover::before, .skill-item:hover + .skill-item::before { opacity: 0; }
-      body.dark-mode .skill-item:hover { background: rgba(246,68,184,.12); }
-      .skill-name { font-weight: 500; font-size: 14px; transition: color 0.2s ease; }
-      .skill-item:hover .skill-name { color: var(--pink); }
-
-      .skill-level     { display: flex; align-items: center; gap: 3px; }
-      .skill-level-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--stroke); transition: all 0.25s cubic-bezier(0.4,0,0.2,1); }
-      .skill-level-dot.filled { background: var(--pink); }
-      .skill-item:hover .skill-level-dot.filled { box-shadow: 0 0 8px rgba(246,68,184,.5); transform: scale(1.1); }
-      .skill-item:hover .skill-level-dot:nth-child(1) { transition-delay:   0ms; }
-      .skill-item:hover .skill-level-dot:nth-child(2) { transition-delay:  30ms; }
-      .skill-item:hover .skill-level-dot:nth-child(3) { transition-delay:  60ms; }
-      .skill-item:hover .skill-level-dot:nth-child(4) { transition-delay:  90ms; }
-      .skill-item:hover .skill-level-dot:nth-child(5) { transition-delay: 120ms; }
-
-      /* ── Frosted-glass dock ── */
-      .archived-dock {
-        position: fixed; bottom: 16px; right: 16px;
-        display: flex; align-items: center; justify-content: flex-end; gap: 8px;
-        padding: 10px 14px;
-        background: rgba(255,255,255,.65);
-        backdrop-filter: blur(20px) saturate(180%);
-        -webkit-backdrop-filter: blur(20px) saturate(180%);
-        border: 1px solid rgba(255,255,255,.4);
-        border-radius: 18px;
-        box-shadow: 0 8px 32px rgba(0,0,0,.08), 0 2px 8px rgba(0,0,0,.04), inset 0 1px 0 rgba(255,255,255,.6);
-        z-index: 9999; min-height: 56px;
-        opacity: 0; visibility: hidden; transform: translateY(20px);
-        transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
-      }
-      .archived-dock.visible { opacity: 1; visibility: visible; transform: translateY(0); }
-      body.dark-mode .archived-dock {
-        background: rgba(30,30,30,.75);
-        border: 1px solid rgba(255,255,255,.12);
-        box-shadow: 0 8px 32px rgba(0,0,0,.35), 0 2px 8px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.08);
-      }
-
-      /* Trash icon */
-      .trash-icon {
-        position: fixed; bottom: 16px; right: 16px;
-        width: 52px; height: 52px;
-        background: rgba(255,255,255,.7);
-        backdrop-filter: blur(20px) saturate(180%);
-        -webkit-backdrop-filter: blur(20px) saturate(180%);
-        border: 1px solid rgba(255,255,255,.5);
-        border-radius: 14px;
-        display: flex; align-items: center; justify-content: center;
-        cursor: pointer !important; z-index: 9998;
-        box-shadow: 0 4px 16px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.6);
-        transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
-      }
-      .trash-icon:hover  { transform: scale(1.08); box-shadow: 0 6px 24px rgba(246,68,184,.2), inset 0 1px 0 rgba(255,255,255,.6); }
-      .trash-icon:active { transform: scale(0.95); }
-      .trash-icon.has-items::after {
-        content: ''; position: absolute; top: 8px; right: 8px;
-        width: 8px; height: 8px; background: var(--pink); border-radius: 50%; box-shadow: 0 0 6px var(--pink);
-      }
-      .trash-icon svg { width: 24px; height: 24px; fill: var(--ink-2); transition: fill 0.2s ease; }
-      .trash-icon:hover svg { fill: var(--pink); }
-      .trash-icon.hidden { opacity: 0; visibility: hidden; transform: scale(0.8); }
-      body.dark-mode .trash-icon {
-        background: rgba(40,40,40,.8); border: 1px solid rgba(255,255,255,.1);
-        box-shadow: 0 4px 16px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.05);
-      }
-
-      /* Trash panel */
-      .trash-panel {
-        position: fixed; bottom: 80px; right: 16px;
-        min-width: 180px; max-width: 280px;
-        background: rgba(255,255,255,.85);
-        backdrop-filter: blur(24px) saturate(180%);
-        -webkit-backdrop-filter: blur(24px) saturate(180%);
-        border: 1px solid rgba(255,255,255,.5);
-        border-radius: 16px; padding: 12px;
-        box-shadow: 0 12px 40px rgba(0,0,0,.12), 0 4px 12px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.6);
-        z-index: 10000;
-        opacity: 0; visibility: hidden; transform: translateY(10px) scale(0.95);
-        transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
-      }
-      .trash-panel.visible { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
-      body.dark-mode .trash-panel {
-        background: rgba(35,35,35,.9); border: 1px solid rgba(255,255,255,.1);
-        box-shadow: 0 12px 40px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.05);
-      }
-      .trash-panel-header {
-        font-size: 11px; font-weight: 600; color: var(--ink-2);
-        text-transform: uppercase; letter-spacing: 0.5px;
-        padding: 4px 8px 12px; border-bottom: 1px solid var(--stroke); margin-bottom: 8px;
-        display: flex; align-items: center; gap: 6px;
-      }
-      .trash-panel-header svg { width: 14px; height: 14px; fill: var(--ink-2); }
-      .trash-panel-empty { font-size: 12px; color: var(--ink-2); opacity: 0.6; text-align: center; padding: 16px 8px; }
-      .trash-panel-items { display: flex; flex-direction: column; gap: 6px; max-height: 240px; overflow-y: auto; }
-
-      .trash-item {
-        display: flex; align-items: center; gap: 10px;
-        padding: 8px 10px; background: rgba(0,0,0,.03);
-        border-radius: 10px; cursor: pointer !important;
-        transition: all 0.2s ease;
-      }
-      .trash-item:hover { background: rgba(246,68,184,.1); transform: translateX(4px); }
-      body.dark-mode .trash-item       { background: rgba(255,255,255,.05); }
-      body.dark-mode .trash-item:hover { background: rgba(246,68,184,.2); }
-
-      .trash-item-icon {
-        width: 28px; height: 20px; background: var(--card-bg);
-        border: 1.5px solid var(--pink); border-radius: 4px;
-        display: flex; flex-direction: column; overflow: hidden; flex-shrink: 0;
-      }
-      .trash-item-icon-header {
-        height: 6px; background: linear-gradient(180deg, rgba(0,0,0,.04), transparent);
-        border-bottom: 1px solid var(--stroke);
-        display: flex; align-items: center; padding: 0 2px; gap: 1px;
-      }
-      .trash-item-icon-header span         { width: 3px; height: 3px; border-radius: 50%; }
-      .trash-item-icon-header span:nth-child(1) { background: #ff5f56; }
-      .trash-item-icon-header span:nth-child(2) { background: #ffbd2e; }
-      .trash-item-icon-header span:nth-child(3) { background: #27c93f; }
-      .trash-item-label { font-size: 12px; font-weight: 500; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; }
-
-      /* Dock tabs */
-      .dock-tab {
-        display: flex; flex-direction: column; align-items: center; gap: 5px;
-        padding: 5px 4px; cursor: pointer !important; position: relative;
-        transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
-      }
-      .dock-tab:hover  { transform: translateY(-10px) scale(1.15); }
-      .dock-tab:active { transform: translateY(-5px)  scale(1.05); }
-
-      .dock-tab-icon {
-        width: 48px; height: 34px; background: var(--card-bg);
-        border: 2px solid var(--pink); border-radius: 7px;
-        display: flex; flex-direction: column; overflow: hidden;
-        box-shadow: 0 3px 10px rgba(246,68,184,.15);
-        transition: all 0.25s ease;
-      }
-      .dock-tab:hover .dock-tab-icon { box-shadow: 0 6px 20px rgba(246,68,184,.35); transform: translateY(-2px); }
-
-      .dock-tab-icon-header {
-        height: 10px; background: linear-gradient(180deg, rgba(0,0,0,.04), transparent);
-        border-bottom: 1px solid var(--stroke);
-        display: flex; align-items: center; padding: 0 3px; gap: 2px;
-      }
-      body.dark-mode .dock-tab-icon-header { background: linear-gradient(180deg, rgba(255,255,255,.1), transparent); }
-      .dock-tab-icon-header span           { width: 4px; height: 4px; border-radius: 50%; }
-      .dock-tab-icon-header span:nth-child(1) { background: #ff5f56; }
-      .dock-tab-icon-header span:nth-child(2) { background: #ffbd2e; }
-      .dock-tab-icon-header span:nth-child(3) { background: #27c93f; }
-
-      .dock-tab-icon-body { flex: 1; display: flex; align-items: center; justify-content: center; background: linear-gradient(180deg, transparent, rgba(0,0,0,.02)); }
-      body.dark-mode .dock-tab-icon-body { background: linear-gradient(180deg, transparent, rgba(255,255,255,.03)); }
-
-      .dock-tab-label {
-        font-size: 8px; font-weight: 600; color: var(--ink-2);
-        max-width: 56px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        text-align: center; opacity: 0.7; letter-spacing: 0.2px;
-        transition: opacity 0.2s ease, color 0.2s ease;
-      }
-      .dock-tab:hover .dock-tab-label { opacity: 1; color: var(--ink); }
-
-      .dock-tab::after {
-        content: ''; position: absolute; bottom: -3px; left: 50%;
-        transform: translateX(-50%);
-        width: 4px; height: 4px; border-radius: 50%;
-        background: var(--pink); opacity: 0.9; box-shadow: 0 0 6px var(--pink);
-        transition: all 0.2s ease;
-      }
-      .dock-tab:hover::after { transform: translateX(-50%) scale(1.3); box-shadow: 0 0 10px var(--pink); }
-
-      .dock-separator { width: 1px; height: 36px; background: var(--stroke); margin: 0 6px; opacity: 0.4; }
-
-      .dock-trash {
-        width: 40px; height: 40px;
-        display: flex; align-items: center; justify-content: center;
-        cursor: pointer !important; border-radius: 10px; position: relative;
-        transition: all 0.2s ease;
-      }
-      .dock-trash:hover  { background: rgba(246,68,184,.1); transform: scale(1.1); }
-      .dock-trash:active { transform: scale(0.95); }
-      .dock-trash svg    { width: 22px; height: 22px; fill: var(--ink-2); transition: fill 0.2s ease; }
-      .dock-trash:hover svg { fill: var(--pink); }
-      .dock-trash.has-items::after {
-        content: ''; position: absolute; top: 4px; right: 4px;
-        width: 7px; height: 7px; background: var(--pink); border-radius: 50%; box-shadow: 0 0 6px var(--pink);
-      }
-
-      /* ── Responsive ── */
-      @media (max-width: 768px) {
-        .computer-layout { min-height: auto; padding-bottom: 40px; }
-        .profile-window, .socials-window, .about-window, .interests-window {
-          position: relative;
-          width: 100% !important; max-width: 100%;
-          left: 50% !important; top: 0 !important;
-          margin-bottom: 24px;
-        }
-        .skills-container {
-          position: relative; flex-direction: column;
-          padding: 0; top: 0; gap: 24px; width: 100%;
-        }
-        .archived-dock { bottom: 8px; padding: 6px 10px; max-width: calc(100% - 24px); overflow-x: auto; }
-        .dock-tab-icon { width: 40px; height: 30px; }
-      }
-    </style>
   </head>
-  <body>
-    <div class="wrap">
-              <a href="index.html" class="back">← back</a>
-      <header>
-        <nav>
-          <a href="works.html">work</a>
-          <a href="about.html">about</a>
-          <a href="/cdn-cgi/l/email-protection#402d292b213028212d72727900272d21292c6e232f2d">contact</a>
-          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-            <div class="toggle-icon">
-              <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-              </svg>
-              <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="5"></circle>
-                <line x1="12" y1="1" x2="12" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="23"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-              </svg>
-            </div>
-          </button>
-        </nav>
+  <body class="has-dock">
+    <a class="back" href="index.html">← back</a>
+    <header class="site-header">
+      <nav class="site-nav">
+        <a href="works.html">work</a>
+        <a href="about.html">about</a>
+        <a href="mailto:mikapham229@gmail.com">contact</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <div class="toggle-icon">
+            <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </div>
+        </button>
+      </nav>
+    </header>
+
+    <main class="wrap wrap--wide">
+      <header class="page-header">
+        <h1 class="page-title">about me</h1>
+        <p class="page-hint">✿ drag windows anywhere to move them</p>
       </header>
 
-      <div class="hero" style="text-align:center;margin-bottom:0;">
-        <h1 class="page-title">about me</h1>
-      </div>
-      <p class="drag-hint">✿ drag windows anywhere to move them</p>
+      <div class="desktop">
 
-      <div class="computer-layout">
-
-        <!-- Profile Window -->
+        <!-- Profile -->
         <div class="window profile-window" data-window-id="meet_mika">
           <div class="window-header">
             <div class="window-controls">
@@ -456,17 +44,17 @@
             <span class="window-title">meet_mika.txt</span>
           </div>
           <div class="window-content">
-            <div class="profile-image-container">
+            <div class="profile-photo">
               <img src="mika_horizontal.png" alt="mika pham smiling and flashing peace signs"/>
             </div>
             <div class="profile-intro">
               <h2>hi, i'm mika pham.</h2>
-              <p class="subtitle">product & content marketer ✿ designer at heart</p>
+              <p>product &amp; content marketer ✿ designer at heart</p>
             </div>
           </div>
         </div>
 
-        <!-- Socials Window -->
+        <!-- Socials -->
         <div class="window socials-window" data-window-id="socials">
           <div class="window-header">
             <div class="window-controls">
@@ -479,20 +67,20 @@
           <div class="window-content">
             <div class="socials-grid">
               <a href="https://www.instagram.com/mikaphaam/" target="_blank" class="social-folder">
-                <svg class="folder-icon" viewBox="0 0 96 72"><path d="M8 18a6 6 0 0 1 6-6h21l8 7h39a6 6 0 0 1 6 6v33a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V18z" fill="currentColor" opacity=".85"/><path d="M8 26h80a6 6 0 0 1 6 6v26a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V26z" fill="currentColor"/></svg>
-                <p class="social-name">Instagram</p>
-                <p class="social-username">@mikaphaam</p>
+                <svg class="icon" viewBox="0 0 96 72"><path d="M8 18a6 6 0 0 1 6-6h21l8 7h39a6 6 0 0 1 6 6v33a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V18z" fill="currentColor" opacity=".85"/><path d="M8 26h80a6 6 0 0 1 6 6v26a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V26z" fill="currentColor"/></svg>
+                <p class="name">Instagram</p>
+                <p class="badge">@mikaphaam</p>
               </a>
               <a href="https://www.linkedin.com/in/khanh-mika-pham/" target="_blank" class="social-folder">
-                <svg class="folder-icon" viewBox="0 0 96 72"><path d="M8 18a6 6 0 0 1 6-6h21l8 7h39a6 6 0 0 1 6 6v33a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V18z" fill="currentColor" opacity=".85"/><path d="M8 26h80a6 6 0 0 1 6 6v26a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V26z" fill="currentColor"/></svg>
-                <p class="social-name">LinkedIn</p>
-                <p class="social-username">mika pham</p>
+                <svg class="icon" viewBox="0 0 96 72"><path d="M8 18a6 6 0 0 1 6-6h21l8 7h39a6 6 0 0 1 6 6v33a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V18z" fill="currentColor" opacity=".85"/><path d="M8 26h80a6 6 0 0 1 6 6v26a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V26z" fill="currentColor"/></svg>
+                <p class="name">LinkedIn</p>
+                <p class="badge">mika pham</p>
               </a>
             </div>
           </div>
         </div>
 
-        <!-- About Window -->
+        <!-- About -->
         <div class="window about-window" data-window-id="about_mika">
           <div class="window-header">
             <div class="window-controls">
@@ -502,23 +90,21 @@
             </div>
             <span class="window-title">about_mika.txt</span>
           </div>
-          <div class="window-content">
-            <div class="about-text">
-              <p>hello, i'm mika ◡̈ born and raised in <strong>ho chi minh city, vietnam</strong>, graduated from <strong>vanderbilt university</strong>, and somehow found my way to sunny <strong>bay area california</strong>.</p>
-              <p>i'm a product & content marketer with an engineering brain and a designer heart (a self taught one, actually). i learned design by experimenting, remixing, and teaching myself everything from motion to layout to storytelling. i love building stories that *look good, feel good,* and actually make sense!</p>
-              <p>this portfolio is a mix of my two tracks: <strong>marketing</strong> (positioning, launches, campaigns) and <strong>creative</strong> (motion, editing, 3d, storytelling). it's a little all over the place (like myself tehee).</p>
-              <div class="tags">
-                <span class="tag">product & growth marketing</span>
-                <span class="tag">storytelling with data</span>
-                <span class="tag">motion & 3d design</span>
-                <span class="tag">go-to-market launches</span>
-                <span class="tag">creative direction</span>
-              </div>
+          <div class="window-content prose">
+            <p>hello, i'm mika ◡̈ born and raised in <strong>ho chi minh city, vietnam</strong>, graduated from <strong>vanderbilt university</strong>, and somehow found my way to sunny <strong>bay area california</strong>.</p>
+            <p>i'm a product &amp; content marketer with an engineering brain and a designer heart (a self taught one, actually). i learned design by experimenting, remixing, and teaching myself everything from motion to layout to storytelling. i love building stories that *look good, feel good,* and actually make sense!</p>
+            <p>this portfolio is a mix of my two tracks: <strong>marketing</strong> (positioning, launches, campaigns) and <strong>creative</strong> (motion, editing, 3d, storytelling). it's a little all over the place (like myself tehee).</p>
+            <div class="tags tags--outline">
+              <span class="tag">product &amp; growth marketing</span>
+              <span class="tag">storytelling with data</span>
+              <span class="tag">motion &amp; 3d design</span>
+              <span class="tag">go-to-market launches</span>
+              <span class="tag">creative direction</span>
             </div>
           </div>
         </div>
 
-        <!-- Interests Window -->
+        <!-- Interests -->
         <div class="window interests-window" data-window-id="interests_hobbies">
           <div class="window-header">
             <div class="window-controls">
@@ -528,16 +114,13 @@
             </div>
             <span class="window-title">interests_hobbies.txt</span>
           </div>
-          <div class="window-content">
-            <div class="about-text">
-              <p>when i'm not working, you'll find me cooking (viet food > everything), cafe hopping, dancing, or cuddling my cat ◡̈</p>
-            </div>
+          <div class="window-content prose">
+            <p>when i'm not working, you'll find me cooking (viet food &gt; everything), cafe hopping, dancing, or cuddling my cat ◡̈</p>
           </div>
         </div>
 
-        <!-- Skills Container -->
+        <!-- Skills -->
         <div class="skills-container">
-          <!-- Creative Skills -->
           <div class="window" data-window-id="creative_skills">
             <div class="window-header">
               <div class="window-controls">
@@ -557,7 +140,6 @@
             </div>
           </div>
 
-          <!-- Marketing Skills -->
           <div class="window" data-window-id="marketing_skills">
             <div class="window-header">
               <div class="window-controls">
@@ -570,30 +152,29 @@
             <div class="window-content">
               <div class="skill-item"><span class="skill-name">go-to-market strategy</span><div class="skill-level"><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span></div></div>
               <div class="skill-item"><span class="skill-name">content marketing</span><div class="skill-level"><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span></div></div>
-              <div class="skill-item"><span class="skill-name">seo & analytics</span><div class="skill-level"><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot"></span></div></div>
+              <div class="skill-item"><span class="skill-name">seo &amp; analytics</span><div class="skill-level"><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot"></span></div></div>
               <div class="skill-item"><span class="skill-name">campaign operations</span><div class="skill-level"><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot"></span></div></div>
-              <div class="skill-item"><span class="skill-name">copywriting & storytelling</span><div class="skill-level"><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span></div></div>
+              <div class="skill-item"><span class="skill-name">copywriting &amp; storytelling</span><div class="skill-level"><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span></div></div>
             </div>
           </div>
         </div>
       </div>
 
-      <footer>
+      <footer class="site-footer">
         <div class="footer-links">
-          <a href="/cdn-cgi/l/email-protection#5e3337353f2e363f336c6c671e39333f3732703d3133" target="_blank">email ↗</a>
+          <a href="mailto:mikapham229@gmail.com" target="_blank">email ↗</a>
           <a href="https://www.linkedin.com/in/khanh-mika-pham/" target="_blank">linkedin ↗</a>
           <a href="https://www.instagram.com/mikaphaam/" target="_blank">instagram ↗</a>
         </div>
         <div class="credit">© <span id="year"></span> mika pham</div>
       </footer>
-    </div>
+    </main>
 
-    <!-- Trash Icon -->
+    <!-- Desktop chrome (driven by about.js) -->
     <div class="trash-icon" id="trashIcon">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
     </div>
 
-    <!-- Trash Panel -->
     <div class="trash-panel" id="trashPanel">
       <div class="trash-panel-header">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
@@ -604,292 +185,14 @@
       </div>
     </div>
 
-    <!-- Archived Dock -->
     <div class="archived-dock" id="archivedDock">
-      <div class="dock-separator" id="dockSeparator" style="display:none;"></div>
+      <div class="dock-separator" id="dockSeparator"></div>
       <div class="dock-trash" id="dockTrash">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
       </div>
     </div>
 
-    <div class="cursor"></div>
-
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-      document.getElementById("year").textContent = new Date().getFullYear();
-
-      // Theme
-      const themeToggle = document.getElementById("themeToggle");
-      const body = document.body;
-      const currentTheme = localStorage.getItem("theme") || "light";
-      if (currentTheme === "dark") body.classList.add("dark-mode");
-      themeToggle.addEventListener("click", () => {
-        body.classList.toggle("dark-mode");
-        localStorage.setItem("theme", body.classList.contains("dark-mode") ? "dark" : "light");
-      });
-
-      // Cursor
-      const cursor = document.querySelector(".cursor");
-      window.addEventListener("mousemove", (e) => {
-        cursor.style.left = e.clientX + "px";
-        cursor.style.top  = e.clientY + "px";
-      });
-
-      // ── Window Management System ──────────────────────────────────────────
-      const windows       = document.querySelectorAll(".window");
-      const archivedDock  = document.getElementById("archivedDock");
-      const trashIcon     = document.getElementById("trashIcon");
-      const trashPanel    = document.getElementById("trashPanel");
-      const trashPanelItems = document.getElementById("trashPanelItems");
-      const dockTrash     = document.getElementById("dockTrash");
-      const dockSeparator = document.getElementById("dockSeparator");
-      let highestZIndex   = 10;
-
-      const windowStates  = {};
-      const archivedWindows = {};
-      const trashedWindows  = {};
-
-      function getWindowId(win) {
-        return win.dataset.windowId ||
-               win.querySelector(".window-title")?.textContent.trim().replace(/\s+/g, "-").toLowerCase() ||
-               "window-" + Math.random().toString(36).substr(2, 9);
-      }
-
-      function saveAllStates() {
-        localStorage.setItem("windowStates_v2", JSON.stringify({ windowStates, archivedWindows, trashedWindows }));
-      }
-
-      function loadAllStates() {
-        const saved = localStorage.getItem("windowStates_v2");
-        if (saved) {
-          const data = JSON.parse(saved);
-          Object.assign(windowStates,   data.windowStates   || {});
-          Object.assign(archivedWindows, data.archivedWindows || {});
-          Object.assign(trashedWindows,  data.trashedWindows  || {});
-        }
-      }
-
-      function updateDock() {
-        archivedDock.querySelectorAll(".dock-tab").forEach(t => t.remove());
-        const archivedKeys = Object.keys(archivedWindows);
-        const trashedKeys  = Object.keys(trashedWindows);
-
-        if (archivedKeys.length > 0) {
-          archivedDock.classList.add("visible");
-          trashIcon.classList.add("hidden");
-          archivedKeys.forEach(id => archivedDock.insertBefore(createDockTab(id, archivedWindows[id]), dockSeparator));
-          dockSeparator.style.display = "block";
-        } else {
-          archivedDock.classList.remove("visible");
-          trashIcon.classList.remove("hidden");
-          dockSeparator.style.display = "none";
-        }
-
-        trashIcon.classList.toggle("has-items", trashedKeys.length > 0);
-        dockTrash.classList.toggle("has-items", trashedKeys.length > 0);
-        updateTrashPanel();
-      }
-
-      function updateTrashPanel() {
-        const keys = Object.keys(trashedWindows);
-        if (keys.length === 0) {
-          trashPanelItems.innerHTML = '<div class="trash-panel-empty">No deleted windows</div>';
-        } else {
-          trashPanelItems.innerHTML = "";
-          keys.forEach(id => trashPanelItems.appendChild(createTrashItem(id, trashedWindows[id])));
-        }
-      }
-
-      function createDockTab(windowId, state) {
-        const tab = document.createElement("div");
-        tab.className = "dock-tab";
-        tab.dataset.windowId = windowId;
-        tab.innerHTML = `
-          <div class="dock-tab-icon">
-            <div class="dock-tab-icon-header"><span></span><span></span><span></span></div>
-            <div class="dock-tab-icon-body"></div>
-          </div>
-          <span class="dock-tab-label">${state.title || windowId}</span>`;
-        tab.addEventListener("click", (e) => { e.stopPropagation(); restoreFromArchive(windowId); });
-        return tab;
-      }
-
-      function createTrashItem(windowId, state) {
-        const item = document.createElement("div");
-        item.className = "trash-item";
-        item.dataset.windowId = windowId;
-        item.innerHTML = `
-          <div class="trash-item-icon">
-            <div class="trash-item-icon-header"><span></span><span></span><span></span></div>
-          </div>
-          <span class="trash-item-label">${state.title || windowId}</span>`;
-        item.addEventListener("click", (e) => { e.stopPropagation(); restoreFromTrash(windowId); trashPanel.classList.remove("visible"); });
-        return item;
-      }
-
-      function getOffsets(win) {
-        const m = win.style.transform.match(/translate3d\(([^,]+),\s*([^,]+)/);
-        return m ? { x: parseFloat(m[1]), y: parseFloat(m[2]) } : { x: 0, y: 0 };
-      }
-
-      function archiveWindow(win) {
-        const id = getWindowId(win);
-        const { x, y } = getOffsets(win);
-        archivedWindows[id] = { title: win.querySelector(".window-title")?.textContent || id, xOffset: x, yOffset: y, zIndex: parseInt(win.style.zIndex) || highestZIndex, wasMaximized: win.classList.contains("maximized") };
-        win.classList.remove("maximized");
-        win.classList.add("minimized");
-        saveAllStates(); updateDock();
-      }
-
-      function trashWindow(win) {
-        const id = getWindowId(win);
-        const { x, y } = getOffsets(win);
-        trashedWindows[id] = { title: win.querySelector(".window-title")?.textContent || id, xOffset: x, yOffset: y, zIndex: parseInt(win.style.zIndex) || highestZIndex, wasMaximized: win.classList.contains("maximized") };
-        win.classList.remove("maximized");
-        win.classList.add("hidden");
-        saveAllStates(); updateDock();
-      }
-
-      function restoreWindow(id, store, cls) {
-        const win = document.querySelector(`[data-window-id="${id}"]`);
-        if (!win) return;
-        const state = store[id];
-        delete store[id];
-        win.classList.remove(cls);
-        if (state) {
-          win.style.transform = `translate3d(${state.xOffset || 0}px, ${state.yOffset || 0}px, 0)`;
-          win.style.zIndex = ++highestZIndex;
-          if (state.wasMaximized) win.classList.add("maximized");
-        }
-        saveAllStates(); updateDock();
-      }
-
-      function restoreFromArchive(id) { restoreWindow(id, archivedWindows, "minimized"); }
-      function restoreFromTrash(id)   { restoreWindow(id, trashedWindows,  "hidden"); }
-
-      function toggleMaximize(win) {
-        const id = getWindowId(win);
-        if (win.classList.contains("maximized")) {
-          win.classList.remove("maximized");
-          const state = windowStates[id];
-          if (state?.preMaximizeTransform) win.style.transform = state.preMaximizeTransform;
-        } else {
-          windowStates[id] = windowStates[id] || {};
-          windowStates[id].preMaximizeTransform = win.style.transform;
-          win.classList.add("maximized");
-          win.style.zIndex = ++highestZIndex;
-          saveAllStates();
-        }
-      }
-
-      function toggleTrashPanel() { trashPanel.classList.toggle("visible"); }
-      trashIcon.addEventListener("click", toggleTrashPanel);
-      dockTrash.addEventListener("click", toggleTrashPanel);
-      document.addEventListener("click", (e) => {
-        if (!trashPanel.contains(e.target) && !trashIcon.contains(e.target) && !dockTrash.contains(e.target))
-          trashPanel.classList.remove("visible");
-      });
-
-      // Init windows
-      loadAllStates();
-
-      windows.forEach((win, index) => {
-        let isDragging = false, currentX, currentY, initialX, initialY, xOffset = 0, yOffset = 0;
-        const windowId = getWindowId(win);
-
-        if (archivedWindows[windowId]) {
-          win.classList.add("minimized");
-          const s = archivedWindows[windowId];
-          xOffset = s.xOffset || 0; yOffset = s.yOffset || 0;
-          win.style.transform = `translate3d(${xOffset}px, ${yOffset}px, 0)`;
-          win.style.zIndex = s.zIndex || (10 + index);
-          if (s.zIndex > highestZIndex) highestZIndex = s.zIndex;
-        } else if (trashedWindows[windowId]) {
-          win.classList.add("hidden");
-          const s = trashedWindows[windowId];
-          xOffset = s.xOffset || 0; yOffset = s.yOffset || 0;
-          win.style.transform = `translate3d(${xOffset}px, ${yOffset}px, 0)`;
-          win.style.zIndex = s.zIndex || (10 + index);
-          if (s.zIndex > highestZIndex) highestZIndex = s.zIndex;
-        } else {
-          const state = windowStates[windowId];
-          const legacy = localStorage.getItem(windowId);
-          if (state) {
-            xOffset = state.xOffset || 0; yOffset = state.yOffset || 0;
-            win.style.transform = `translate3d(${xOffset}px, ${yOffset}px, 0)`;
-            win.style.zIndex = state.zIndex || (10 + index);
-            if (state.zIndex > highestZIndex) highestZIndex = state.zIndex;
-          } else if (legacy) {
-            try {
-              const { x, y, z } = JSON.parse(legacy);
-              xOffset = x || 0; yOffset = y || 0;
-              win.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-              win.style.zIndex = z || (10 + index);
-              if (z > highestZIndex) highestZIndex = z;
-            } catch(e) {}
-          }
-        }
-
-        // Control buttons
-        win.querySelectorAll(".window-dot").forEach(dot => {
-          dot.addEventListener("click", (e) => {
-            e.stopPropagation(); e.preventDefault();
-            if (dot.dataset.action === "close")    trashWindow(win);
-            if (dot.dataset.action === "minimize") archiveWindow(win);
-            if (dot.dataset.action === "maximize") toggleMaximize(win);
-          });
-        });
-
-        // Drag
-        win.addEventListener("mousedown", (e) => {
-          if (e.target.classList.contains("window-dot")) return;
-          if (e.target.tagName === "A" || e.target.closest("a")) return;
-          if (e.target.tagName === "BUTTON" || e.target.closest("button")) return;
-          highestZIndex++;
-          win.style.zIndex = highestZIndex;
-          windowStates[windowId] = windowStates[windowId] || {};
-          windowStates[windowId].zIndex = highestZIndex;
-          saveAllStates();
-          if (win.classList.contains("maximized")) return;
-          initialX = e.clientX - xOffset;
-          initialY = e.clientY - yOffset;
-          isDragging = true;
-          e.preventDefault();
-        });
-
-        document.addEventListener("mousemove", (e) => {
-          if (!isDragging) return;
-          e.preventDefault();
-          currentX = e.clientX - initialX;
-          currentY = e.clientY - initialY;
-          xOffset = currentX; yOffset = currentY;
-          requestAnimationFrame(() => { win.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`; });
-        });
-
-        document.addEventListener("mouseup", () => {
-          if (!isDragging) return;
-          isDragging = false;
-          windowStates[windowId] = windowStates[windowId] || {};
-          windowStates[windowId].xOffset = xOffset;
-          windowStates[windowId].yOffset = yOffset;
-          windowStates[windowId].zIndex  = parseInt(win.style.zIndex) || highestZIndex;
-          saveAllStates();
-        });
-      });
-
-      updateDock();
-
-      // Page transitions
-      document.addEventListener("DOMContentLoaded", () => {
-        document.querySelectorAll('a[href$=".html"]').forEach((link) => {
-          link.addEventListener("click", (e) => {
-            const href = link.getAttribute("href");
-            if (link.target === "_blank" || !href || href.startsWith("http")) return;
-            e.preventDefault();
-            document.body.style.opacity = "0";
-            setTimeout(() => { window.location.href = href; }, 300);
-          });
-        });
-      });
-    </script>
+    <script src="main.js"></script>
+    <script src="about.js"></script>
   </body>
 </html>

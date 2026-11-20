@@ -10,8 +10,6 @@
     <script type="module" src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"></script>
 
     <style>
-      * { cursor: none !important; }
-
       :root {
         --pink:     rgb(246, 68, 184);
         --bg-light: #f8f8f6;
@@ -197,18 +195,6 @@
       body.dark-mode .key-hint { color: rgba(240, 237, 232, 0.25); }
       @keyframes hintPulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
 
-      /* ── Cursor ── */
-      .cursor {
-        width: 20px; height: 20px; border-radius: 50%;
-        background: var(--pink);
-        position: fixed; pointer-events: none;
-        z-index: 100001;
-        transform: translate(-50%, -50%);
-        transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease;
-        box-shadow: 0 0 15px rgba(246, 68, 184, 0.5);
-      }
-      .cursor.click { transform: translate(-50%, -50%) scale(0.8); }
-
       /* ── Responsive ── */
       @media (max-width: 768px) {
         header { top: 1.5rem; right: 1.5rem; }
@@ -216,7 +202,6 @@
         nav a  { font-size: 14px; }
         .welcome-text { bottom: 1.5rem; font-size: 14px; padding: 0 1.5rem; }
         .progress-container { width: 160px; }
-        .cursor { display: none; }
       }
     </style>
   </head>
@@ -273,9 +258,6 @@
       <div class="key-hint">click a key ↑</div>
     </div>
 
-    <!-- Cursor -->
-    <div class="cursor"></div>
-
     <script>
       // Loading screen — first visit only
       const hasVisited = sessionStorage.getItem("hasVisited");
@@ -300,12 +282,6 @@
         body.classList.toggle("dark-mode");
         localStorage.setItem("theme", body.classList.contains("dark-mode") ? "dark" : "light");
       });
-
-      // Cursor
-      const cursor = document.querySelector(".cursor");
-      window.addEventListener("mousemove", (e) => { cursor.style.left = e.clientX + "px"; cursor.style.top = e.clientY + "px"; });
-      window.addEventListener("mousedown", () => cursor.classList.add("click"));
-      window.addEventListener("mouseup",   () => cursor.classList.remove("click"));
 
       // Spline navigation — intercept window.open calls
       let transitionStarted = false;
