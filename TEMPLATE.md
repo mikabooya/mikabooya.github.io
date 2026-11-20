@@ -98,9 +98,8 @@ Then add a card to the work grid in `index.html`. Every project card is the same
 <a class="card is-veryfi" href="my-project.html">
   <!-- 1. top: description, then the result as the second sentence -->
   <p class="card-desc">one line about the project. 30% lift in organic leads.</p>
-  <!-- 2. middle: wordmark (+ optional riso image or doodle); may bleed off the edges -->
+  <!-- 2. middle: the wordmark only (no images or graphics); may bleed off the edges -->
   <div class="card-visual">
-    <img class="riso" src="card-my-project.jpg" alt="" loading="lazy" />
     <h3 class="card-wordmark">project name</h3>
   </div>
   <!-- 3. bottom: role · type · years -->
@@ -108,7 +107,7 @@ Then add a card to the work grid in `index.html`. Every project card is the same
 </a>
 ```
 
-- **The riso image (`.riso`)** turns any photo grey and multiplies it into the card color. Crop out headline text first; `card-veryfi.jpg` is an example, cut from a case study thumbnail.
+- **No images or graphics on cards.** The card color, the description and the wordmark carry it.
 - **A project without a case study yet** uses a `<div class="card …">` instead of `<a>`, so it isn't clickable.
 - **Confidance** is the only card whose wordmark uses the script: `<h3 class="card-wordmark script-title">Confidance</h3>`.
 
@@ -134,8 +133,27 @@ Missing info goes in as `<span class="todo">[todo: …]</span>`, which renders a
 
 ## Scripts
 
-`main.js` fades the page out when you follow an internal `.html` link, fills in `<span id="year">`, and runs every SEE ALL button (`data-see-all`). `about.js` makes any `[data-draggable]` element draggable; it's only loaded on the about page.
+`main.js` fades the page out when you follow an internal `.html` link, fills in `<span id="year">`, and runs every SEE ALL button (`data-see-all`). `about.js` makes any `[data-draggable]` element draggable (only on screens 768px and wider); it's only loaded on the about page.
 
 ## After changing styles.css or main.js
 
-Every page links them as `styles.css?v=4` and `main.js?v=4`. Raise the number on every page, for example to `?v=5`, when you change either file. Otherwise visitors whose browser cached the old file will keep seeing it for up to 10 minutes after a deploy.
+The homepage and about page link them as `styles.css?v=5` and `main.js?v=5`; the case studies and resume are still on `?v=4`. Raise the number on every page, for example to `?v=6`, when you change either file. Otherwise visitors whose browser cached the old file will keep seeing it for up to 10 minutes after a deploy.
+
+## Polaroids (about page)
+
+A polaroid is a cream frame with a project-color "photo" area and a caption strip. Pick the inside color with an `is-*` class (no class = cream).
+
+```html
+<figure class="polaroid is-narb" data-draggable data-polaroid="interests">
+  <div class="polaroid-photo">
+    <span class="script-label">off the clock</span>   <!-- optional, counts toward the 1–2 script accents -->
+    <p class="blurb blurb--lg">…</p>
+  </div>
+  <figcaption class="polaroid-caption label">interests_hobbies</figcaption>
+</figure>
+```
+
+- `data-draggable` lets visitors drag it. While held it straightens and comes to the front, then settles back to its tilt.
+- On the desk, `data-polaroid="…"` sets its spot, width and tilt in `styles.css` (section 11). To add one, give it a new name and add a line next to the others. Keep the about_mika text uncovered on load.
+- Under 1180px the desk turns into a wrapped row; under 768px polaroids stack in one column and dragging is off.
+- Links inside a polaroid stay clickable (dragging starts only off links).

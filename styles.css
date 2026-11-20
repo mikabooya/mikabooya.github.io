@@ -313,7 +313,7 @@ a.card:hover { color: var(--text-on-color); }
   line-height: 1.4;
 }
 
-/* 2. Middle: wordmark (and optional riso image), big and allowed to bleed */
+/* 2. Middle: the wordmark, big and allowed to bleed */
 .card-visual {
   position: relative;
   min-height: 0;
@@ -339,32 +339,6 @@ a.card:hover { color: var(--text-on-color); }
   transform: rotate(-4deg);
 }
 
-/* Riso image treatment: grey, punchy, multiplied into the card color */
-.riso {
-  position: absolute;
-  right: -4%;
-  top: -18%;
-  bottom: 0;                      /* stops above the bottom labels */
-  width: 46%;                     /* mostly clear of the description */
-  height: auto;
-  object-fit: cover;
-  object-position: right center;  /* images sit at the right; crop from the left */
-  filter: grayscale(1) contrast(1.15);
-  mix-blend-mode: multiply;
-  opacity: 0.75;
-  pointer-events: none;
-  transition: opacity 0.4s var(--ease);
-}
-.card-doodle {                  /* hand-drawn cobalt squiggle (mint card) */
-  position: absolute;
-  right: -4%;
-  top: 4%;
-  width: 62%;
-  height: auto;
-  color: var(--accent-cobalt);
-  pointer-events: none;
-}
-
 /* 3. Bottom: three mono labels, left / center / right */
 .card-meta {
   position: relative;
@@ -379,7 +353,6 @@ a.card:hover { color: var(--text-on-color); }
 
 /* Hover: only the visual reacts */
 a.card:hover .card-visual { transform: scale(1.03); }
-a.card:hover .riso { opacity: 0.95; }
 @media (prefers-reduced-motion: reduce) {
   a.card:hover .card-visual { transform: none; }
 }
@@ -626,40 +599,96 @@ a.media:hover > img { transform: scale(1.02); }
 
 
 /* ── 11. About page ────────────────────────────────────────── */
+/* Intro: photo polaroid left, headline right */
 .about-intro {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-  gap: var(--space-8);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: var(--space-9);
   align-items: center;
   padding: var(--space-8) 0 var(--space-10);
 }
-.about-intro .headline { margin-bottom: var(--space-6); }
+.about-intro .headline { font-size: clamp(40px, 4.4vw, 56px); margin-bottom: var(--space-6); }
+.about-intro-text .blurb { max-width: 560px; color: var(--text-body); }
 
-/* Photo on a tilted cream card: the one draggable thing (about.js) */
-.photo-card {
-  justify-self: center;
-  width: min(100%, 360px);
-  padding: 14px 14px 18px;
+/* Polaroid: cream frame, color "photo" area, caption strip.
+   Tilt comes from --tilt; about.js adds the drag offset (--drag-x / --drag-y). */
+.polaroid {
+  --tilt: 0deg;
+  --polaroid-ink-line: color-mix(in srgb, var(--text-on-color) 18%, transparent);
+  margin: 0;
+  padding: 14px 14px 0;
   background: var(--cream);
   color: var(--text-on-color);
   box-shadow: var(--shadow-card);
-  transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(-3deg);
-  cursor: grab;
-  touch-action: none;
-  user-select: none;
+  transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(var(--tilt));
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
 }
-.photo-card.is-dragging { cursor: grabbing; }
-.photo-card img { width: 100%; aspect-ratio: 1; object-fit: cover; pointer-events: none; }
-.photo-card .label { display: block; margin-top: var(--space-3); }
+.polaroid-photo {
+  padding: var(--space-6);
+  background: var(--card-color);
+  color: var(--text-on-color);
+}
+.polaroid-caption {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  min-height: 56px;
+  padding: var(--space-3) 2px var(--space-4);
+}
+.polaroid strong { color: inherit; }
+.polaroid a:hover { color: var(--accent-magenta); }
 
-.columns {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-7);
+/* Draggable polaroids (about.js) */
+[data-draggable] { cursor: grab; touch-action: none; user-select: none; }
+[data-draggable] a { cursor: pointer; }
+.polaroid.is-dragging {
+  cursor: grabbing;
+  transition: box-shadow 0.25s var(--ease);
+  transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(0deg) scale(1.02);
+  box-shadow: 0 28px 56px color-mix(in srgb, var(--bg-hero) 45%, transparent);
 }
-.list { margin: 0; padding: 0; list-style: none; }
-.list li { padding: var(--space-3) 0; border-top: 1px solid var(--line); }
-.columns h3 { margin-bottom: var(--space-4); color: var(--text); }
+
+/* Photo polaroid in the intro */
+.polaroid--photo { --tilt: -3deg; justify-self: center; width: min(100%, 400px); }
+.polaroid--photo img { width: 100%; aspect-ratio: 1; object-fit: cover; pointer-events: none; }
+.polaroid-hello { font-size: 20px; font-weight: 600; letter-spacing: var(--tracking-headline); }
+.polaroid--photo .label { margin-top: var(--space-2); }
+
+/* The desk: polaroids placed by hand on wide screens */
+.desk-section { padding-bottom: var(--space-10); }
+.desk-hint { margin-bottom: var(--space-6); }
+.desk { position: relative; min-height: 760px; }
+.desk .polaroid { position: absolute; left: var(--x); top: var(--y); }
+[data-polaroid="about"]     { --x: 0%;  --y: 20px;  --tilt: -2deg; width: 480px; z-index: 5; }
+[data-polaroid="socials"]   { --x: 44%; --y: 0px;   --tilt: 3deg;  width: 280px; z-index: 2; }
+[data-polaroid="interests"] { --x: 71%; --y: 60px;  --tilt: -3deg; width: 320px; z-index: 3; }
+[data-polaroid="creative"]  { --x: 43%; --y: 360px; --tilt: -4deg; width: 270px; z-index: 1; }
+[data-polaroid="marketing"] { --x: 68%; --y: 420px; --tilt: 2deg;  width: 330px; z-index: 4; }
+
+.polaroid--about .prose { font-size: 15px; line-height: 1.55; max-width: none; }
+.polaroid .chips { margin-top: var(--space-5); }
+.polaroid .chip { border-color: color-mix(in srgb, var(--text-on-color) 35%, transparent); color: var(--text-on-color); }
+.polaroid .chip:hover { color: var(--text-on-color); border-color: var(--text-on-color); }
+
+.social-link {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-3) 0;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: var(--tracking-title);
+}
+.social-link + .social-link { border-top: 1px solid var(--polaroid-ink-line); }
+.social-link .blurb { font-weight: 400; letter-spacing: 0; }
+
+.polaroid--interests .script-label { margin-bottom: var(--space-4); }
+
+.skill-list { margin: 0; padding: 0; list-style: none; }
+.skill-list li { padding: var(--space-2) 0; border-top: 1px solid var(--polaroid-ink-line); }
+.skill-list li:first-child { border-top: 0; padding-top: 0; }
 
 /* Experience timeline */
 .timeline { margin: 0; padding: 0; list-style: none; }
@@ -674,18 +703,6 @@ a.media:hover > img { transform: scale(1.02); }
 .timeline li:last-child { border-bottom: 1px solid var(--line); }
 .timeline .company { font-size: 24px; font-weight: 700; letter-spacing: var(--tracking-title); color: var(--text); }
 .timeline a.company:hover { color: var(--accent); }
-
-/* Small color card with a script accent title */
-.note-card {
-  max-width: 520px;
-  padding: var(--space-6);
-  background: var(--card-color);
-  color: var(--text-on-color);
-  box-shadow: var(--shadow-card);
-  transform: rotate(-1.5deg);
-}
-.note-card .script-label { margin-bottom: var(--space-4); }
-
 
 /* ── 12. Resume page ───────────────────────────────────────── */
 .resume { max-width: 900px; }
@@ -732,6 +749,12 @@ a.media:hover > img { transform: scale(1.02); }
   .timeline li > :last-child { grid-column: 1 / -1; }
 }
 
+/* Desk: below 1180px the hand-placed layout gets cramped, so polaroids flow */
+@media (max-width: 1180px) {
+  .desk { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: var(--space-8) var(--space-6); min-height: 0; }
+  .desk .polaroid { position: relative; left: auto; top: auto; max-width: 100%; }
+}
+
 @media (max-width: 860px) {
   .grid-2 { grid-template-columns: 1fr; }
 
@@ -743,9 +766,10 @@ a.media:hover > img { transform: scale(1.02); }
   /* Stat cards, split blocks and columns stack */
   .stats { grid-template-columns: 1fr; }
   .stat { --tilt: 0deg !important; --shift: 0px !important; }
-  .split, .about-intro, .columns, .strip { grid-template-columns: 1fr; }
+  .split, .about-intro, .strip { grid-template-columns: 1fr; }
   .accent-card { transform: none; }
-  .photo-card { width: min(100%, 300px); }
+  .about-intro { gap: var(--space-8); }
+  .polaroid--photo { width: min(100%, 320px); }
 }
 
 @media (max-width: 640px) {
@@ -765,4 +789,12 @@ a.media:hover > img { transform: scale(1.02); }
   .timeline li { grid-template-columns: 1fr auto; }
   .timeline li > :nth-child(2) { grid-column: 1 / -1; grid-row: 2; }
   .skills-list { grid-template-columns: 1fr; }
+}
+
+/* No dragging under 768px (about.js matches): polaroids stack in one column, still tilted */
+@media (max-width: 767px) {
+  .desk-section { overflow-x: clip; }
+  .desk { flex-direction: column; align-items: stretch; }
+  .desk .polaroid { width: 100%; }
+  [data-draggable] { cursor: auto; touch-action: auto; user-select: auto; }
 }
