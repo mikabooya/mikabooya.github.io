@@ -233,14 +233,14 @@ body.page-exit { animation: fadeOut 0.3s ease-in forwards; }
 }
 
 /* Spline scene, kept at its own frame shape so it never stretches.
-   Sized down inside the hero for whitespace: at most 72% of the width,
-   1100px, or whatever leaves ~120px clear above and below it.
-   Phones: full width, so the name stays large enough to read. */
+   Sized to fill most of the hero with a little breathing room: at most
+   92% of the width, 1360px, or whatever leaves ~50px clear above and
+   below it. Phones: full width, so the name stays large enough to read. */
 .hero-scene {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: min(1100px, 72vw, (100svh - 240px) * 960 / 660);
+  width: min(1360px, 92vw, (100svh - 100px) * 960 / 660);
   height: auto;
   aspect-ratio: var(--scene-ratio);
   transform: translate(-50%, -50%);

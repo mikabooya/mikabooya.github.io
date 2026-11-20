@@ -137,7 +137,7 @@ Missing info goes in as `<span class="todo">[todo: …]</span>`, which renders a
 
 ## After changing styles.css or main.js
 
-The homepage and about page link them as `styles.css?v=5` and `main.js?v=5`; the case studies and resume are still on `?v=4`. Raise the number on every page, for example to `?v=6`, when you change either file. Otherwise visitors whose browser cached the old file will keep seeing it for up to 10 minutes after a deploy.
+Every page links them as `styles.css?v=6` and `main.js?v=6`. Raise the number on every page, for example to `?v=7`, when you change either file. Otherwise visitors whose browser cached the old file will keep seeing it for up to 10 minutes after a deploy.
 
 ## Polaroids (about page)
 
