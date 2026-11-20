@@ -10,8 +10,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  /* ── SEE ALL toggle for case study "selected work" ──
+     <section class="selected-work"> … items with class "is-extra" …
+     <button class="button label" data-see-all>see all (N)</button> */
+  document.querySelectorAll("[data-see-all]").forEach((btn) => {
+    const section = btn.closest(".selected-work");
+    const moreText = btn.textContent;
+    btn.setAttribute("aria-expanded", "false");
+    btn.addEventListener("click", () => {
+      const open = section.classList.toggle("is-expanded");
+      btn.setAttribute("aria-expanded", String(open));
+      btn.textContent = open ? "show less" : moreText;
+    });
+  });
+
   /* ── Smooth exit when following an internal .html link ── */
-  document.querySelectorAll('a[href$=".html"]').forEach((link) => {
+  document.querySelectorAll('a[href*=".html"]').forEach((link) => {
     link.addEventListener("click", (e) => {
       const href = link.getAttribute("href");
       if (link.target === "_blank" || !href || href.startsWith("http")) return;

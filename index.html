@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Space+Mono:wght@400&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="styles.css?v=3" />
+    <link rel="stylesheet" href="styles.css?v=4" />
   </head>
   <body>
     <header class="hero">
@@ -25,7 +25,7 @@
             <p class="blurb">full-stack marketer with a designer's eye. currently at inscribe.</p>
           </div>
           <nav class="site-nav label" aria-label="main">
-            <a href="works.html">works</a>
+            <a href="#work">work</a>
             <a href="about.html">about</a>
             <a href="resume.html">resume</a>
           </nav>
@@ -34,30 +34,62 @@
       </div>
     </header>
 
-    <main class="wrap work" id="work">
-      <h2 class="section-label label label--lg">selected work</h2>
-      <div class="card-grid">
-        <a class="card is-veryfi" href="veryfi.html">
-          <p class="blurb">veryfi is a yc-backed fintech startup that turns messy receipts and documents into clean, structured data using ai.</p>
-          <h3 class="card-title">veryfi</h3>
-          <div class="card-meta label"><span>product &amp; content marketer</span><span>b2b saas marketing</span><span>2025–2026</span></div>
-        </a>
-        <a class="card is-confidance" href="confidance.html">
-          <p class="blurb">as part of vanderbilt's premier dance organization, confidance, i led visual branding and creative direction across performances and campaigns.</p>
-          <h3 class="card-title script-title">Confidance</h3>
-          <div class="card-meta label"><span>head of marketing</span><span>branding • graphic designs</span><span>2024–2025</span></div>
-        </a>
-        <a class="card is-narb" href="narbai.html">
-          <p class="blurb">at narb, i supported the creative team by designing social media posts, motion graphics, and branded content that aligned with the company's visual identity.</p>
-          <h3 class="card-title">narb</h3>
-          <div class="card-meta label"><span>marketing intern</span><span>social media • motion graphics</span><span>summer 2025</span></div>
-        </a>
-        <div class="card is-inscribe">
-          <p class="blurb">&nbsp;</p>
-          <h3 class="card-title">inscribe</h3>
-          <div class="card-meta label"><span>coming soon</span></div>
+    <main class="wrap">
+      <section class="work" id="work">
+        <h2 class="section-label label label--lg">selected work</h2>
+        <div class="card-grid">
+          <a class="card is-veryfi" href="veryfi.html">
+            <p class="card-desc">veryfi is a yc-backed fintech startup that turns messy receipts and documents into clean, structured data using ai. 30% lift in organic leads.</p>
+            <div class="card-visual">
+              <img class="riso" src="card-veryfi.jpg" alt="" loading="lazy" />
+              <h3 class="card-wordmark">veryfi</h3>
+            </div>
+            <div class="card-meta label"><span>product &amp; content marketer</span><span>b2b saas marketing</span><span>2025–2026</span></div>
+          </a>
+          <a class="card is-confidance" href="confidance.html">
+            <p class="card-desc">as part of vanderbilt's premier dance organization, confidance, i led visual branding and creative direction across performances and campaigns. sold out 1,000+ attendee events.</p>
+            <div class="card-visual">
+              <img class="riso" src="showcase_poster.jpeg" alt="" loading="lazy" />
+              <h3 class="card-wordmark script-title">Confidance</h3>
+            </div>
+            <div class="card-meta label"><span>head of marketing</span><span>branding • graphic designs</span><span>2024–2025</span></div>
+          </a>
+          <a class="card is-narb" href="narbai.html">
+            <p class="card-desc">at narb, i supported the creative team by designing social media posts, motion graphics, and branded content that aligned with the company's visual identity. 42% increase in reach.</p>
+            <div class="card-visual">
+              <svg class="card-doodle" viewBox="0 0 400 120" aria-hidden="true"><path d="M10 80 C 60 10, 110 10, 140 60 S 220 120, 260 50 S 340 0, 390 70" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/><circle cx="300" cy="40" r="16" fill="none" stroke="currentColor" stroke-width="6"/></svg>
+              <h3 class="card-wordmark">narb</h3>
+            </div>
+            <div class="card-meta label"><span>marketing intern</span><span>social media • motion graphics</span><span>summer 2025</span></div>
+          </a>
+          <div class="card is-inscribe">
+            <p class="card-desc">coming soon.</p>
+            <div class="card-visual">
+              <h3 class="card-wordmark">inscribe</h3>
+            </div>
+            <div class="card-meta label"><span>marketing specialist</span><span>demand gen</span><span>2026–now</span></div>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <section class="strip" aria-labelledby="about-strip">
+        <h2 class="label label--lg" id="about-strip">about</h2>
+        <div>
+          <p class="lede">i'm mika, a marketing specialist at inscribe running full-stack demand gen. i studied engineering science at vanderbilt and taught myself design, so i build the strategy and the assets.</p>
+          <a class="more label label--lg" href="about.html">more about me →</a>
+        </div>
+      </section>
+
+      <section class="strip contact" aria-labelledby="contact-strip">
+        <h2 class="label label--lg" id="contact-strip">contact</h2>
+        <div>
+          <p class="headline">let's work together</p>
+          <div class="contact-links">
+            <a class="contact-email" href="mailto:mikapham229@gmail.com">mikapham229@gmail.com</a>
+            <a class="label label--lg" href="https://www.linkedin.com/in/khanh-mika-pham/" target="_blank" rel="noopener">linkedin ↗</a>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer class="site-footer">
@@ -69,6 +101,6 @@
       </div>
     </footer>
 
-    <script src="main.js?v=3"></script>
+    <script src="main.js?v=4"></script>
   </body>
 </html>

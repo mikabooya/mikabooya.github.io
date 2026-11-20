@@ -4,182 +4,137 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>about — mika pham</title>
-    <meta name="description" content="about mika pham." />
+    <meta name="description" content="about mika pham: product marketing, demand gen and marketing design." />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23F4B6E6'/></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Space+Mono:wght@400&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="styles.css?v=3" />
+    <link rel="stylesheet" href="styles.css?v=4" />
   </head>
-  <body class="has-dock">
+  <body>
     <header class="site-header label label--lg">
       <a href="index.html">mika pham</a>
       <nav class="site-nav" aria-label="main">
-        <a href="works.html">works</a>
+        <a href="index.html#work">work</a>
         <a href="about.html" aria-current="page">about</a>
         <a href="resume.html">resume</a>
       </nav>
     </header>
 
     <main class="wrap">
-      <div class="page-header">
-        <h1 class="headline">about me</h1>
-        <p class="blurb blurb--lg muted">✿ drag windows anywhere to move them</p>
-      </div>
+      <section class="about-intro">
+        <div>
+          <h1 class="headline">i turn complex products into stories people get.</h1>
+          <p class="label label--lg muted">marketing specialist @ inscribe · mountain view, ca</p>
+        </div>
+        <figure class="photo-card" data-draggable>
+          <img src="mika_horizontal.png" alt="mika pham smiling and flashing peace signs" />
+          <figcaption class="label muted">drag me</figcaption>
+        </figure>
+      </section>
 
-      <div class="desktop">
+      <section class="cs-section">
+        <h2 class="section-label label label--lg">bio</h2>
+        <div class="prose">
+          <p class="lede">born and raised in ho chi minh city, vietnam. i studied engineering science at vanderbilt and taught myself design along the way.</p>
+          <p class="lede">now i'm a marketing specialist at inscribe, running full-stack demand gen: content, seo, paid, webinars, email, abm and product marketing assets.</p>
+        </div>
+      </section>
 
-        <!-- Profile -->
-        <div class="window profile-window" data-window-id="meet_mika">
-          <div class="window-header">
-            <div class="window-controls">
-              <div class="window-dot dot-red"    data-action="close"    title="Close"></div>
-              <div class="window-dot dot-yellow" data-action="minimize" title="Minimize"></div>
-              <div class="window-dot dot-green"  data-action="maximize" title="Maximize"></div>
-            </div>
-            <span class="window-title label">meet_mika.txt</span>
+      <section class="cs-section">
+        <h2 class="section-label label label--lg">what i do</h2>
+        <div class="columns">
+          <div>
+            <h3 class="label label--lg">product marketing</h3>
+            <ul class="list blurb blurb--lg">
+              <li>positioning &amp; messaging</li>
+              <li>go-to-market launches</li>
+              <li>competitive analysis</li>
+              <li>sales enablement</li>
+            </ul>
           </div>
-          <div class="window-content">
-            <div class="profile-photo">
-              <img src="mika_horizontal.png" alt="mika pham smiling and flashing peace signs"/>
-            </div>
-            <div class="profile-intro">
-              <h2>hi, i'm mika pham.</h2>
-              <p>product &amp; content marketer ✿ designer at heart</p>
-            </div>
+          <div>
+            <h3 class="label label--lg">demand gen</h3>
+            <ul class="list blurb blurb--lg">
+              <li>abm &amp; paid campaigns</li>
+              <li>seo &amp; content</li>
+              <li>email &amp; webinars</li>
+              <li>funnel analytics &amp; a/b testing</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="label label--lg">marketing design</h3>
+            <ul class="list blurb blurb--lg">
+              <li>case studies &amp; landing pages</li>
+              <li>social &amp; campaign assets</li>
+              <li>brand guidelines</li>
+              <li>event collateral</li>
+            </ul>
           </div>
         </div>
+      </section>
 
-        <!-- Socials -->
-        <div class="window socials-window" data-window-id="socials">
-          <div class="window-header">
-            <div class="window-controls">
-              <div class="window-dot dot-red"    data-action="close"    title="Close"></div>
-              <div class="window-dot dot-yellow" data-action="minimize" title="Minimize"></div>
-              <div class="window-dot dot-green"  data-action="maximize" title="Maximize"></div>
-            </div>
-            <span class="window-title label">socials</span>
-          </div>
-          <div class="window-content">
-            <div class="socials-grid">
-              <a href="https://www.instagram.com/mikaphaam/" target="_blank" class="social-folder">
-                <svg class="icon" viewBox="0 0 96 72"><path d="M8 18a6 6 0 0 1 6-6h21l8 7h39a6 6 0 0 1 6 6v33a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V18z" fill="currentColor" opacity=".85"/><path d="M8 26h80a6 6 0 0 1 6 6v26a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V26z" fill="currentColor"/></svg>
-                <p class="name label label--lg">Instagram</p>
-                <p class="handle blurb">@mikaphaam</p>
-              </a>
-              <a href="https://www.linkedin.com/in/khanh-mika-pham/" target="_blank" class="social-folder">
-                <svg class="icon" viewBox="0 0 96 72"><path d="M8 18a6 6 0 0 1 6-6h21l8 7h39a6 6 0 0 1 6 6v33a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V18z" fill="currentColor" opacity=".85"/><path d="M8 26h80a6 6 0 0 1 6 6v26a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V26z" fill="currentColor"/></svg>
-                <p class="name label label--lg">LinkedIn</p>
-                <p class="handle blurb">mika pham</p>
-              </a>
-            </div>
+      <section class="cs-section">
+        <h2 class="section-label label label--lg">experience</h2>
+        <ol class="timeline">
+          <li>
+            <span class="company">inscribe</span>
+            <span class="label label--lg">marketing specialist</span>
+            <span class="label label--lg muted">2026–now</span>
+            <p class="blurb blurb--lg">full-stack demand gen across content, seo, paid, webinars and email.</p>
+          </li>
+          <li>
+            <a class="company" href="veryfi.html">veryfi →</a>
+            <span class="label label--lg">product &amp; content marketing associate</span>
+            <span class="label label--lg muted">2025–2026</span>
+            <p class="blurb blurb--lg">abm campaigns, case studies and demo videos; 30% lift in organic leads.</p>
+          </li>
+          <li>
+            <a class="company" href="narbai.html">narb →</a>
+            <span class="label label--lg">marketing intern</span>
+            <span class="label label--lg muted">summer 2025</span>
+            <p class="blurb blurb--lg">launch messaging for 4 campaigns; 42% increase in reach.</p>
+          </li>
+          <li>
+            <a class="company" href="confidance.html">confidance →</a>
+            <span class="label label--lg">head of marketing</span>
+            <span class="label label--lg muted">2024–2025</span>
+            <p class="blurb blurb--lg">campaigns that sold out 1,000+ attendee events.</p>
+          </li>
+          <li>
+            <span class="company">fpt information systems</span>
+            <span class="label label--lg">product management intern</span>
+            <span class="label label--lg muted">2023</span>
+            <p class="blurb blurb--lg">mvp scope and agile sprints for a hospital triage app.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="cs-section">
+        <h2 class="section-label label label--lg">tools</h2>
+        <div class="chips label">
+          <span class="chip">figma</span><span class="chip">hubspot</span><span class="chip">ga4</span><span class="chip">semrush</span><span class="chip">wordpress</span><span class="chip">looker</span><span class="chip">adobe suite</span><span class="chip">canva</span><span class="chip">notion</span><span class="chip">asana</span><span class="chip">jira</span><span class="chip">confluence</span>
+        </div>
+      </section>
+
+      <section class="cs-section">
+        <div class="note-card is-narb">
+          <span class="script-label">after hours</span>
+          <p class="blurb blurb--lg">when i'm not working, you'll find me cooking (viet food &gt; everything), cafe hopping, dancing, or cuddling my cat ◡̈</p>
+        </div>
+      </section>
+
+      <section class="strip contact" aria-labelledby="contact-strip">
+        <h2 class="label label--lg" id="contact-strip">say hi</h2>
+        <div>
+          <div class="contact-links">
+            <a class="contact-email" href="mailto:mikapham229@gmail.com">mikapham229@gmail.com</a>
+            <a class="label label--lg" href="https://www.linkedin.com/in/khanh-mika-pham/" target="_blank" rel="noopener">linkedin ↗</a>
+            <a class="label label--lg" href="https://www.instagram.com/mikaphaam/" target="_blank" rel="noopener">instagram ↗</a>
           </div>
         </div>
-
-        <!-- About -->
-        <div class="window about-window" data-window-id="about_mika">
-          <div class="window-header">
-            <div class="window-controls">
-              <div class="window-dot dot-red"    data-action="close"    title="Close"></div>
-              <div class="window-dot dot-yellow" data-action="minimize" title="Minimize"></div>
-              <div class="window-dot dot-green"  data-action="maximize" title="Maximize"></div>
-            </div>
-            <span class="window-title label">about_mika.txt</span>
-          </div>
-          <div class="window-content prose">
-            <p>hello, i'm mika ◡̈ born and raised in <strong>ho chi minh city, vietnam</strong>, graduated from <strong>vanderbilt university</strong>, and somehow found my way to sunny <strong>bay area california</strong>.</p>
-            <p>i'm a product &amp; content marketer with an engineering brain and a designer heart (a self taught one, actually). i learned design by experimenting, remixing, and teaching myself everything from motion to layout to storytelling. i love building stories that *look good, feel good,* and actually make sense!</p>
-            <p>this portfolio is a mix of my two tracks: <strong>marketing</strong> (positioning, launches, campaigns) and <strong>creative</strong> (motion, editing, 3d, storytelling). it's a little all over the place (like myself tehee).</p>
-            <div class="chips label">
-              <span class="chip">product &amp; growth marketing</span>
-              <span class="chip">storytelling with data</span>
-              <span class="chip">motion &amp; 3d design</span>
-              <span class="chip">go-to-market launches</span>
-              <span class="chip">creative direction</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Interests -->
-        <div class="window interests-window" data-window-id="interests_hobbies">
-          <div class="window-header">
-            <div class="window-controls">
-              <div class="window-dot dot-red"    data-action="close"    title="Close"></div>
-              <div class="window-dot dot-yellow" data-action="minimize" title="Minimize"></div>
-              <div class="window-dot dot-green"  data-action="maximize" title="Maximize"></div>
-            </div>
-            <span class="window-title label">interests_hobbies.txt</span>
-          </div>
-          <div class="window-content prose">
-            <p>when i'm not working, you'll find me cooking (viet food &gt; everything), cafe hopping, dancing, or cuddling my cat ◡̈</p>
-          </div>
-        </div>
-
-        <!-- Skills -->
-        <div class="skills-container">
-          <div class="window" data-window-id="creative_skills">
-            <div class="window-header">
-              <div class="window-controls">
-                <div class="window-dot dot-red"    data-action="close"    title="Close"></div>
-                <div class="window-dot dot-yellow" data-action="minimize" title="Minimize"></div>
-                <div class="window-dot dot-green"  data-action="maximize" title="Maximize"></div>
-              </div>
-              <span class="window-title label">creative skills</span>
-            </div>
-            <div class="window-content">
-              <div class="skill-item"><span class="skill-name">photoshop</span><div class="skill-level"><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot"></span></div></div>
-              <div class="skill-item"><span class="skill-name">illustrator</span><div class="skill-level"><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot"></span><span class="skill-level-dot"></span></div></div>
-              <div class="skill-item"><span class="skill-name">premiere pro</span><div class="skill-level"><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span></div></div>
-              <div class="skill-item"><span class="skill-name">after effects</span><div class="skill-level"><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot"></span></div></div>
-              <div class="skill-item"><span class="skill-name">spline</span><div class="skill-level"><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot"></span></div></div>
-              <div class="skill-item"><span class="skill-name">blender</span><div class="skill-level"><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot"></span><span class="skill-level-dot"></span></div></div>
-            </div>
-          </div>
-
-          <div class="window" data-window-id="marketing_skills">
-            <div class="window-header">
-              <div class="window-controls">
-                <div class="window-dot dot-red"    data-action="close"    title="Close"></div>
-                <div class="window-dot dot-yellow" data-action="minimize" title="Minimize"></div>
-                <div class="window-dot dot-green"  data-action="maximize" title="Maximize"></div>
-              </div>
-              <span class="window-title label">marketing skills</span>
-            </div>
-            <div class="window-content">
-              <div class="skill-item"><span class="skill-name">go-to-market strategy</span><div class="skill-level"><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span></div></div>
-              <div class="skill-item"><span class="skill-name">content marketing</span><div class="skill-level"><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span></div></div>
-              <div class="skill-item"><span class="skill-name">seo &amp; analytics</span><div class="skill-level"><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot"></span></div></div>
-              <div class="skill-item"><span class="skill-name">campaign operations</span><div class="skill-level"><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot"></span></div></div>
-              <div class="skill-item"><span class="skill-name">copywriting &amp; storytelling</span><div class="skill-level"><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span><span class="skill-level-dot filled"></span></div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      </section>
     </main>
-
-    <!-- Desktop chrome (driven by about.js) -->
-    <div class="trash-icon" id="trashIcon">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
-    </div>
-
-    <div class="trash-panel" id="trashPanel">
-      <div class="trash-panel-header">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
-        Deleted Windows
-      </div>
-      <div class="trash-panel-items" id="trashPanelItems">
-        <div class="trash-panel-empty">No deleted windows</div>
-      </div>
-    </div>
-
-    <div class="archived-dock" id="archivedDock">
-      <div class="dock-separator" id="dockSeparator"></div>
-      <div class="dock-trash" id="dockTrash">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
-      </div>
-    </div>
-
 
     <footer class="site-footer">
       <div class="wrap label label--lg">
@@ -190,7 +145,7 @@
       </div>
     </footer>
 
-    <script src="main.js?v=3"></script>
-    <script src="about.js?v=3"></script>
+    <script src="main.js?v=4"></script>
+    <script src="about.js?v=4"></script>
   </body>
 </html>

@@ -9,14 +9,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Space+Mono:wght@400&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="styles.css?v=3" />
+    <link rel="stylesheet" href="styles.css?v=4" />
   </head>
   <body>
     <header class="site-header label label--lg">
       <a href="index.html">mika pham</a>
-      <a class="muted" href="works.html">← all work</a>
+      <a class="muted" href="index.html#work">← all work</a>
       <nav class="site-nav" aria-label="main">
-        <a href="works.html">works</a>
+        <a href="index.html#work" aria-current="page">work</a>
         <a href="about.html">about</a>
         <a href="resume.html">resume</a>
       </nav>
@@ -24,39 +24,61 @@
 
     <main class="wrap">
       <section class="cs-header is-narb">
-        <dl class="cs-meta label label--lg">
-          <dt>role</dt><dd>marketing intern</dd>
-          <dt>timeline</dt><dd>summer 2025</dd>
-          <dt>type</dt><dd>social media • motion graphics</dd>
-        </dl>
         <h1>narb</h1>
       </section>
 
+      <dl class="cs-meta label label--lg">
+        <div><dt>role</dt><dd>marketing intern</dd></div>
+        <div><dt>timeline</dt><dd>may – aug 2025</dd></div>
+        <div><dt>scope</dt><dd>4 campaigns · social · motion graphics</dd></div>
+        <div><dt>tools</dt><dd class="todo">[todo]</dd></div>
+      </dl>
+
       <section class="cs-section">
-        <h2 class="section-label label label--lg">my role</h2>
+        <h2 class="section-label label label--lg">the problem</h2>
         <div class="prose">
-          <p>
-            at narb, i supported the creative team by designing
-            <strong>social media posts, motion graphics, and branded content</strong>
-            that aligned with the company's visual identity. i also
-            <strong>tracked post performance and engagement metrics</strong> to
-            help guide content strategy and optimize future campaigns.
-          </p>
+          <p class="todo label label--lg">[todo: 2–3 sentences on what narb needed]</p>
         </div>
       </section>
 
       <section class="cs-section">
-        <div class="stack">
-          <div class="media media--16x9">
-            <video src="Narb_Logo_Animation.mp4" autoplay loop muted playsinline></video>
+        <h2 class="section-label label label--lg">what i did</h2>
+        <div class="prose">
+          <p>i shaped positioning and launch messaging for 4 campaigns, designed <strong>social posts, motion graphics and branded content</strong> in narb's visual identity, and <strong>tracked performance</strong> to guide the next round of content.</p>
+        </div>
+        <div class="chips label">
+          <span class="chip">launch messaging</span><span class="chip">social media</span><span class="chip">motion graphics</span><span class="chip">content analytics</span>
+        </div>
+      </section>
+
+      <section class="cs-section">
+        <h2 class="section-label label label--lg">results</h2>
+        <div class="stats is-narb">
+          <div class="stat"><span class="stat-number">42%</span><span class="blurb blurb--lg">increase in reach</span></div>
+          <div class="stat"><span class="stat-number">50%</span><span class="blurb blurb--lg">lift in impressions</span></div>
+          <div class="stat"><span class="stat-number">35%</span><span class="blurb blurb--lg">higher engagement</span></div>
+        </div>
+      </section>
+
+      <section class="cs-section selected-work">
+        <h2 class="section-label label label--lg">selected work</h2>
+        <div class="grid grid-2">
+          <div class="work-group">
+            <h3 class="sub-label label">motion graphics</h3>
+            <div class="media media--16x9">
+              <video src="Narb_Logo_Animation.mp4" autoplay loop muted playsinline></video>
+            </div>
           </div>
-          <div class="media embed-tall embed-tall--post">
-            <iframe
-              src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7346849291627356160"
-              title="narb LinkedIn post"
-              allowfullscreen
-              loading="lazy">
-            </iframe>
+          <div class="work-group">
+            <h3 class="sub-label label">social</h3>
+            <div class="media embed-tall embed-tall--post">
+              <iframe
+                src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7346849291627356160"
+                title="narb LinkedIn post"
+                allowfullscreen
+                loading="lazy">
+              </iframe>
+            </div>
           </div>
         </div>
       </section>
@@ -78,6 +100,6 @@
       </div>
     </footer>
 
-    <script src="main.js?v=3"></script>
+    <script src="main.js?v=4"></script>
   </body>
 </html>

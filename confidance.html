@@ -9,14 +9,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Space+Mono:wght@400&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="styles.css?v=3" />
+    <link rel="stylesheet" href="styles.css?v=4" />
   </head>
   <body>
     <header class="site-header label label--lg">
       <a href="index.html">mika pham</a>
-      <a class="muted" href="works.html">← all work</a>
+      <a class="muted" href="index.html#work">← all work</a>
       <nav class="site-nav" aria-label="main">
-        <a href="works.html">works</a>
+        <a href="index.html#work" aria-current="page">work</a>
         <a href="about.html">about</a>
         <a href="resume.html">resume</a>
       </nav>
@@ -24,54 +24,76 @@
 
     <main class="wrap">
       <section class="cs-header is-confidance">
-        <dl class="cs-meta label label--lg">
-          <dt>role</dt><dd>head of marketing</dd>
-          <dt>timeline</dt><dd>2024–2025</dd>
-          <dt>type</dt><dd>branding • graphic designs</dd>
-        </dl>
         <h1 class="script-title">Confidance</h1>
       </section>
 
+      <dl class="cs-meta label label--lg">
+        <div><dt>role</dt><dd>head of marketing</dd></div>
+        <div><dt>timeline</dt><dd>aug 2024 – may 2025</dd></div>
+        <div><dt>team</dt><dd>executive board <span class="todo">[todo: team size]</span></dd></div>
+        <div><dt>tools</dt><dd class="todo">[todo]</dd></div>
+      </dl>
+
       <section class="cs-section">
-        <h2 class="section-label label label--lg">about confidance</h2>
+        <h2 class="section-label label label--lg">the problem</h2>
         <div class="prose">
-          <p>
-            as part of <strong>vanderbilt's premier dance organization</strong>, confidance, i led visual branding and creative direction across
-            performances and campaigns. as head of marketing, i designed <strong>promotional assets ranging from posters and flyers to video reels and social content</strong>.
-            in my role as creative director, i <strong>planned and directed photoshoots, photographed our dancers</strong>, and translated movement into visual stories,
-            crafting cohesive poster designs and marketing materials that reflected the energy and identity of each dancer and showcase.
-          </p>
+          <p class="todo label label--lg">[todo: 2–3 sentences on what confidance needed before you joined]</p>
         </div>
       </section>
 
       <section class="cs-section">
-        <h2 class="section-label label label--lg">showcase &amp; event posters</h2>
-        <div class="grid grid-3">
-          <div class="media media--poster"><img src="workshop_1.PNG" alt="Confidance Spring 2025 - First workshop" loading="lazy"/></div>
-          <div class="media media--poster"><img src="showcase_poster.jpeg" alt="Confidance Aura Showcase April 18" loading="lazy"/></div>
-          <div class="media media--poster"><img src="workshop.jpg" alt="Confidance Workshop Event" loading="lazy"/></div>
+        <h2 class="section-label label label--lg">what i did</h2>
+        <div class="prose">
+          <p>for <strong>vanderbilt's premier dance organization</strong>, i led branding and creative direction across performances and campaigns: <strong>posters, flyers, video reels and social content</strong>. i <strong>planned and directed photoshoots, photographed our dancers</strong> and turned their movement into poster series for each dancer and showcase.</p>
+        </div>
+        <div class="chips label">
+          <span class="chip">branding</span><span class="chip">creative direction</span><span class="chip">graphic design</span><span class="chip">photography</span><span class="chip">social content</span>
         </div>
       </section>
 
       <section class="cs-section">
-        <h2 class="section-label label label--lg">board &amp; committee posters</h2>
-        <div class="grid grid-3">
-          <div class="media media--poster"><img src="1board.png" alt="Confidance Core Magazine Cover" loading="lazy"/></div>
-          <div class="media media--poster"><img src="board_1.PNG" alt="Confidance Executive Board" loading="lazy"/></div>
-          <div class="media media--poster"><img src="board_2.PNG" alt="Confidance Committee Members" loading="lazy"/></div>
+        <h2 class="section-label label label--lg">results</h2>
+        <div class="stats is-confidance">
+          <div class="stat"><span class="stat-number">1,000+</span><span class="blurb blurb--lg">attendee events, sold out</span></div>
+          <div class="stat"><span class="stat-number">28%</span><span class="blurb blurb--lg">increase in story viewership</span></div>
+          <div class="stat"><span class="stat-number">50,000+</span><span class="blurb blurb--lg">monthly impressions</span></div>
         </div>
       </section>
 
-      <section class="cs-section">
-        <h2 class="section-label label label--lg">individual member features</h2>
-        <div class="grid grid-3">
-          <div class="media media--poster"><video src="newmem.MP4" autoplay loop muted playsinline></video></div>
-          <div class="media media--poster"><img src="new_1.png" alt="Chloe Lee - Class of 2028" loading="lazy"/></div>
-          <div class="media media--poster"><img src="new_3.png" alt="Joie Kuan - Class of 2028" loading="lazy"/></div>
-          <div class="media media--poster"><img src="indiv-poster3.JPG" alt="Individual Dancer Poster" loading="lazy"/></div>
-          <div class="media media--poster"><img src="indiv-poster4.jpg" alt="Individual Dancer Poster" loading="lazy"/></div>
-          <div class="media media--poster"><img src="cd.png" alt="Individual poster" loading="lazy"/></div>
+      <section class="cs-section selected-work">
+        <h2 class="section-label label label--lg">selected work</h2>
+
+        <div class="work-group">
+          <h3 class="sub-label label">showcase &amp; event posters</h3>
+          <div class="grid grid-3">
+            <div class="media media--poster"><img src="workshop_1.PNG" alt="Confidance Spring 2025 - First workshop" loading="lazy"/></div>
+            <div class="media media--poster"><img src="showcase_poster.jpeg" alt="Confidance Aura Showcase April 18" loading="lazy"/></div>
+            <div class="media media--poster"><img src="workshop.jpg" alt="Confidance Workshop Event" loading="lazy"/></div>
+          </div>
         </div>
+
+        <div class="work-group">
+          <h3 class="sub-label label">individual member features</h3>
+          <div class="grid grid-3">
+            <div class="media media--poster"><video src="newmem.MP4" autoplay loop muted playsinline></video></div>
+            <div class="media media--poster"><img src="new_1.png" alt="Chloe Lee - Class of 2028" loading="lazy"/></div>
+            <div class="media media--poster"><img src="new_3.png" alt="Joie Kuan - Class of 2028" loading="lazy"/></div>
+            <div class="media media--poster is-extra"><img src="indiv-poster3.JPG" alt="Individual Dancer Poster" loading="lazy"/></div>
+            <div class="media media--poster is-extra"><img src="indiv-poster4.jpg" alt="Individual Dancer Poster" loading="lazy"/></div>
+            <div class="media media--poster is-extra"><img src="cd.png" alt="Individual poster" loading="lazy"/></div>
+          </div>
+        </div>
+
+        <div class="work-group is-extra">
+          <h3 class="sub-label label">board &amp; committee posters</h3>
+          <div class="grid grid-3">
+            <div class="media media--poster"><img src="1board.png" alt="Confidance Core Magazine Cover" loading="lazy"/></div>
+            <div class="media media--poster"><img src="board_1.PNG" alt="Confidance Executive Board" loading="lazy"/></div>
+            <div class="media media--poster"><img src="board_2.PNG" alt="Confidance Committee Members" loading="lazy"/></div>
+          </div>
+        </div>
+
+        <button class="button label label--lg" type="button" data-see-all>see all (6)</button>
       </section>
     </main>
 
@@ -91,6 +113,6 @@
       </div>
     </footer>
 
-    <script src="main.js?v=3"></script>
+    <script src="main.js?v=4"></script>
   </body>
 </html>
