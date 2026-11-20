@@ -87,3 +87,7 @@ Cards tilt and stagger automatically, and turn flat and stacked on phones.
 ## Scripts
 
 `main.js` fades the page out when you follow an internal `.html` link and fills in `<span id="year">`. Behavior for a single page goes in its own file, loaded after `main.js`. For example, `about.js` runs the draggable windows on the about page.
+
+## After changing styles.css or main.js
+
+Every page links them as `styles.css?v=3` and `main.js?v=3`. Raise the number on every page, for example to `?v=4`, when you change either file. Otherwise visitors whose browser cached the old file will keep seeing it for up to 10 minutes after a deploy.

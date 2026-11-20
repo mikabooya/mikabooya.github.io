@@ -72,7 +72,8 @@
   --fs-blurb-lg: 14px;
 
   --tracking-label: 0.04em;
-  --tracking-headline: -0.04em;
+  --tracking-title: -0.04em;      /* card titles, project names (700) */
+  --tracking-headline: -0.03em;   /* section headlines (600) */
   --leading-body: 1.6;
   --leading-blurb: 1.5;
 
@@ -118,12 +119,12 @@ body {
   animation: fadeIn 0.4s ease-out;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5, h6 {
   margin: 0;
   font-family: var(--font-sans);
   font-weight: 700;
   line-height: 0.95;
-  letter-spacing: var(--tracking-headline);
+  letter-spacing: var(--tracking-title);
   color: var(--text);
 }
 p { margin: 0; }
@@ -153,10 +154,11 @@ a:hover { color: var(--accent); }
 }
 .blurb--lg { font-size: var(--fs-blurb-lg); }
 
+/* Section headline ("selected works", "about me", "resume") */
 .headline {
   font-family: var(--font-sans);
   font-size: var(--fs-headline);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 0.95;
   letter-spacing: var(--tracking-headline);
 }
@@ -313,8 +315,11 @@ a.card:hover { color: var(--text-on-color); transform: rotate(0deg) translateY(-
 
 .card .blurb { max-width: 440px; }
 .card-title {
+  font-family: var(--font-sans);
   font-size: clamp(48px, 6vw, 76px);
+  font-weight: 700;
   line-height: 0.9;
+  letter-spacing: var(--tracking-title);
   color: inherit;
 }
 .card-meta {
@@ -342,7 +347,7 @@ a.card:hover { color: var(--text-on-color); transform: rotate(0deg) translateY(-
 }
 .card-title.script-title { font-size: clamp(72px, 9vw, 120px); }
 .cs-header h1.script-title { font-size: clamp(96px, 15vw, 200px); color: var(--accent-magenta); }
-.next-project .headline.script-title { font-size: clamp(80px, 11vw, 140px); color: var(--accent-magenta); }
+.next-project .headline.script-title { font-size: clamp(80px, 11vw, 140px); color: var(--accent-magenta); font-weight: 400; letter-spacing: 0; }
 .next-project:hover .headline.script-title { transform: rotate(-4deg) translateX(-8px); }
 
 /* ── 7. Page headers & case studies ────────────────────────── */
@@ -399,7 +404,8 @@ a.card:hover { color: var(--text-on-color); transform: rotate(0deg) translateY(-
   flex-wrap: wrap;
   gap: var(--space-4);
 }
-.next-project .headline { color: inherit; transition: transform 0.3s var(--ease); }
+/* Project name in the next-project block: same style as card titles */
+.next-project .headline { color: inherit; font-weight: 700; letter-spacing: var(--tracking-title); transition: transform 0.3s var(--ease); }
 .next-project:hover .headline { transform: translateX(-8px); }
 
 
