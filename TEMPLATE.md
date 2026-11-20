@@ -137,7 +137,7 @@ Missing info goes in as `<span class="todo">[todo: …]</span>`, which renders a
 
 ## After changing styles.css or main.js
 
-Every page links them as `styles.css?v=6` and `main.js?v=6`. Raise the number on every page, for example to `?v=7`, when you change either file. Otherwise visitors whose browser cached the old file will keep seeing it for up to 10 minutes after a deploy.
+Every page links them as `styles.css?v=7` and `main.js?v=7`. Raise the number on every page, for example to `?v=8`, when you change either file. Otherwise visitors whose browser cached the old file will keep seeing it for up to 10 minutes after a deploy.
 
 ## Polaroids (about page)
 

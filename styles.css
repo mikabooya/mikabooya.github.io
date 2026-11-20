@@ -319,7 +319,6 @@ a.card:hover { color: var(--text-on-color); }
   min-height: 0;
   display: flex;
   align-items: flex-end;
-  transition: transform 0.4s var(--ease);
 }
 .card-wordmark {
   position: relative;
@@ -351,11 +350,7 @@ a.card:hover { color: var(--text-on-color); }
   white-space: nowrap;
 }
 
-/* Hover: only the visual reacts */
-a.card:hover .card-visual { transform: scale(1.03); }
-@media (prefers-reduced-motion: reduce) {
-  a.card:hover .card-visual { transform: none; }
-}
+/* No hover animation: the cards stay static (still clickable links) */
 
 /* Confidance signature title (BRAND.md): script font, magenta, rotated,
    keeps its capital C. Only used for the Confidance project name. */
