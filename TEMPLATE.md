@@ -116,7 +116,16 @@ Missing info goes in as `<span class="todo">[todo: …]</span>`, which renders a
 
 ## Homepage hero
 
-The hero is just the name: `<h1 class="hero-name">mikapham</h1>`, centered on the page background (`--bg`), Instrument Sans 700 at `clamp(64px, 12vw, 160px)` with -0.03em letter-spacing. It never wraps. Around it, `.hero-top` holds the logo, intro blurb and nav, and `.hero-tagline` sits at the bottom. This is the only `<h1>` on the homepage.
+Type only, with no 3D or images. The name flows into one sentence.
+
+- **Layout:** the hero is 82vh on `--bg`, so the top of the work section peeks in below. The block is centered and sits slightly above the middle. The logo, intro and nav stay at the top (`.hero-top`).
+- **Name:** `<h1 class="hero-name">mika phạm</h1>`, the only `<h1>` on the homepage. It uses Be Vietnam Pro 600 (`--font-name`), because Instrument Sans has no "ạ", at `clamp(72px, 12vw, 184px)` with 0.92 line-height, -0.055em letter-spacing and `--text-body`.
+- **Sentence:** `.hero-sentence`, directly under the name and reading as its continuation. Newsreader 300 (`--font-serif`), `clamp(22px, 2.6vw, 38px)`, 1.3 line-height, `--text-soft`, max 760px wide, 28px below the name.
+- **Label:** `.hero-meta`, 32px below the sentence, Space Mono 12px with 0.12em letter-spacing in `--text-faint`.
+- **Down link:** `.hero-down` ("↓ selected work"), centered at the bottom, linking to `#work`.
+- **Motion:** on load, the name, then the sentence (+150ms), then the labels (+300ms) fade in and rise 12px over 600ms. There's no motion when reduced motion is on.
+- **Phones (under 768px):** the name shrinks to `clamp(40px, 16vw, 72px)` so it never wraps, and the sentence is at most 90vw.
+- **Fonts:** Be Vietnam Pro (subset to the name's letters with `&text=…`) and Newsreader load on `index.html` only. If you change the name, update the Be Vietnam Pro link too.
 
 ## Paper (`.paper`)
 
@@ -153,7 +162,7 @@ Add `paper` to anything that should look like a printed sheet on a dark desk. To
 
 ## After changing styles.css or main.js
 
-Every page links them as `styles.css?v=8` and `main.js?v=8`. Raise the number on every page, for example to `?v=9`, when you change either file. Otherwise visitors whose browser cached the old file will keep seeing it for up to 10 minutes after a deploy.
+Every page links them as `styles.css?v=10` and `main.js?v=10`. Raise the number on every page, for example to `?v=11`, when you change either file. Otherwise visitors whose browser cached the old file will keep seeing it for up to 10 minutes after a deploy.
 
 ## Polaroids (about page)
 
