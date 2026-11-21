@@ -32,8 +32,7 @@
   --text: #FFFFFF;
   --text-body: #EDE8DA;
   --text-muted: #9A958A;
-  --text-soft: #CFC8B8;      /* hero sentence */
-  --text-faint: #8F897C;     /* hero meta label */
+  --text-faint: #6F6A61;     /* hero meta label */
   --text-on-color: #141414;
 
   /* project colors */
@@ -42,6 +41,12 @@
   --narb: #A8E6CC;
   --inscribe: #F6D44C;
   --cream: #E8E4C9;
+
+  /* project inks: deep shade of each card color, for text on its card */
+  --veryfi-ink: #5C2108;
+  --confidance-ink: #A3195A;
+  --narb-ink: #17503B;
+  --inscribe-ink: #5A4300;
 
   /* accents */
   --accent: #F4B6E6;
@@ -60,11 +65,11 @@
 /* ── 2. Layout & type tokens (sizes only, no colors) ───────── */
 /* Project colors: set once on a card, case study header or next link.
    Default is cream (about / misc). */
-:root          { --card-color: var(--cream); }
-.is-veryfi     { --card-color: var(--veryfi); }
-.is-confidance { --card-color: var(--confidance); }
-.is-narb       { --card-color: var(--narb); }
-.is-inscribe   { --card-color: var(--inscribe); }
+:root          { --card-color: var(--cream); --card-ink: var(--text-on-color); }
+.is-veryfi     { --card-color: var(--veryfi);     --card-ink: var(--veryfi-ink); }
+.is-confidance { --card-color: var(--confidance); --card-ink: var(--confidance-ink); }
+.is-narb       { --card-color: var(--narb);       --card-ink: var(--narb-ink); }
+.is-inscribe   { --card-color: var(--inscribe);   --card-ink: var(--inscribe-ink); }
 
 :root {
   /* type scale (BRAND.md "Type") */
@@ -219,18 +224,14 @@ body.page-exit { animation: fadeOut 0.3s ease-in forwards; }
 
 
 /* ── 5. Homepage hero ──────────────────────────────────────── */
-/* Type only: the name flows into one sentence, with a mono label under it.
-   82vh tall so the top of the work section peeks in below. */
+/* Quiet and type only: the name flows into one sentence, with a mono
+   label under it. 72vh tall so the first project cards peek in below. */
 .hero {
   position: relative;
-  height: 82vh;
-  height: 82svh;
-  min-height: 520px;
+  height: 72vh;
+  height: 72svh;
+  min-height: 480px;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 var(--gutter);
   background: var(--bg);          /* same as the page: no seam */
   color: var(--text-body);
 }
@@ -242,42 +243,50 @@ body.page-exit { animation: fadeOut 0.3s ease-in forwards; }
   right: 50px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--space-6);
 }
-.hero-intro { display: flex; flex-direction: column; gap: var(--space-6); }
-.hero-intro .blurb { max-width: 300px; }
+.hero-brand {                     /* nav brand, in the name's font so the "ạ" renders */
+  font-family: var(--font-name);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-body);
+}
 
-/* Centered block, sitting slightly above the vertical center */
+/* Centered block at about 45% of the hero height */
 .hero-statement {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 2 * var(--gutter));
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-top: -6vh;
 }
 .hero-name {
   margin: 0;
   font-family: var(--font-name);
-  font-size: clamp(72px, 12vw, 184px);
-  font-weight: 600;
+  font-size: clamp(48px, 7vw, 104px);
+  font-weight: 500;
   line-height: 0.92;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.04em;
   color: var(--text-body);
   white-space: nowrap;
 }
 .hero-sentence {
-  max-width: 760px;
-  margin-top: 28px;
+  max-width: 520px;
+  margin-top: 18px;
   font-family: var(--font-serif);
-  font-size: clamp(22px, 2.6vw, 38px);
+  font-size: clamp(18px, 1.7vw, 24px);
   font-weight: 300;
-  line-height: 1.3;
-  color: var(--text-soft);
+  line-height: 1.45;
+  color: var(--text-muted);
 }
 .hero-meta {
-  margin-top: 32px;
-  font-size: 12px;
+  margin-top: 24px;
+  font-size: 11px;
   letter-spacing: 0.12em;
   color: var(--text-faint);
 }
@@ -310,7 +319,6 @@ body.page-exit { animation: fadeOut 0.3s ease-in forwards; }
 
 /* ── 6. Project cards ──────────────────────────────────────── */
 .work { padding-top: var(--space-10); }
-.work .section-label { margin-bottom: var(--space-8); }
 
 /* Print-style project cards (risograph posters): a tight, flat grid.
    Every card has 3 zones: description (top) / visual (middle) / meta (bottom).
@@ -329,9 +337,9 @@ body.page-exit { animation: fadeOut 0.3s ease-in forwards; }
   display: grid;
   grid-template-rows: auto 1fr auto;
   background: var(--card-color);
-  color: var(--text-on-color);
+  color: var(--card-ink);         /* tonal ink: description, title and labels */
 }
-a.card:hover { color: var(--text-on-color); }
+a.card:hover { color: var(--card-ink); }
 
 /* 1. Top: description + result, mono */
 .card-desc {
@@ -355,23 +363,18 @@ a.card:hover { color: var(--text-on-color); }
   z-index: 1;
   font-family: var(--font-sans);
   font-size: clamp(64px, 9.5vw, 150px);
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1;                 /* keeps descenders (the y in veryfi) clear of the labels */
-  letter-spacing: -0.05em;
+  letter-spacing: -0.045em;
   color: inherit;
   white-space: nowrap;
-}
-.card-wordmark.script-title {   /* Confidance only: script, bleeding off the right */
-  font-size: clamp(96px, 14vw, 220px);
-  letter-spacing: 0;
-  margin-right: -0.4em;
-  transform: rotate(-4deg);
 }
 
 /* 3. Bottom: three mono labels, left / center / right */
 .card-meta {
   position: relative;
   z-index: 2;
+  margin-top: 12px;               /* clearance for title descenders (the y in veryfi) */
   display: flex;
   justify-content: space-between;
   align-items: baseline;
@@ -814,7 +817,6 @@ a.media:hover > img { transform: scale(1.02); }
 
 /* Hero on phones (under 768px): same stack, centered; name never wraps */
 @media (max-width: 767px) {
-  .hero-name { font-size: clamp(40px, 16vw, 72px); }
   .hero-sentence { max-width: 90vw; }
 }
 @media (max-width: 1024px) {
@@ -853,8 +855,6 @@ a.media:hover > img { transform: scale(1.02); }
   .card-meta { flex-wrap: wrap; white-space: normal; }
   /* Hero: text stacks at the top and bottom, clear of the centered name */
   .hero-top { top: 28px; left: var(--gutter); right: var(--gutter); }
-  .hero-intro { gap: var(--space-3); }
-  .hero-intro .blurb { max-width: 190px; }
   .hero-down { bottom: 28px; }
   .site-nav { gap: var(--space-4); }
   .embed-scene { height: 480px; }

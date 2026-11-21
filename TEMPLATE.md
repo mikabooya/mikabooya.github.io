@@ -15,6 +15,7 @@ The nav is WORK (`index.html#work`) / ABOUT / RESUME. Mark the current page's li
 
 - **Dark pages, bright blocks.** Color only appears as blocks: project cards, case study headers, stat cards, accent cards, the next-project link and the footer. It never appears as colored text on dark.
 - **Each project keeps its color.** Add `is-veryfi`, `is-confidance`, `is-narb` or `is-inscribe` to a card, case study header, stat row, accent card or next-project link. With no class, the block is cream.
+- **Card ink.** Text on a project card (description, title and labels) uses a deep shade of that card's color, not black: `--veryfi-ink`, `--confidance-ink`, `--narb-ink` and `--inscribe-ink`, stored next to the card colors. The `is-*` class sets `--card-ink` along with `--card-color`, so a new project needs both. All four titles are Instrument Sans 500 with -0.045em letter-spacing. No card uses the script font.
 - **Case study color placement.** The header card and next-project link use the project color. The "approach" card is always mint with a cobalt script label, and the results stat cards rotate butter → bubblegum → cream. `styles.css` sets this automatically, so don't add `is-*` classes to them.
 - **Casing.** Everything renders lowercase. Anything with the `label` class renders ALL CAPS. You can type the text in any case.
 - **Fonts.** Instrument Sans is used for headlines and body, Space Mono for `label` and `blurb`.
@@ -110,21 +111,21 @@ Then add a card to the work grid in `index.html`. Every project card is the same
 
 - **No images or graphics on cards.** The card color, the description and the wordmark carry it.
 - **A project without a case study yet** uses a `<div class="card …">` instead of `<a>`, so it isn't clickable.
-- **Confidance** is the only card whose wordmark uses the script: `<h3 class="card-wordmark script-title">Confidance</h3>`.
+- **Every card title** is a plain `<h3 class="card-wordmark">` in lowercase, including confidance.
 
 Missing info goes in as `<span class="todo">[todo: …]</span>`, which renders as a muted caps placeholder. Don't invent numbers.
 
 ## Homepage hero
 
-Type only, with no 3D or images. The name flows into one sentence.
+Quiet and type only, with no 3D or images. The name flows into one sentence.
 
-- **Layout:** the hero is 82vh on `--bg`, so the top of the work section peeks in below. The block is centered and sits slightly above the middle. The logo, intro and nav stay at the top (`.hero-top`).
-- **Name:** `<h1 class="hero-name">mika phạm</h1>`, the only `<h1>` on the homepage. It uses Be Vietnam Pro 600 (`--font-name`), because Instrument Sans has no "ạ", at `clamp(72px, 12vw, 184px)` with 0.92 line-height, -0.055em letter-spacing and `--text-body`.
-- **Sentence:** `.hero-sentence`, directly under the name and reading as its continuation. Newsreader 300 (`--font-serif`), `clamp(22px, 2.6vw, 38px)`, 1.3 line-height, `--text-soft`, max 760px wide, 28px below the name.
-- **Label:** `.hero-meta`, 32px below the sentence, Space Mono 12px with 0.12em letter-spacing in `--text-faint`.
-- **Down link:** `.hero-down` ("↓ selected work"), centered at the bottom, linking to `#work`.
+- **Layout:** the hero is 72vh on `--bg`, so the first project cards peek in below. The block is centered at about 45% of the hero height. The top bar has the brand ("mika phạm" in Be Vietnam Pro 500, 15px) on the left and the nav on the right.
+- **Name:** `<h1 class="hero-name">mika phạm</h1>`, the only `<h1>` on the homepage. Be Vietnam Pro 500 (`--font-name`), because Instrument Sans has no "ạ", at `clamp(48px, 7vw, 104px)` with -0.04em letter-spacing in `--text-body`.
+- **Sentence:** `.hero-sentence`, Newsreader 300 (`--font-serif`), `clamp(18px, 1.7vw, 24px)`, 1.45 line-height, `--text-muted`, max 520px wide, 18px below the name.
+- **Label:** `.hero-meta`, Space Mono 11px with 0.12em letter-spacing in `--text-faint`, 24px below the sentence.
+- **Down link:** `.hero-down` ("↓ selected work"), centered at the bottom. The work grid has no visible heading, so this is the only "selected work" label.
 - **Motion:** on load, the name, then the sentence (+150ms), then the labels (+300ms) fade in and rise 12px over 600ms. There's no motion when reduced motion is on.
-- **Phones (under 768px):** the name shrinks to `clamp(40px, 16vw, 72px)` so it never wraps, and the sentence is at most 90vw.
+- **Phones (under 768px):** the same stack, with the sentence at most 90vw.
 - **Fonts:** Be Vietnam Pro (subset to the name's letters with `&text=…`) and Newsreader load on `index.html` only. If you change the name, update the Be Vietnam Pro link too.
 
 ## Paper (`.paper`)
@@ -162,7 +163,7 @@ Add `paper` to anything that should look like a printed sheet on a dark desk. To
 
 ## After changing styles.css or main.js
 
-Every page links them as `styles.css?v=10` and `main.js?v=10`. Raise the number on every page, for example to `?v=11`, when you change either file. Otherwise visitors whose browser cached the old file will keep seeing it for up to 10 minutes after a deploy.
+Every page links them as `styles.css?v=11` and `main.js?v=11`. Raise the number on every page, for example to `?v=12`, when you change either file. Otherwise visitors whose browser cached the old file will keep seeing it for up to 10 minutes after a deploy.
 
 ## Polaroids (about page)
 
