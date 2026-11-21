@@ -154,6 +154,7 @@ Add `paper` to anything that should look like a printed sheet on a dark desk. To
 | LinkedIn post | `<div class="media embed-tall embed-tall--post"><iframe …></iframe></div>` |
 | Spline scene | `<div class="media embed-scene"><spline-viewer url="…"></spline-viewer></div>` plus the Spline script in `<head>` (see `veryfi.html`) |
 | Highlight an important phrase | `<mark>…</mark>` (muted bubblegum block; use sparingly, one or two per section) |
+| Highlight a phrase on a polaroid | `<strong>` or `<mark>` inside a polaroid renders as a tonal highlight (a deeper band of the card's color behind the normal text color), not bold |
 | Tags / tools | `<div class="chips label"><span class="chip">…</span></div>` |
 | Homepage-style strip | `<section class="strip">` with a `label` heading and content |
 | Button | `<a class="button label label--lg">` |
@@ -164,7 +165,7 @@ Add `paper` to anything that should look like a printed sheet on a dark desk. To
 
 ## After changing styles.css or main.js
 
-Every page links them as `styles.css?v=14` and `main.js?v=14`. Raise the number on every page, for example to `?v=15`, when you change either file. Otherwise visitors whose browser cached the old file will keep seeing it for up to 10 minutes after a deploy.
+Every page links them as `styles.css?v=16` and `main.js?v=16`. Raise the number on every page, for example to `?v=17`, when you change either file. Otherwise visitors whose browser cached the old file will keep seeing it for up to 10 minutes after a deploy.
 
 ## Polaroids (about page)
 

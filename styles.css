@@ -700,7 +700,17 @@ a.media:hover > img { transform: scale(1.02); }
   min-height: 56px;
   padding: var(--space-3) 2px var(--space-4);
 }
-.polaroid strong { color: inherit; }
+/* Key phrases on a polaroid: a tonal highlight instead of bold. The text
+   keeps its color; the band is a slightly deeper shade of the card color */
+.polaroid strong,
+.polaroid mark {
+  font-weight: inherit;
+  padding: 0.02em 0.14em;
+  background: color-mix(in srgb, var(--card-ink) 18%, var(--card-color));
+  color: inherit;                 /* same text color as the rest of the paragraph */
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
 .polaroid a:hover { color: var(--accent-magenta); }
 
 /* Draggable polaroids (about.js) */
