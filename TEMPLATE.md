@@ -119,7 +119,7 @@ Missing info goes in as `<span class="todo">[todo: …]</span>`, which renders a
 
 Quiet and type only, with no 3D or images. The name flows into one sentence.
 
-- **Layout:** the hero is 72vh on `--bg`, so the first project cards peek in below. The block is centered at about 45% of the hero height. The top bar has the brand ("mika phạm" in Be Vietnam Pro 500, 15px) on the left and the nav on the right.
+- **Layout:** the hero is 72vh on `--bg`, so the first project cards peek in below. The block is centered at about 45% of the hero height. The top bar is the shared `.site-header` ("MIKA PHAM" + nav in Space Mono caps), the same on every page.
 - **Name:** `<h1 class="hero-name">mika phạm</h1>`, the only `<h1>` on the homepage. Be Vietnam Pro 500 (`--font-name`), because Instrument Sans has no "ạ", at `clamp(48px, 7vw, 104px)` with -0.04em letter-spacing in `--text-body`.
 - **Sentence:** `.hero-sentence`, Newsreader 300 (`--font-serif`), `clamp(18px, 1.7vw, 24px)`, 1.45 line-height, `--text-muted`, max 520px wide, 18px below the name.
 - **Label:** `.hero-meta`, Space Mono 11px with 0.12em letter-spacing in `--text-faint`, 24px below the sentence.
@@ -153,6 +153,7 @@ Add `paper` to anything that should look like a printed sheet on a dark desk. To
 | YouTube | `<div class="media embed-16x9"><iframe …></iframe></div>` |
 | LinkedIn post | `<div class="media embed-tall embed-tall--post"><iframe …></iframe></div>` |
 | Spline scene | `<div class="media embed-scene"><spline-viewer url="…"></spline-viewer></div>` plus the Spline script in `<head>` (see `veryfi.html`) |
+| Highlight an important phrase | `<mark>…</mark>` (muted bubblegum block; use sparingly, one or two per section) |
 | Tags / tools | `<div class="chips label"><span class="chip">…</span></div>` |
 | Homepage-style strip | `<section class="strip">` with a `label` heading and content |
 | Button | `<a class="button label label--lg">` |
@@ -163,7 +164,7 @@ Add `paper` to anything that should look like a printed sheet on a dark desk. To
 
 ## After changing styles.css or main.js
 
-Every page links them as `styles.css?v=11` and `main.js?v=11`. Raise the number on every page, for example to `?v=12`, when you change either file. Otherwise visitors whose browser cached the old file will keep seeing it for up to 10 minutes after a deploy.
+Every page links them as `styles.css?v=14` and `main.js?v=14`. Raise the number on every page, for example to `?v=15`, when you change either file. Otherwise visitors whose browser cached the old file will keep seeing it for up to 10 minutes after a deploy.
 
 ## Polaroids (about page)
 
@@ -172,7 +173,7 @@ A polaroid is a cream frame with a project-color "photo" area and a caption stri
 ```html
 <figure class="polaroid paper is-narb" data-draggable data-polaroid="interests">
   <div class="polaroid-photo">
-    <span class="script-label">off the clock</span>   <!-- optional, counts toward the 1–2 script accents -->
+    <h3 class="polaroid-title">off the clock</h3>   <!-- optional: Instrument Sans 500 in the polaroid's ink color -->
     <p class="blurb blurb--lg">…</p>
   </div>
   <figcaption class="polaroid-caption label">interests_hobbies</figcaption>

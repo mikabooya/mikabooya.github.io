@@ -140,6 +140,15 @@ h1, h2, h3, h4, h5, h6 {
 p { margin: 0; }
 img, video { display: block; max-width: 100%; }
 strong { font-weight: 700; color: var(--text); }
+/* Highlight for important phrases: <mark>…</mark>, a muted bubblegum
+   block mixed toward the page color (works on any page). */
+mark {
+  padding: 0.02em 0.12em;
+  background: color-mix(in srgb, var(--accent) 55%, var(--bg));
+  color: var(--text);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;      /* keeps padding on every line if it wraps */
+}
 
 a { color: inherit; text-decoration: none; transition: color 0.2s var(--ease); }
 a:hover { color: var(--accent); }
@@ -225,7 +234,8 @@ body.page-exit { animation: fadeOut 0.3s ease-in forwards; }
 
 /* ── 5. Homepage hero ──────────────────────────────────────── */
 /* Quiet and type only: the name flows into one sentence, with a mono
-   label under it. 72vh tall so the first project cards peek in below. */
+   label under it. 72vh tall so the first project cards peek in below.
+   The top bar is the shared .site-header, the same as every other page. */
 .hero {
   position: relative;
   height: 72vh;
@@ -233,23 +243,6 @@ body.page-exit { animation: fadeOut 0.3s ease-in forwards; }
   min-height: 480px;
   overflow: hidden;
   background: var(--bg);          /* same as the page: no seam */
-  color: var(--text-body);
-}
-
-.hero-top {
-  position: absolute;
-  top: 50px;
-  left: 50px;
-  right: 50px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--space-6);
-}
-.hero-brand {                     /* nav brand, in the name's font so the "ạ" renders */
-  font-family: var(--font-name);
-  font-size: 15px;
-  font-weight: 500;
   color: var(--text-body);
 }
 
@@ -755,7 +748,16 @@ a.media:hover > img { transform: scale(1.02); }
 .social-link + .social-link { border-top: 1px solid var(--polaroid-ink-line); }
 .social-link .blurb { font-weight: 400; letter-spacing: 0; }
 
-.polaroid--interests .script-label { margin-bottom: var(--space-4); }
+/* Title on a polaroid's color area: same voice as the project card titles */
+.polaroid-title {
+  margin-bottom: var(--space-4);
+  font-family: var(--font-sans);
+  font-size: clamp(40px, 4vw, 56px);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  color: var(--card-ink);         /* deep shade of the polaroid's color */
+}
 
 .skill-list { margin: 0; padding: 0; list-style: none; }
 .skill-list li { padding: var(--space-2) 0; border-top: 1px solid var(--polaroid-ink-line); }
@@ -854,7 +856,6 @@ a.media:hover > img { transform: scale(1.02); }
   .card-desc { max-width: 78%; font-size: var(--fs-label); }
   .card-meta { flex-wrap: wrap; white-space: normal; }
   /* Hero: text stacks at the top and bottom, clear of the centered name */
-  .hero-top { top: 28px; left: var(--gutter); right: var(--gutter); }
   .hero-down { bottom: 28px; }
   .site-nav { gap: var(--space-4); }
   .embed-scene { height: 480px; }
