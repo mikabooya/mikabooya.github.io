@@ -4,7 +4,7 @@ Every page uses one stylesheet (`styles.css`) and one script (`main.js`). A new 
 
 ## Site map
 
-- `index.html`: hero, then work (`#work`), about strip and contact strip
+- `index.html`: hero (the name, no 3D), then work (`#work`), about strip and contact strip
 - `veryfi.html`, `confidance.html`, `narbai.html`: case studies
 - `about.html`, `resume.html`
 - `works.html`: only redirects to `index.html#work`, so old links keep working
@@ -15,6 +15,7 @@ The nav is WORK (`index.html#work`) / ABOUT / RESUME. Mark the current page's li
 
 - **Dark pages, bright blocks.** Color only appears as blocks: project cards, case study headers, stat cards, accent cards, the next-project link and the footer. It never appears as colored text on dark.
 - **Each project keeps its color.** Add `is-veryfi`, `is-confidance`, `is-narb` or `is-inscribe` to a card, case study header, stat row, accent card or next-project link. With no class, the block is cream.
+- **Case study color placement.** The header card and next-project link use the project color. The "approach" card is always mint with a cobalt script label, and the results stat cards rotate butter → bubblegum → cream. `styles.css` sets this automatically, so don't add `is-*` classes to them.
 - **Casing.** Everything renders lowercase. Anything with the `label` class renders ALL CAPS. You can type the text in any case.
 - **Fonts.** Instrument Sans is used for headlines and body, Space Mono for `label` and `blurb`.
 - **Script (Mrs Saint Delafield), used rarely:**
@@ -53,7 +54,7 @@ Copy the `<head>`, `.site-header` (with `← all work`) and `.site-footer` from 
         <div class="prose"><p>…</p></div>
         <div class="chips label"><span class="chip">…</span></div>
       </div>
-      <aside class="accent-card is-veryfi">
+      <aside class="accent-card">   <!-- always mint, cobalt script -->
         <span class="script-label">approach</span>
         <p class="blurb blurb--lg">…</p>
       </aside>
@@ -63,7 +64,7 @@ Copy the `<head>`, `.site-header` (with `← all work`) and `.site-footer` from 
   <!-- e. results: 2–3 stat cards, right after "what i did". Real numbers only. -->
   <section class="cs-section">
     <h2 class="section-label label label--lg">results</h2>
-    <div class="stats is-veryfi">
+    <div class="stats">   <!-- cards rotate butter → bubblegum → cream -->
       <div class="stat"><span class="stat-number">30%</span><span class="blurb blurb--lg">lift in organic leads</span></div>
     </div>
   </section>
@@ -92,10 +93,10 @@ Copy the `<head>`, `.site-header` (with `← all work`) and `.site-footer` from 
 </a>
 ```
 
-Then add a card to the work grid in `index.html`. Every project card is the same print-style component (see "Project card" in BRAND.md): a flat 3:2 color card with 3 zones and no tilt or shadow.
+Then add a card to the work grid in `index.html`. Every project card is the same print-style component (see "Project card" in BRAND.md): a 3:2 color card with 3 zones, printed on `.paper` (see below).
 
 ```html
-<a class="card is-veryfi" href="my-project.html">
+<a class="card paper is-veryfi" href="my-project.html">
   <!-- 1. top: description, then the result as the second sentence -->
   <p class="card-desc">one line about the project. 30% lift in organic leads.</p>
   <!-- 2. middle: the wordmark only (no images or graphics); may bleed off the edges -->
@@ -112,6 +113,21 @@ Then add a card to the work grid in `index.html`. Every project card is the same
 - **Confidance** is the only card whose wordmark uses the script: `<h3 class="card-wordmark script-title">Confidance</h3>`.
 
 Missing info goes in as `<span class="todo">[todo: …]</span>`, which renders as a muted caps placeholder. Don't invent numbers.
+
+## Homepage hero
+
+The hero is just the name: `<h1 class="hero-name">mikapham</h1>`, centered on the page background (`--bg`), Instrument Sans 700 at `clamp(64px, 12vw, 160px)` with -0.03em letter-spacing. It never wraps. Around it, `.hero-top` holds the logo, intro blurb and nav, and `.hero-tagline` sits at the bottom. This is the only `<h1>` on the homepage.
+
+## Paper (`.paper`)
+
+Add `paper` to anything that should look like a printed sheet on a dark desk. Today that's the project cards and the about-page polaroids.
+
+- **Grain:** two SVG noise layers, a fine grain and larger, fainter fibers. They're painted behind the content and blended into the paper color with `soft-light`, so text stays crisp and contrast doesn't change. There are no image files.
+- **Edges:** a faint inset shadow, so the edges read slightly darker than the center.
+- **Depth:** a tight contact shadow plus a wide soft shadow.
+- **Hover:** on desktop pointers only, the sheet lifts 4px, turns -1deg and its shadow grows (250ms ease). This applies to `<a class="… paper">` links and polaroids, and is off when reduced motion is on.
+- **Color:** the stock is `--card-color` (set by `is-*`). Override `--paper-color` for a different stock, the way polaroids use cream.
+- **Inside a polaroid,** the color `.polaroid-photo` area gets the same grain.
 
 ## Building blocks
 
@@ -137,14 +153,14 @@ Missing info goes in as `<span class="todo">[todo: …]</span>`, which renders a
 
 ## After changing styles.css or main.js
 
-Every page links them as `styles.css?v=7` and `main.js?v=7`. Raise the number on every page, for example to `?v=8`, when you change either file. Otherwise visitors whose browser cached the old file will keep seeing it for up to 10 minutes after a deploy.
+Every page links them as `styles.css?v=8` and `main.js?v=8`. Raise the number on every page, for example to `?v=9`, when you change either file. Otherwise visitors whose browser cached the old file will keep seeing it for up to 10 minutes after a deploy.
 
 ## Polaroids (about page)
 
 A polaroid is a cream frame with a project-color "photo" area and a caption strip. Pick the inside color with an `is-*` class (no class = cream).
 
 ```html
-<figure class="polaroid is-narb" data-draggable data-polaroid="interests">
+<figure class="polaroid paper is-narb" data-draggable data-polaroid="interests">
   <div class="polaroid-photo">
     <span class="script-label">off the clock</span>   <!-- optional, counts toward the 1–2 script accents -->
     <p class="blurb blurb--lg">…</p>

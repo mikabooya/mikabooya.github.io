@@ -165,10 +165,6 @@ a:hover { color: var(--accent); }
   color: var(--text);
 }
 
-.visually-hidden {
-  position: absolute; width: 1px; height: 1px; overflow: hidden;
-  clip: rect(0 0 0 0); white-space: nowrap;
-}
 
 /* Page enter / exit (exit class added by main.js) */
 @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
@@ -219,43 +215,31 @@ body.page-exit { animation: fadeOut 0.3s ease-in forwards; }
 
 
 /* ── 5. Homepage hero ──────────────────────────────────────── */
-/* Layers: black ground → Spline iframe (asterisk, glow, name) → text.
-   Positions match spline-hero-export.html (960×660 frame). */
+/* The name is the hero: centered on the page background, with the
+   logo + intro (top left), nav (top right) and tagline (bottom). */
 .hero {
-  --scene-ratio: 960 / 660;
   position: relative;
   height: 100vh;
   height: 100svh;
   min-height: 560px;
   overflow: hidden;
-  background: var(--bg-hero);     /* shows while the scene loads */
+  background: var(--bg);          /* same as the page: no seam below */
   color: var(--text);
 }
-
-/* Spline scene, kept at its own frame shape so it never stretches.
-   Sized to fill most of the hero with a little breathing room: at most
-   92% of the width, 1360px, or whatever leaves ~50px clear above and
-   below it. Phones: full width, so the name stays large enough to read. */
-.hero-scene {
+.hero-name {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: min(1360px, 92vw, (100svh - 100px) * 960 / 660);
-  height: auto;
-  aspect-ratio: var(--scene-ratio);
   transform: translate(-50%, -50%);
-  border: 0;
-  display: block;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(64px, 12vw, 160px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  white-space: nowrap;            /* never wraps; the clamp keeps it on screen */
 }
-
-/* Text layer above the scene: lets the mouse through, except the nav */
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-}
-.hero-overlay .site-nav a { pointer-events: auto; }
 
 .hero-top {
   position: absolute;
@@ -284,7 +268,7 @@ body.page-exit { animation: fadeOut 0.3s ease-in forwards; }
 
 /* Print-style project cards (risograph posters): a tight, flat grid.
    Every card has 3 zones: description (top) / visual (middle) / meta (bottom).
-   No tilt, shadow, radius or stagger. */
+   No radius or stagger; depth and grain come from .paper (below). */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -368,6 +352,46 @@ a.card:hover { color: var(--text-on-color); }
 .cs-header h1.script-title { font-size: clamp(96px, 15vw, 200px); color: var(--accent-magenta); }
 .next-project .headline.script-title { font-size: clamp(80px, 11vw, 140px); color: var(--accent-magenta); font-weight: 400; letter-spacing: 0; }
 .next-project:hover .headline.script-title { transform: rotate(-4deg) translateX(-8px); }
+
+/* ── Paper: grain, soft edges and depth for printed things ─── */
+/* One class for the project cards and the about-page polaroids.
+   The grain is two SVG noise layers painted behind the content and
+   blended into the paper color with soft-light, so text stays crisp
+   and contrast doesn't drop. Set --paper-color to change the stock. */
+.paper {
+  --paper-color: var(--card-color);
+  --paper-lift: 0px;
+  --paper-turn: 0deg;
+  /* fine grain: fractal noise, 3 octaves */
+  --paper-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.25'/%3E%3C/svg%3E");
+  /* fibers and unevenness: larger, stretched, fainter */
+  --paper-fiber: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='640'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.06' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='0.18'/%3E%3C/svg%3E");
+  --paper-edge: inset 0 0 60px color-mix(in srgb, var(--bg-hero) 12%, transparent);
+  --paper-contact: 0 1px 2px color-mix(in srgb, var(--bg-hero) 50%, transparent);
+  --paper-soft: 0 16px 36px -8px color-mix(in srgb, var(--bg-hero) 55%, transparent);
+  background-color: var(--paper-color);
+  background-image: var(--paper-grain), var(--paper-fiber);
+  background-size: 180px 180px, 640px 640px;
+  background-blend-mode: soft-light, soft-light;
+  box-shadow: var(--paper-edge), var(--paper-contact), var(--paper-soft);
+  transform: translateY(var(--paper-lift)) rotate(var(--paper-turn));
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+/* A color "photo" area inside a polaroid gets the same grain */
+.paper .polaroid-photo {
+  background-image: var(--paper-grain), var(--paper-fiber);
+  background-size: 180px 180px, 640px 640px;
+  background-blend-mode: soft-light, soft-light;
+}
+/* Hover lift: desktop pointers only, and only when motion is welcome */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  a.paper:hover,
+  .polaroid.paper:hover {
+    --paper-lift: -4px;
+    --paper-turn: -1deg;
+    --paper-soft: 0 26px 48px -10px color-mix(in srgb, var(--bg-hero) 60%, transparent);
+  }
+}
 
 /* ── 7. Page headers & case studies ────────────────────────── */
 
@@ -539,7 +563,11 @@ a.media:hover > img { transform: scale(1.02); }
 }
 
 /* Color card with a one-word script accent (BRAND.md) */
+/* Case study color placement: the header keeps the project color; the
+   "approach" card is always mint with a cobalt script label, and the
+   results cards rotate butter → bubblegum → cream. */
 .accent-card {
+  --card-color: var(--narb);
   padding: var(--space-6);
   background: var(--card-color);
   color: var(--text-on-color);
@@ -547,6 +575,7 @@ a.media:hover > img { transform: scale(1.02); }
   transform: rotate(2deg);
 }
 .accent-card .blurb { margin-top: var(--space-4); }
+.accent-card .script-label { color: var(--accent-cobalt); }
 .script-label {
   display: block;
   font-family: var(--font-script);
@@ -576,9 +605,9 @@ a.media:hover > img { transform: scale(1.02); }
   transform: rotate(var(--tilt, 0deg));
   margin-top: var(--shift, 0px);
 }
-.stat:nth-child(3n + 1) { --tilt: -1.5deg; }
-.stat:nth-child(3n + 2) { --tilt: 1deg;  --shift: 20px; }
-.stat:nth-child(3n + 3) { --tilt: -0.5deg; }
+.stat:nth-child(3n + 1) { --tilt: -1.5deg; --card-color: var(--inscribe); }
+.stat:nth-child(3n + 2) { --tilt: 1deg;  --shift: 20px; --card-color: var(--confidance); }
+.stat:nth-child(3n + 3) { --tilt: -0.5deg; --card-color: var(--cream); }
 .stat-number {
   font-size: clamp(56px, 6vw, 80px);
   font-weight: 700;
@@ -609,14 +638,12 @@ a.media:hover > img { transform: scale(1.02); }
    Tilt comes from --tilt; about.js adds the drag offset (--drag-x / --drag-y). */
 .polaroid {
   --tilt: 0deg;
+  --paper-color: var(--cream);    /* cream frame; .paper adds grain and depth */
   --polaroid-ink-line: color-mix(in srgb, var(--text-on-color) 18%, transparent);
   margin: 0;
   padding: 14px 14px 0;
-  background: var(--cream);
   color: var(--text-on-color);
-  box-shadow: var(--shadow-card);
-  transform: translate(var(--drag-x, 0px), var(--drag-y, 0px)) rotate(var(--tilt));
-  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+  transform: translate(var(--drag-x, 0px), calc(var(--drag-y, 0px) + var(--paper-lift, 0px))) rotate(calc(var(--tilt) + var(--paper-turn, 0deg)));
 }
 .polaroid-photo {
   padding: var(--space-6);
@@ -772,8 +799,7 @@ a.media:hover > img { transform: scale(1.02); }
   .card { padding: 20px; aspect-ratio: 1 / 1; }   /* 3:2 is too short for the 3 zones on a phone */
   .card-desc { max-width: 78%; font-size: var(--fs-label); }
   .card-meta { flex-wrap: wrap; white-space: normal; }
-  /* Hero: scene goes full width; text stacks at the top and bottom */
-  .hero-scene { width: 100vw; }
+  /* Hero: text stacks at the top and bottom, clear of the centered name */
   .hero-top { top: 28px; left: var(--gutter); right: var(--gutter); }
   .hero-intro { gap: var(--space-3); }
   .hero-intro .blurb { max-width: 190px; }
